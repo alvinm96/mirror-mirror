@@ -1,0 +1,20 @@
+{
+  "name": "my-smart-mirror",
+  "description": "Smart mirror",
+  "main": "main.js",
+  "authors": [
+    "alvinm"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "recorderjs": "^0.0.0"
+  }
+}

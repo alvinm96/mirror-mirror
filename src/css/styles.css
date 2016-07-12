@@ -1,0 +1,20 @@
+body {
+    background-color: black;
+    color: white;
+}
+h1 {
+    font-size: 5em;
+}
+#date, #time {
+    margin: 1px;
+}
+#asrResult {
+    width: 25%;
+}
+
+ul {
+    list-style: none;
+}
+#recordingslist audio {
+    display: block; margin-bottom: 10px;
+}
