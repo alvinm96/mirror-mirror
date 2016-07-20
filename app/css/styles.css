@@ -1,0 +1,13 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#time {
+    margin-bottom: -30px;
+    font-size: 100px;
+}
+.app {
+    text-align: center;
+    margin-top: 25%;
+}
