@@ -8,6 +8,36 @@ body {
     font-size: 100px;
 }
 .app {
+    padding-top: 20%;
     text-align: center;
-    margin-top: 25%;
+}
+
+.wi {
+    font-size: 20px;
+}
+
+.wi.wi-fahrenheit {
+    font-size: 30px;
+}
+
+#temp {
+    font-size: 30px;
+}
+
+/*weather {*/
+    /*margin-top: -220px;*/
+    /*float: right;*/
+/*}*/
+
+button {
+    background-color: #FFFFFF;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+    color: #000000;
+}
+button:hover {
+    background-color: #F0F0F0;
 }

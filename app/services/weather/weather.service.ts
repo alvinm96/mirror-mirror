@@ -13,20 +13,29 @@ export class WeatherService {
     state: 'WA',
     city: 'Bellevue'
   };
-  private weatherTodayUrl = 'http://api.wunderground.com/api/e7bd2c3d8009a801/conditions/q/' + this.location.state + '/' + this.location.city + '.json';
-  private weatherForecast = 'http://api.wunderground.com/api/e7bd2c3d8009a801/forecast/q' + this.location.state + '/' + this.location.city + '.json';
+
+  private currentWeatherUrl = 'http://api.wunderground.com/api/e7bd2c3d8009a801/conditions/q/' + this.location.state + '/' + this.location.city + '.json';
+  private tenDayForecastUrl = 'http://api.wunderground.com/api/e7bd2c3d8009a801/forecast10day/q/' + this.location.state + '/' + this.location.city + '.json';
+  private hourlyForecastUrl = 'http://api.wunderground.com/api/e7bd2c3d8009a801/hourly/q/' + this.location.state + '/' + this.location.city + '.json';
 
   constructor(private http: Http) { }
 
-  getWeatherToday() {
-    return this.http.get(this.weatherTodayUrl)
+  getCurrentWeather() {
+    return this.http.get(this.currentWeatherUrl)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getTenDayForecast() {
+    return this.http.get(this.tenDayForecastUrl)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
   getHourlyForecast() {
-    return this.http.get(this.weatherForecast)
+    return this.http.get(this.hourlyForecastUrl)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);

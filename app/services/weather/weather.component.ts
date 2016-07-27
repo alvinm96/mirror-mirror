@@ -4,38 +4,37 @@
 import { Component, OnInit } from '@angular/core';
 
 import { WeatherService } from './weather.service';
+import { Period } from './period';
+
 @Component({
   selector: 'weather',
   template: `
-             <i [class]="getIcon()"></i>
-             <span id="temp">{{temperature}}</span>
-             <i class="wi wi-fahrenheit"></i>
+             <span id="temp">
+                <i [class]="getIcon(current.condition)"></i> 
+                {{current.temperature}} 
+                <i class="wi wi-fahrenheit"></i>
+             </span>
             `,
   providers: [ WeatherService ]
 })
 
 export class WeatherComponent implements OnInit {
-  weatherToday: any;
-  conditions: any;
-  temperature: any;
-  icon: any;
+  current: Period = new Period('', '');
 
   constructor(private weatherService: WeatherService) { }
 
-  getConditions(res) {
-    this.conditions = res.current_observation.icon;
-    this.temperature = res.current_observation.feelslike_f;
+  getCurrentObservations(res) {
+    this.current = new Period(res.current_observation.icon, res.current_observation.feelslike_f);
   }
 
   ngOnInit() {
-    this.weatherToday = this.weatherService.getWeatherToday()
-      .then(res => {
-        this.getConditions(res);
-      })
+    this.weatherService.getCurrentWeather()
+      .then((res) => {
+        this.getCurrentObservations(res);
+      });
   }
 
-  getIcon() {
-    return 'wi wi-wu-' + this.conditions;
+  getIcon(condition) {
+    return 'wi wi-wu-' + condition;
   }
-
 }
