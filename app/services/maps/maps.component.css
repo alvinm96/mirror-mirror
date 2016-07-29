@@ -1,3 +1,18 @@
 .sebm-google-map-container {
-    height: 400px;
+    height: 100%;
+    width: 100%;
+    text-align: right;
+}
+
+#map {
+    float: right;
+    height: 50%;
+    width: 50%;
+}
+
+#info {
+    width: 50%;
+    text-align: left;
+    font-size: 20px;
+    float: left;
 }
