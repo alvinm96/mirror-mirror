@@ -1,0 +1,14 @@
+#time {
+    font-size: 20px;
+}
+.forecast {
+    float: center;
+    width: 100%;
+}
+th,td {
+    padding-left:15px;
+    padding-right:15px;
+}
+#temp {
+    font-size: 30px;
+}
