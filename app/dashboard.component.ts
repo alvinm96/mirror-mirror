@@ -4,22 +4,29 @@
 import { Component } from '@angular/core';
 
 import { AsrComponent } from './services/asr/asr.component';
-import { ForecastComponent } from './services/weather/forecast.component';
-
+import { HourForecastComponent } from './services/weather/hour-forecast.component';
+import { WeekForecastComponent } from './services/weather/week-forecast.component';
 import { MapsComponent } from './services/maps/maps.component';
 
 @Component({
   selector: 'dashboard',
   template: `    
-                <button (click)="selectASR()">View Utterance</button>
+                <button (click)="home()">Home</button>
+                <button (click)="selectASR()">Record Command</button>
                 <button (click)="selectHourForecast()">Hourly Forecast</button>
+                <button (click)="selectDaysForecast()">7 Day Forecast</button>
+                <button (click)="selectMap()">View Directions</button>
+                
                 <asr *ngIf="selectedApp === 'ASR'">Loading...</asr>
-                <forecast *ngIf="selectedApp === 'Hourly Forecast'">Loading...</forecast>
-                <maps></maps>
+                <hour-forecast *ngIf="selectedApp === 'Hourly Forecast'">Loading...</hour-forecast>
+                <week-forecast *ngIf="selectedApp === 'Days Forecast'">Loading...</week-forecast>
+                <map *ngIf="selectedApp === 'View Directions'">Loading...</map>
+                
             `,
   directives: [
     AsrComponent,
-    ForecastComponent,
+    WeekForecastComponent,
+    HourForecastComponent,
     MapsComponent
   ]
 })
@@ -29,15 +36,24 @@ export class DashboardComponent {
 
   constructor() {}
 
+  home() {
+    this.selectedApp = '';
+  }
+
   selectASR() {
     this.selectedApp = 'ASR';
-    let res = document.getElementById('asrResponse');
-    console.log(res);
   }
 
   selectHourForecast() {
     this.selectedApp = 'Hourly Forecast';
-    
+  }
+
+  selectDaysForecast() {
+    this.selectedApp = 'Days Forecast';
+  }
+
+  selectMap() {
+    this.selectedApp = 'View Directions';
   }
 
 }
