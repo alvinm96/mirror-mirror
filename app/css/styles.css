@@ -45,3 +45,7 @@ button:hover {
 input {
     color: black;
 }
+
+.asr {
+    float: center;
+}

@@ -10,7 +10,7 @@
     <script src="js/recorder/vbtVad.js"></script>
     <script src="js/recorder/ringBuffer.js"></script>
   </head>
-  <body onload="start()">
+  <body>
     <div class="container">
       <app></app>
     </div>
@@ -20,115 +20,5 @@
     <script src="../build/common.js"></script>
     <script src="../build/angular2.js"></script>
     <script src="../build/app.js"></script>
-    <script>
-      // FIXME:  need promises of something to check audio and webworker capabilities and to handle other async checks
-      //  based on use of Webpack we can use bluebird or something equivalent
-
-      if(!window.Worker) {
-        alert('Webworkers not supported in this browser');
-      }
-      var vbtSpeechRecognizer;
-      var isListening = false;
-      var audioContext;
-      var audioNode;
-
-      navigator.getUserMedia = navigator.getUserMedia ||
-              navigator.mozGetUserMedia ||
-              navigator.webkitGetUserMedia;
-
-      navigator.getUserMedia({
-        audio: true
-      }, gotStream, function(err) {
-        alert('navigator.getUserMedia error:  ' + err);
-      });
-
-      window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioContext = new AudioContext();
-
-      function gotStream(stream) {
-        // audioNode is a global that will be used to initialize the VbtSpeechRecognizer (when web token is acquired)
-        audioNode = audioContext.createMediaStreamSource(stream);
-      }
-
-      function start() {
-        setTimeout(getJWT, 500);
-//        setTimeout(setListening, 1500);
-      }
-
-      //toggle listening
-      function setListening() {
-        //ensure web token entered by checking if vbtSpeechRecognizer exists
-        if (vbtSpeechRecognizer) {
-          if (!isListening) {
-            vbtSpeechRecognizer.startListening();
-            isListening = true;
-            //set the listeningButton to stop icon
-          } else {
-            vbtSpeechRecognizer.stopListening();
-            isListening = false;
-            //set the listeningButton to microphone icon
-          }
-        }
-      }
-
-
-      // get a JSON Web Token using the ../authn/v1.jwt endpoint
-      function getJWT() {
-        var apiKey = 'NGt0c3c4RERiWW16ZXVQTTpWSmVLaXZJUFBibldCVmpl';
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (xhttp.readyState === 4 && xhttp.status === 200) {
-            var jwt = xhttp.response;
-            alert('Ready');
-            initVbtSpeechRecognition(jwt);
-          } else if(xhttp.readyState === 4 && xhttp.status !== 200) {
-            alert('Web token not acquired.  Status = ' + xhttp.status);
-          }
-        };
-        xhttp.open('POST', "https://developer.voicebox.com/authn/v1/jwt", true);
-        xhttp.setRequestHeader("Authorization", "Basic " + apiKey);
-        xhttp.responseType = 'json';
-        xhttp.send();
-      }
-
-
-      // initialize the VbtSpeechRecognition object.  It will handle all audio processing
-      // and raise events as shown below
-      function initVbtSpeechRecognition(jwt) {
-        // make sure the global 'audioNode' was set.  If it was not, there was an error initializing
-        // in the web audio initialization
-        if (!audioNode) {
-          alert('Error in web audio initialization');
-        } else {
-          var options = {
-            jwt: jwt,
-            audioInputNode: audioNode,
-            vadBufferLen: 512
-          };
-          // vbtSpeechRecognizer is a global value
-          vbtSpeechRecognizer = new window.VbtSpeechRecognizer(options, function(event, data) {
-            switch (event) {
-              case 'error':
-                console.log(data);
-                break;
-              case 'stopSpeech':
-                break;
-              case 'data':
-                var resultJson = JSON.parse(data);
-                if (resultJson.hasOwnProperty('results')) {
-                  var resultString = resultJson.results[0].utterance;
-                  document.getElementById("asrResponse").innerHTML = resultString;
-                } else {
-                  var rawJson = JSON.stringify(resultJson, null, 2);
-                  document.getElementById("asrResponse").innerHTML = rawJson;
-                }
-                break;
-              default:
-                break;
-            }
-          });
-        }
-      }
-    </script>
   </body>
 </html>

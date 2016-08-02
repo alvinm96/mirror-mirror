@@ -1,37 +1,40 @@
 /**
  * Created by alvinm on 7/25/16.
  */
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
-import { AsrComponent } from './services/asr/asr.component';
 import { HourForecastComponent } from './services/weather/hour-forecast.component';
 import { WeekForecastComponent } from './services/weather/week-forecast.component';
 import { MapsComponent } from './services/maps/maps.component';
+import { AsrNewComponent } from './services/asr/asr-new.component';
 
 @Component({
   selector: 'dashboard',
-  template: `                  
-                <div class="form-group">
-                  <label for="command">Utterance: (temporary)</label>
-                  <input type="text" class="form-control" [(ngModel)]="selectedApp"/>
+  template: `                 
+                <div>
+                  <asr-new (status)="status = $event" (utterance)="utterance = $event">Loading...</asr-new>
                 </div>
-
-                <asr *ngIf="selectedApp === 'ASR'">Loading...</asr>
-                <hour-forecast *ngIf="selectedApp === 'Hourly Forecast'">Loading...</hour-forecast>
-                <week-forecast *ngIf="selectedApp === 'Days Forecast'">Loading...</week-forecast>
-                <map *ngIf="selectedApp === 'Maps'">Loading...</map>
-                
+                <p id="result" *ngIf="status==='finalResult'">Stopped Recording</p>
+                <div [ngSwitch]="utterance"> 
+                  <hour-forecast *ngSwitchCase="'get the forecast for today'">Loading...</hour-forecast>
+                  <week-forecast *ngSwitchCase="'get the forecast for the week'">Loading...</week-forecast>
+                  <map *ngSwitchCase="'get maps'">Loading...</map>
+                </div>
             `,
+  styles: ['#result{color:red;}'],
   directives: [
-    AsrComponent,
     WeekForecastComponent,
     HourForecastComponent,
-    MapsComponent
+    MapsComponent,
+    AsrNewComponent
   ]
 })
 
 export class DashboardComponent {
-  selectedApp: string;
+  @Input() selectedApp: string;
+  utterance: string;
+  status: string;
 
-  constructor() {}
+  constructor() {
+  }
 }
