@@ -1,5 +1,5 @@
 /// <reference path="./../../../typings/index.d.ts" />
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -15,20 +15,12 @@ export class AsrComponent implements OnInit {
   audioContext: AudioContext;
   audioNode: AudioNode;
   vbtSpeechRecognizer;
+  result: string;
   window: any;
   utterance = new EventEmitter<string>();
   status = new EventEmitter<string>();
-  icon: string = '<i class="fa fa-microphone"></i>';
 
   constructor(private http: Http) { }
-
-  sendUtterance(val: string) {
-    this.utterance.emit(val);
-  }
-
-  sendStatus(val: string) {
-    this.status.emit(val);
-  }
 
   ngOnInit() {
     this.window = window;
@@ -41,28 +33,31 @@ export class AsrComponent implements OnInit {
 
     navigator.getUserMedia({audio: true}, (stream) => {
       this.audioNode = this.audioContext.createMediaStreamSource(stream);
-      }, (err) => {
+    }, (err) => {
       console.log('navigator.getUserMedia error');
     })        
-
-    this.getJWT().then(res => {
+    this.getJWT().then((res) => {
       this.initVbtSpeechRecognition(res);
       this.setListening();
     }); 
   }
 
+  sendUtterance(val: string) {
+    this.utterance.emit(val);
+  }
+
+  sendStatus(val: string) {
+    this.status.emit(val);
+  }
+
   private setListening() {
-    console.log('asdf');
     if (this.vbtSpeechRecognizer) {
       if (!this.isListening) {
-        console.log('Listening');
         this.vbtSpeechRecognizer.startListening();
         this.isListening = false;
-        this.icon = '<i class="fa fa-stop stop"></i>';
       } else {
         this.vbtSpeechRecognizer.stopListening();
         this.isListening = true;
-        this.icon = '<i class="fa fa-microphone"></i>'
       }
     }
   }
@@ -85,7 +80,6 @@ export class AsrComponent implements OnInit {
 
   private extractData(res: Response) {
     let body = res.json();
-    alert('got jwt');
     return body || { }; 
   }
 
@@ -116,7 +110,8 @@ export class AsrComponent implements OnInit {
           case 'data':
             let resultJson = JSON.parse(data);
             if (resultJson.hasOwnProperty('results')) {
-              this.sendUtterance(resultJson.results[0].utterance);
+              this.result = resultJson.results[0].utterance
+              this.sendUtterance(this.result);
               this.sendStatus(resultJson.status);
             } else {
               let rawJson = JSON.stringify(resultJson, null, 2);

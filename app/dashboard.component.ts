@@ -9,11 +9,12 @@ import { MapsComponent } from './services/maps/maps.component';
 import { AsrComponent } from './services/asr/asr.component';
 import { CommandsComponent } from './services/commands.component.ts';
 
-import './js/annyang.min.js';
+import { AnnyangService } from './annyang.service.ts';
 
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
+  styles: ['#testBtn{border-style: none; background-color: black; color: black;}'],
   directives: [
     WeekForecastComponent,
     HourForecastComponent,  
@@ -21,29 +22,27 @@ import './js/annyang.min.js';
     AsrComponent,
     CommandsComponent
   ],
+  providers: [ AnnyangService ]
 })
 
 export class DashboardComponent implements OnInit {
   utterance: string;
   status: string;
   window: any;
-  annyang: any;
-  commands;
+  wakePhrase = 'hello';
+  isListening: boolean = false;
 
-  constructor() { }
+  constructor(private annyang: AnnyangService) { }
 
   ngOnInit() {
-    this.window = window;
-    this.annyang = this.window.annyang;
-    
-    this.commands = {
-      'hello': function() { alert('works'); }
-    };
-
-    this.annyang.addCommands(this.commands);
-
+    this.annyang.addCommands(this.wakePhrase, () => {
+      this.isListening = true;
+    });
     this.annyang.start();
-
-    console.log(this.annyang.isListening());
   }
+
+  talk() {
+    this.annyang.trigger(this.wakePhrase);
+  }
+
 }

@@ -3,21 +3,9 @@ const electron = require('electron');
 const {app} = electron;
 // Module to create native browser window.
 const {BrowserWindow} = electron;
-// For keyword spotter
-const {spawn} = require('child_process');
 // Prevent the monitor from going to sleep.
 const powerSaveBlocker = electron.powerSaveBlocker
 powerSaveBlocker.start('prevent-display-sleep')
-
-//load config
-var config;
-try {
-  config = require("./../config.js");
-} catch(err) {
-  var error = "Unknown Error"; 
-  console.log("Config Error: ", error);
-  app.quit();
-}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -38,32 +26,6 @@ function createWindow() {
     win = null;
   });  
 }
-
-//keyword stuff
-//configs
-if (typeof config.speech == 'undefined') {
-  config.speech = {}
-}
-var model = config.speech.model;
-var sensitivity = config.speech.sensitivity;
-var options = {
-  detached: false
-}
-
-//init keyword spotting
-// var process = spawn('python', ['kws.py', model, sensitivity], options);
-// process.stderr.on('data', function (data) {
-//   var message = data.toString();
-//   if (message.startsWith('INFO')) {
-//     window.webContents.send('keyword-spotted', true)
-//   } else {
-//     console.error(message);
-//   }
-// });
-// process.stdout.on('data', function (data) {
-//   console.log(data.toString());
-// });
-
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

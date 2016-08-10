@@ -14,9 +14,9 @@ export class TodoistComponent implements OnInit {
   constructor(private todo: TodoistService) { }
 
   ngOnInit() { 
-    // setInterval(() => {
-    //   this.getTodos();
-    // }, 1000);    
+    setInterval(() => {
+      this.getTodos();
+    }, 1000);    
   }
 
   getTodos() {
