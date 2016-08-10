@@ -1,40 +1,49 @@
 /**
  * Created by alvinm on 7/25/16.
  */
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { HourForecastComponent } from './services/weather/hour-forecast.component';
 import { WeekForecastComponent } from './services/weather/week-forecast.component';
 import { MapsComponent } from './services/maps/maps.component';
-import { AsrNewComponent } from './services/asr/asr-new.component';
+import { AsrComponent } from './services/asr/asr.component';
+import { CommandsComponent } from './services/commands.component.ts';
+
+import './js/annyang.min.js';
 
 @Component({
   selector: 'dashboard',
-  template: `                 
-                <div>
-                  <asr-new (status)="status = $event" (utterance)="utterance = $event">Loading...</asr-new>
-                </div>
-                <p id="result" *ngIf="status==='finalResult'">Stopped Recording</p>
-                <div [ngSwitch]="utterance"> 
-                  <hour-forecast *ngSwitchCase="'get the forecast for today'">Loading...</hour-forecast>
-                  <week-forecast *ngSwitchCase="'get the forecast for the week'">Loading...</week-forecast>
-                  <map *ngSwitchCase="'get maps'">Loading...</map>
-                </div>
-            `,
-  styles: ['#result{color:red;}'],
+  templateUrl: './dashboard.component.html',
   directives: [
     WeekForecastComponent,
-    HourForecastComponent,
+    HourForecastComponent,  
     MapsComponent,
-    AsrNewComponent
-  ]
+    AsrComponent,
+    CommandsComponent
+  ],
 })
 
-export class DashboardComponent {
-  @Input() selectedApp: string;
+export class DashboardComponent implements OnInit {
   utterance: string;
   status: string;
+  window: any;
+  annyang: any;
+  commands;
 
-  constructor() {
+  constructor() { }
+
+  ngOnInit() {
+    this.window = window;
+    this.annyang = this.window.annyang;
+    
+    this.commands = {
+      'hello': function() { alert('works'); }
+    };
+
+    this.annyang.addCommands(this.commands);
+
+    this.annyang.start();
+
+    console.log(this.annyang.isListening());
   }
 }

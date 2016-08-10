@@ -1,45 +1,32 @@
 body {
     background-color: black;
     color: white;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Lato", sans-serif;
 }
+
 #time {
+    margin-top: -15px;
     margin-bottom: -30px;
-    font-size: 100px;
+    font-size: 130px;
 }
-.app {
-    padding-top: 10%;
-    text-align: center;
+#date {
+    font-size: 30px;
 }
 
 .wi {
-    font-size: 20px;
+    padding-top:10px;
+    font-size: 50px;
 }
 
 .wi.wi-fahrenheit {
-    font-size: 30px;
+    font-size: 80px;
+    padding-top: 10px;
 }
 
 #temp {
-    font-size: 30px;
-}
-
-/*weather {*/
-    /*margin-top: -220px;*/
-    /*float: right;*/
-/*}*/
-
-button {
-    background-color: #FFFFFF;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    cursor: hand;
-    color: #000000;
-}
-button:hover {
-    background-color: #F0F0F0;
+    font-size: 60px;
+    float: right;
+    padding-top: 10px;
 }
 
 input {
@@ -48,4 +35,94 @@ input {
 
 .asr {
     float: center;
+}
+
+.app{
+  float: center;
+  padding-top: 10%;
+  animation: showApp linear 4s;
+  animation-iteration-count: 1;
+  -webkit-animation: showApp linear 4s;
+  -webkit-animation-iteration-count: 1;
+  -moz-animation: showApp linear 4s;
+  -moz-animation-iteration-count: 1;
+  -o-animation: showApp linear 4s;
+  -o-animation-iteration-count: 1;
+  -ms-animation: showApp linear 4s;
+  -ms-animation-iteration-count: 1;
+}
+
+@keyframes showApp{
+  0% {
+    opacity:0;
+    transform: scaleY(0.00) ;
+  }
+  10% {
+    opacity:1;
+    transform: scaleY(1.00) ;
+  }
+  100% {
+    opacity:1;
+    transform: scaleY(1.00) ;
+  }
+}
+
+@-moz-keyframes showApp{
+  0% {
+    opacity:0;
+    -moz-transform: scaleY(0.00) ;
+  }
+  10% {
+    opacity:1;
+    -moz-transform: scaleY(1.00) ;
+  }
+  100% {
+    opacity:1;
+    -moz-transform: scaleY(1.00) ;
+  }
+}
+
+@-webkit-keyframes showApp {
+  0% {
+    opacity:0;
+    -webkit-transform: scaleY(0.00) ;
+  }
+  10% {
+    opacity:1;
+    -webkit-transform: scaleY(1.00) ;
+  }
+  100% {
+    opacity:1;
+    -webkit-transform: scaleY(1.00) ;
+  }
+}
+
+@-o-keyframes showApp {
+  0% {
+    opacity:0;
+    -o-transform: scaleY(0.00) ;
+  }
+  10% {
+    opacity:1;
+    -o-transform: scaleY(1.00) ;
+  }
+  100% {
+    opacity:1;
+    -o-transform: scaleY(1.00) ;
+  }
+}
+
+@-ms-keyframes showApp {
+  0% {
+    opacity:0;
+    -ms-transform: scaleY(0.00) ;
+  }
+  10% {
+    opacity:1;
+    -ms-transform: scaleY(1.00) ;
+  }
+  100% {
+    opacity:1;
+    -ms-transform: scaleY(1.00) ;
+  }
 }

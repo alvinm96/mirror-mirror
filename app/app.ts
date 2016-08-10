@@ -7,19 +7,20 @@ import { GOOGLE_MAPS_PROVIDERS } from 'angular2-google-maps/core';
 import { TimeComponent } from './services/time/time.component';
 import { WeatherComponent } from './services/weather/weather.component';
 import { DashboardComponent } from './dashboard.component';
-import { AsrNewComponent } from './services/asr/asr-new.component';
+import { TodoistComponent } from './services/todoist/todoist.component.ts';
 
 @Component({
   selector: 'app',
-  template: `<time></time>
-             <weather></weather><br>
-             <dashboard [selectedApp]="utterance"></dashboard>
+  template: `
+             <weather></weather>
+             <time></time>  
+             <dashboard></dashboard>
              `,
   directives: [
     TimeComponent,
     DashboardComponent,
     WeatherComponent,
-    AsrNewComponent
+    TodoistComponent
   ],
 })
 

@@ -8,32 +8,16 @@ import { Period } from './period';
 
 @Component({
   selector: 'hour-forecast',
-  template: `
-            <div class="app">
-              <table class="forecast">
-                  <tr> <h2>{{month}} {{day}}</h2> </tr>
-                  <tr>
-                      <th *ngFor="let hour of periods" id="time">{{hour.time}}</th>
-                  </tr>
-                  <tr>
-                      <th *ngFor="let hour of periods">
-                          <i [class]="getIcon(hour.condition)"></i> 
-                          <span id="temp">{{hour.temperature}}</span>
-                          <i class="wi wi-fahrenheit"></i>
-                      </th>
-                  </tr>
-              </table>
-            </div>
-            `,
+  templateUrl: './services/weather/hour-forecast.component.html',
   styleUrls: ['./services/weather/forecast.css'],
-  providers: [ WeatherService ]
+  providers: [ WeatherService ]   
 })
 
 export class HourForecastComponent implements OnInit {
   periods: Period[] = [];
   month: string;
   day: number;
-  
+
   constructor(private weatherService: WeatherService) { }
 
   getHourlyForecast(num: number) {
@@ -61,6 +45,7 @@ export class HourForecastComponent implements OnInit {
   
   ngOnInit() {
     this.getHourlyForecast(10);
+    
   }
 
   getIcon(condition) {

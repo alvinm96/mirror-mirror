@@ -8,22 +8,7 @@ import { Period } from './period';
 
 @Component({
   selector: 'week-forecast',
-  template: `
-            <div class="app">
-              <table class="forecast">
-                  <tr>
-                      <th *ngFor="let day of periods" id="time">{{day.time}}</th>
-                  </tr>
-                  <tr>
-                      <th *ngFor="let day of periods">
-                          <i [class]="getIcon(day.condition)"></i> 
-                          <span id="temp">{{day.temperature}}</span>
-                          <i class="wi wi-fahrenheit"></i>
-                      </th>
-                  </tr>
-              </table>
-            </div>
-            `,
+  templateUrl: './services/weather/week-forecast.component.html',
   styleUrls: ['./services/weather/forecast.css'],
   providers: [ WeatherService ]
 })
@@ -31,7 +16,8 @@ import { Period } from './period';
 export class WeekForecastComponent implements OnInit {
   periods: Period[] = [];
   month: string;
-  day: number;
+  day: number;  
+  state: string = 'hide';
 
   constructor(private weatherService: WeatherService) { }
 

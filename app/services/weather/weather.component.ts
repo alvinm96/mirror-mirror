@@ -8,13 +8,7 @@ import { Period } from './period';
 
 @Component({
   selector: 'weather',
-  template: `
-             <span id="temp">
-                <i [class]="getIcon(current.condition)"></i> 
-                {{current.temperature}} 
-                <i class="wi wi-fahrenheit"></i>
-             </span>
-            `,
+  templateUrl: './services/weather/weather.component.html',
   providers: [ WeatherService ]
 })
 
