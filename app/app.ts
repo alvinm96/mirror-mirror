@@ -1,15 +1,33 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
-import { Component } from '@angular/core';
+import { Component, provide } from '@angular/core';
+import { HTTP_PROVIDERS } from '@angular/http';
+
+import { GOOGLE_MAPS_PROVIDERS } from 'angular2-google-maps/core';
 
 import { TimeComponent } from './services/time/time.component';
-import { AsrComponent } from './services/asr/asr.component';
+import { WeatherComponent } from './services/weather/weather.component';
+import { DashboardComponent } from './dashboard.component';
+import { TodoistComponent } from './services/todoist/todoist.component.ts';
+
 @Component({
   selector: 'app',
-  template: `<time></time>
-             <asr></asr><test-app></test-app>`,
-  directives: [TimeComponent, AsrComponent]
+  template: `
+             <weather></weather>
+             <time></time>  
+             <dashboard></dashboard>
+             `,
+  directives: [
+    TimeComponent,
+    DashboardComponent,
+    WeatherComponent,
+    TodoistComponent
+  ],
 })
 
 export class App { }
 
-bootstrap(App);
+bootstrap(App, [
+  HTTP_PROVIDERS,
+  GOOGLE_MAPS_PROVIDERS,
+  provide(Window, {useValue: window})
+]);

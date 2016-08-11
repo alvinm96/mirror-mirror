@@ -1,0 +1,26 @@
+<div class="app">
+  <div id="info">
+    <form>
+      <div class="form-group">
+        <label for="origin">Origin: </label>
+        <input type="text" class="form-control" [(ngModel)]="request.origin"/>
+      </div>
+      <div class="form-group">
+        <label for="destination">Destination: </label>
+        <input type="text" class="form-control" [(ngModel)]="request.destination"/>
+      </div>
+      <button type="submit" class="btn btn-default" (click)="getDirections()">Submit</button>
+    </form>
+    <div id="result" *ngIf="response.dist">
+      <p>From: {{request.origin}}</p>
+      <p>To: {{request.destination}}</p>
+      <p>Distance: {{response.dist}}</p>
+      <p>Duration: {{response.dur}}</p>
+    </div>
+  </div>
+  <div id="map" *ngIf="lat">
+    <sebm-google-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
+        <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+    </sebm-google-map>
+  </div>
+</div>

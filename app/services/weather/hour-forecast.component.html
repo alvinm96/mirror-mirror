@@ -1,0 +1,15 @@
+<div class="app">
+  <table class="forecast">
+      <tr> <h2>{{month}} {{day}}</h2> </tr>
+      <tr>
+          <th *ngFor="let hour of periods" id="time">{{hour.time}}</th>
+      </tr>
+      <tr>
+          <th *ngFor="let hour of periods">
+              <i [class]="getIcon(hour.condition)"></i> 
+              <span id="temp">{{hour.temperature}}</span>
+              <i class="wi wi-fahrenheit"></i>
+          </th>
+      </tr>
+  </table>
+</div>
