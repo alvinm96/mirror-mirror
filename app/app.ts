@@ -1,8 +1,9 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { Component, provide } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
-
 import { GOOGLE_MAPS_PROVIDERS } from 'angular2-google-maps/core';
+
+import { AnnyangService } from './annyang.service.ts';
 
 import { TimeComponent } from './services/time/time.component';
 import { WeatherComponent } from './services/weather/weather.component';
@@ -15,6 +16,7 @@ import { TodoistComponent } from './services/todoist/todoist.component.ts';
              <weather></weather>
              <time></time>  
              <dashboard></dashboard>
+             <todoist></todoist>
              `,
   directives: [
     TimeComponent,
@@ -29,5 +31,6 @@ export class App { }
 bootstrap(App, [
   HTTP_PROVIDERS,
   GOOGLE_MAPS_PROVIDERS,
-  provide(Window, {useValue: window})
+  provide(Window, {useValue: window}),
+  AnnyangService
 ]);
