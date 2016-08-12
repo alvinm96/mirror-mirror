@@ -4,6 +4,10 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
+import { AnnyangService } from './../../annyang.service.ts'
+
+import { config } from './../../config.ts';
+
 @Component({
   selector: 'asr',
   templateUrl: './services/asr/asr.component.html',
@@ -20,7 +24,7 @@ export class AsrComponent implements OnInit {
   utterance = new EventEmitter<string>();
   status = new EventEmitter<string>();
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private annyang: AnnyangService) { }
 
   ngOnInit() {
     this.window = window;
@@ -55,6 +59,7 @@ export class AsrComponent implements OnInit {
       if (!this.isListening) {
         this.vbtSpeechRecognizer.startListening();
         this.isListening = false;
+        this.annyang.resume();
       } else {
         this.vbtSpeechRecognizer.stopListening();
         this.isListening = true;
@@ -64,7 +69,7 @@ export class AsrComponent implements OnInit {
 
   private getJWT() {
     let body = JSON.toString();
-    let apiKey = 'RUo4RmVLVVVpUGJnYkxHejpOSmdJS3hkTExXT0NHZVla';
+    let apiKey = config.voicebox.key;
     let url = 'https://api.voicebox.com/authn/v1/jwt';
     let headers = new Headers({
       'Accept': 'application/json',

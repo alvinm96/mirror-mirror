@@ -7,9 +7,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
+import { config } from './../../config.ts';
 @Injectable()
 export class MapsService {
-  private key: string = 'AIzaSyD7D0qLI2yzBdNqzSKvZjtnf9yCAUeduVc';
+  private key: string = config.google.key;
   private directionsUrl: string = 'https://maps.googleapis.com/maps/api/directions/json?';
   private mapsUrl: string = 'https://maps.googleapis.com/maps/api/js?key=' + this.key;
 
