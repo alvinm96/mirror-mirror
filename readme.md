@@ -4,7 +4,12 @@ Mirror Mirror is a "smart mirror" that integrates Voicebox Technologies' service
 ##Setting up the Mirror Mirror app
 1. Clone the Mirror Mirror repository
 2. In your preferred IDE, navigate to `mirror-mirror/app/config.ts`
-3. Enter a wake phrase (defaults to 'mirror mirror'), enter api keys, location, and TTS Voice.
+3. Enter a wake phrase (defaults to 'mirror mirror'), enter API keys, location, and TTS Voice
+ * Get API keys from:
+    * [VoiceBox Technologies](https://developer.voicebox.com/) 
+    * [Weather Underground](https://www.wunderground.com/weather/api/)
+    * [Google](https://developers.google.com/maps/)
+    * [Todoist](https://developer.todoist.com/)
 4. Run `npm run build`
 5. Run `npm run electron`
 
