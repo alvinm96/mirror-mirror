@@ -13,6 +13,7 @@ export class TimeComponent {
 
   constructor() {
     this.date = new Date();
+
     setInterval(() => {
       this.date =  new Date();
     }, 1000);
