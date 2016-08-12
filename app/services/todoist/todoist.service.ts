@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
+import { config } from './../../config.ts';
 @Injectable()
 export class TodoistService {
-  url: string = 'https://todoist.com/API/v7/sync';
-  token: string = '5bc966e246c5b6c7c0e0b06a8ddc4e965b0e16f0';
+  private url: string = 'https://todoist.com/API/v7/sync';
+  private token: string = config.todoist.key;
 
   constructor(private http: Http) { }
  

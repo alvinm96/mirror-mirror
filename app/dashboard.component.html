@@ -1,7 +1,13 @@
 <button id="testBtn" (click)="talk()">Magic Mirror</button>
-<asr (status)="status = $event" (utterance)="utterance = $event" *ngIf="isListening"></asr>
-<div [ngSwitch]="utterance">
-  <hour-forecast *ngSwitchCase="'get the today\'s forecast'"></hour-forecast>
+<!--<button (click)="utterance = 'asr'"> ASR </button>
+<button (click)="utterance = 'get today\'s forecast'"> Today's Forecast </button>
+<button (click)="utterance = 'get the forecast for the week'"> Week's Forecast </button>
+<button (click)="utterance = 'get maps'"> Maps </button>
+<button (click)="utterance = 'help'"> Help </button>-->
+<tts></tts>
+<div [ngSwitch]="utterance">  
+  <asr (status)="status = $event" (utterance)="utterance = $event" *ngSwitchCase="'asr'"></asr>
+  <hour-forecast *ngSwitchCase="'get today\'s forecast'"></hour-forecast>
   <week-forecast *ngSwitchCase="'get the forecast for the week'"></week-forecast>
   <map *ngSwitchCase="'get maps'"></map>
   <commands *ngSwitchCase="'help'"></commands>

@@ -7,16 +7,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
+import { config } from './../../config.ts';
+
 @Injectable()
 export class WeatherService {
-  private location = {
-    state: 'WA',
-    city: 'Bellevue'
-  };
+  location = {
+    'state': config.weather.location.state || 'WA',
+    'city': config.weather.location.city || 'Bellevue'
+  }
 
-  private currentWeatherUrl = 'http://api.wunderground.com/api/e7bd2c3d8009a801/conditions/q/' + this.location.state + '/' + this.location.city + '.json';
-  private tenDayForecastUrl = 'http://api.wunderground.com/api/e7bd2c3d8009a801/forecast10day/q/' + this.location.state + '/' + this.location.city + '.json';
-  private hourlyForecastUrl = 'http://api.wunderground.com/api/e7bd2c3d8009a801/hourly/q/' + this.location.state + '/' + this.location.city + '.json';
+  private currentWeatherUrl = 'http://api.wunderground.com/api/' + config.weather.key + '/conditions/q/' + this.location.state + '/' + this.location.city + '.json';
+  private tenDayForecastUrl = 'http://api.wunderground.com/api/' + config.weather.key + '/forecast10day/q/' + this.location.state + '/' + this.location.city + '.json';
+  private hourlyForecastUrl = 'http://api.wunderground.com/api/' + config.weather.key + '/hourly/q/' + this.location.state + '/' + this.location.city + '.json';
 
   constructor(private http: Http) { }
 
