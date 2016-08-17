@@ -1,6 +1,5 @@
 # Mirror Mirror
-<<<<<<< HEAD
-=======
+
 Mirror Mirror is a "smart mirror" that integrates Voicebox Technologies' services for easy navigation and better user experience using voice. This project makes use of a Raspberry Pi running an application written in TypeScript/Javascript with an Angular 2 framework.
 
 ##Setting up the Mirror Mirror app
@@ -14,12 +13,12 @@ Mirror Mirror is a "smart mirror" that integrates Voicebox Technologies' service
     * [Todoist](https://developer.todoist.com/)
 4. Run `npm install`
 5. Run `typings install`
-4. Run `npm run build`
-5. Run `npm run electron`
+6. Run `npm run build`
+7. Run `npm run electron`
 
 ##Available Commands
 After saying wake phrase, you can then say the one of the following:
-> * "Get today's forecast"
+* "Get today's forecast"
 * "Get the forecast for the week"
 * "Get maps"
 * "Help"
@@ -27,5 +26,4 @@ After saying wake phrase, you can then say the one of the following:
 ##Setting up the Raspberry Pi
 1. Go to https://www.raspberrypi.org/downloads/raspbian/
 2. Install Raspbian Jessie
-2. Follow installation guide provided by Raspbian
->>>>>>> 8991be06efe157f98d4391ac15d52470724db622
+3. Follow installation guide provided by Raspbian
