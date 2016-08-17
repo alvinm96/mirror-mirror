@@ -1,7 +1,7 @@
 /**
  * Created by alvinm on 7/25/16.
  */
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { HourForecastComponent } from './services/weather/hour-forecast.component';
 import { WeekForecastComponent } from './services/weather/week-forecast.component';
@@ -26,23 +26,18 @@ import { config } from './config.ts';
     AsrComponent,
     CommandsComponent,
     SpotifyComponent
-  ],
-
+  ]
 })
 
 export class DashboardComponent implements OnInit {
-  utterance: string = 'placeholder';
+  utterance: string;
   status: string;
   window: any;
-  wakePhrase = config.annyang.wakePhrase || 'mirror mirror';
-  audio; 
-  destinationReq: string;
+  wakePhrase: string = config.annyang.wakePhrase || 'mirror mirror';
+  audio: HTMLAudioElement; 
+  destination: string;
 
   constructor(private annyang: AnnyangService, private tts: TtsService) { }
-
-  testTTS() {
-    this.tts.synthesizeSpeech('hello');
-  }
 
   ngOnInit() {
     this.audio = new Audio('../tpirding.wav');
@@ -63,29 +58,28 @@ export class DashboardComponent implements OnInit {
     }       
   }
 
-  addTodo(tag) {
+  addTodo = (tag) => {
     console.log(tag);
   }
 
-  getDirections(destination) {
+  getDirections = (destination) => {
     this.utterance = 'get maps';
-    let result = destination;
-    this.destinationReq = result;
+    this.destination = destination;
   }
 
-  print() {
+  print = () => {
     console.log(this.utterance);
   }
   
   directionsTest() {
-    this.annyang.trigger('get the directions to seattle');
+    this.annyang.trigger('get the directions to bothell, washington');
   }
 
   todoTest() {
     this.annyang.trigger('add todo1');
   }
 
-  talk() {
+  triggerKeyword() {
     this.annyang.trigger(this.wakePhrase);
   }
 }

@@ -5,6 +5,9 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { config } from './../../config.ts';
+
+let uuid = require('node-uuid');
+
 @Injectable()
 export class TodoistService {
   private url: string = 'https://todoist.com/API/v7/sync';
@@ -26,22 +29,24 @@ export class TodoistService {
       .catch(this.handleError);
   }
 
-  addTodo(content: string) {
-    let command = [{
+  addTodo() {
+    let command = {
       'type': 'item_add',
-      'temp_id': 'e2d56278-6308-11e6-8b77-86f30ca893d3',
-      'uuid': '7eec80ed-e205-4d81-9715-39b89fc191d6',
+      'temp_id': uuid.v4(),
+      'uuid': uuid.v1(),
       'args': {
-        'content': content,
+        'content': 'this is a test task'
       }
-    }];
+    };
     let body = 'token='+ this.token + '&commands=' + command;
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
     let options = new RequestOptions({headers: headers});
     
-    return this.http.post(this.url, body, options);   
+    return this.http.post(this.url, body, options)
+      .toPromise()
+      .catch(this.handleError);   
   }
 
   private extractData(res: Response) {

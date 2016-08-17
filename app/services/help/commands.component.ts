@@ -4,10 +4,12 @@ import { Component } from '@angular/core';
   selector: 'commands',
   template: `
             <div class="app">
-              <h3>Available Commands</h3>
-              <h4>Get the forecast for the day</h4>
-              <h4>Get the forecast for the week</h4>
-              <h4>Get maps</h4>
+              <h3 id="commandsTitle">Available Commands</h3>
+              <ul id="commandsList">
+                <li>Get the forecast for the day</li>
+                <li>Get the forecast for the week</li>
+                <li>Get maps</li>
+              </ul>
             </div>
             `
 })

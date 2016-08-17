@@ -9,7 +9,6 @@ export class AsrHttpService {
 
   constructor(private http: Http) { }
 
-
   sendAudio(formData: FormData) {
     let val = 'Basic ' + config.voicebox.key;
     let headers = new Headers({
