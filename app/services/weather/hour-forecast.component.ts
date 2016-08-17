@@ -9,7 +9,6 @@ import { Period } from './period';
 @Component({
   selector: 'hour-forecast',
   templateUrl: './services/weather/hour-forecast.component.html',
-  styleUrls: ['./services/weather/forecast.css'],
   providers: [ WeatherService ]   
 })
 

@@ -10,7 +10,7 @@ Known issues:
  - validation and error handling must be fully implemented
  - Pythia timeout must be propogated to the client so 'stopListening' can be triggered
  */
-
+  
 (function(window) {
 
   var VbtSpeechRecognizer = function(options, callback) {

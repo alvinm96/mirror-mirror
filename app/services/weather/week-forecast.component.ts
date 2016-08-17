@@ -9,7 +9,6 @@ import { Period } from './period';
 @Component({
   selector: 'week-forecast',
   templateUrl: './services/weather/week-forecast.component.html',
-  styleUrls: ['./services/weather/forecast.css'],
   providers: [ WeatherService ]
 })
 
@@ -28,8 +27,10 @@ export class WeekForecastComponent implements OnInit {
           let month = res.forecast.simpleforecast.forecastday[i].date.monthname;
           let day = res.forecast.simpleforecast.forecastday[i].date.day;
           let condition = res.forecast.simpleforecast.forecastday[i].icon;
-          let temperature = res.forecast.simpleforecast.forecastday[i].high.fahrenheit;
-
+          let temperature = {
+            high: res.forecast.simpleforecast.forecastday[i].high.fahrenheit,
+            low: res.forecast.simpleforecast.forecastday[i].low.fahrenheit,
+          }
           this.periods[this.periods.length++] = new Period(condition, temperature, (month + ' ' + day));
         }
       });

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'commands',
   template: `
             <div class="app">
-              <h1>Available Commands</h1>
+              <h3>Available Commands</h3>
               <h4>Get the forecast for the day</h4>
               <h4>Get the forecast for the week</h4>
               <h4>Get maps</h4>

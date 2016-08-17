@@ -1,14 +1,23 @@
 <button id="testBtn" (click)="talk()">Magic Mirror</button>
-<!--<button (click)="utterance = 'asr'"> ASR </button>
-<button (click)="utterance = 'get today\'s forecast'"> Today's Forecast </button>
+<!--<button (click)="todoTest()">Test Todo</button>
+<button (click)="directionsTest()">Test Directions</button>
+<button (click)="testTTS()"> TTS </button>
+
+<button (click)="print()">Print</button>
+<button (click)="utterance = 'spotify'">Init Spotify</button>
+<button (click)="utterance = 'asr'"> ASR </button>>-->
+<button (click)="utterance = 'get the forecast for today'"> Today's Forecast </button>
 <button (click)="utterance = 'get the forecast for the week'"> Week's Forecast </button>
-<button (click)="utterance = 'get maps'"> Maps </button>
-<button (click)="utterance = 'help'"> Help </button>-->
-<tts></tts>
-<div [ngSwitch]="utterance">  
-  <asr (status)="status = $event" (utterance)="utterance = $event" *ngSwitchCase="'asr'"></asr>
-  <hour-forecast *ngSwitchCase="'get today\'s forecast'"></hour-forecast>
+<button (click)="utterance = 'help'"> Help </button>
+
+
+
+
+<div [ngSwitch]="utterance">
+  <asr (status)="status = $event" (utterance)="utterance=$event" *ngSwitchCase="'asr'"></asr>
+  <spotify *ngSwitchCase="'spotify'"></spotify>
+  <hour-forecast *ngSwitchCase="'get the forecast for today'"></hour-forecast>
   <week-forecast *ngSwitchCase="'get the forecast for the week'"></week-forecast>
-  <map *ngSwitchCase="'get maps'"></map>
-  <commands *ngSwitchCase="'help'"></commands>
+  <map [destination]="destinationReq" *ngSwitchCase="'get maps'"></map>
+  <commands *ngSwitchCase="'help'">Say as</commands>
 </div>

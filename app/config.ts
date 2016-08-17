@@ -1,6 +1,6 @@
 export let config = {
   'annyang': {
-    'wakePhrase': 'mirror mirror'
+    'wakePhrase': 'hello mirror'
   },
   'weather': {
     'key': 'e7bd2c3d8009a801',
