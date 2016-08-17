@@ -7,12 +7,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
-import { config } from './../../config.ts';
+import { config } from './../../config.ts'
+
 @Injectable()
 export class MapsService {
   private key: string = config.google.key;
   private directionsUrl: string = 'https://maps.googleapis.com/maps/api/directions/json?';
-  private mapsUrl: string = 'https://maps.googleapis.com/maps/api/js?key=' + this.key;
 
   constructor(private http: Http) { }
 
@@ -28,6 +28,7 @@ export class MapsService {
       .catch(this.handleError);
   }
 
+
   private extractData(res: Response) {
     let body = res.json();
     return body || { };
@@ -38,14 +39,5 @@ export class MapsService {
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg);
     return Observable.throw(errMsg);
-  }
-
-  getMapScript() {
-    return this.http.get(this.mapsUrl)
-      .toPromise()
-      .then((res) => {
-        return res;
-      })
-      .catch(this.handleError);
   }
 }

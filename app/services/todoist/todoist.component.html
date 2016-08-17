@@ -1,5 +1,5 @@
-<div id="todoist">
-<h4>Todo</h4>
+<div id="todoist" *ngIf="todos.length > 0">
+<p id="todoTitle">Todo</p>
 <ul>
   <li *ngFor="let todo of todos">{{todo.content}}</li>
 </ul>

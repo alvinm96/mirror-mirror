@@ -17,7 +17,7 @@ export class AsrComponent implements OnInit {
   isListening: boolean = false;
   audioContext: AudioContext;
   audioNode: AudioNode;
-  vbtSpeechRecognizer;
+  vbtSpeechRecognizer: any;
   result: string;
   window: any;
   @Output() utterance = new EventEmitter<string>();

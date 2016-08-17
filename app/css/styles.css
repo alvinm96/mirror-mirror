@@ -11,15 +11,24 @@ body {
     width: 100%;
     height: 100%;
 }
+#commandsTitle {
+    font-size: 100px;
+}
+#commandsList {
+    font-size: 60px;
+}
 #forecastTime {
-    font-size: 20px;
+    font-size: 60px;
 }
 .forecast {
     float: center;
     width: 100%;
 }
 #tableTemp {
-    font-size: 30px;
+    font-size: 60px;
+}
+#tableDate {
+    font-size: 100px;
 }
 #weatherIcon {
     padding-left: 13%;
@@ -27,25 +36,29 @@ body {
 #time {
     margin-top: -15px;
     margin-bottom: -30px;
-    font-size: 130px;
+    font-size: 250px;
 }
 #todoist {
     position: absolute;
     bottom: 10%;
     right: 5%;
+    font-size: 40px;
+}
+#todoTitle {
+    font-size: 60px;
 }
 #date {
-    font-size: 40px;
+    font-size: 100px;
 }
 .wi {
     padding-top: 10px;
-    font-size: 50px;
+    font-size: 120px;
 }
 #homeTemp {
-    font-size: 60px;
+    font-size: 120px;
 }
 #temp {
-    font-size: 60px;
+    font-size: 100px;
     padding-top: 10px;
     float: right;
 }
@@ -67,6 +80,11 @@ input {
     -o-animation-iteration-count: 1;
     -ms-animation: showApp linear 4s;
     -ms-animation-iteration-count: 1;
+}
+.maps {
+    padding-top: 25%;
+    text-align: center;
+    font-size: 60px;
 }
 @keyframes showApp {
     0% {

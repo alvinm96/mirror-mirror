@@ -14,7 +14,6 @@ export class AnnyangService {
 
   addCommands(phrase: string, callback: Function) {
     this.commands[phrase] = callback;
-    return callback;
   } 
 
   pause() {

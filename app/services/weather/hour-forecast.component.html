@@ -1,6 +1,6 @@
 <div class="app">
+  <h1 id="tableDate">{{month}} {{day}}</h1>
   <table class="forecast">
-      <tr> <h2>{{month}} {{day}}</h2> </tr>
       <tr>
           <th *ngFor="let hour of periods" id="forecastTime">{{hour.time}}</th>
       </tr>

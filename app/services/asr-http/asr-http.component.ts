@@ -11,7 +11,7 @@ declare var Recorder: any;
   'template': `
               <button (click)="startRecording()">start</button>
               <button (click)="stopRecording()">stop</button>
-              <audio *ngIf="downloadURL" controls="true" [src]="downloadURL"></audio>           
+              <button (click)="send()">send</button>        
               `,
   'providers': [ AsrHttpService ]
 })

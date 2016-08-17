@@ -5,6 +5,7 @@ import { GOOGLE_MAPS_PROVIDERS } from 'angular2-google-maps/core';
 
 import { AnnyangService } from './annyang.service.ts';
 import { TtsService } from './services/tts/tts.service.ts';
+import { AsrService } from './services/asr/asr.service.ts';
 
 import { TimeComponent } from './services/time/time.component';
 import { WeatherComponent } from './services/weather/weather.component';
@@ -29,7 +30,7 @@ import { AsrHttpComponent } from './services/asr-http/asr-http.component.ts';
     AsrHttpComponent,
     SpotifyComponent
   ],
-  providers: [ AnnyangService, TtsService ]
+  providers: [ TtsService ]
 })
 
 export class App { }
@@ -37,5 +38,7 @@ export class App { }
 bootstrap(App, [
   HTTP_PROVIDERS,
   GOOGLE_MAPS_PROVIDERS,
-  provide(Window, {useValue: window})
+  provide(Window, {useValue: window}),
+  AnnyangService,
+  AsrService
 ]);
