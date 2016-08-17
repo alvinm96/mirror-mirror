@@ -1,5 +1,5 @@
 /// <reference path="./../../../typings/index.d.ts" />
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -11,7 +11,6 @@ import { config } from './../../config.ts';
 @Component({
   selector: 'asr',
   templateUrl: './services/asr/asr.component.html',
-  outputs: [ 'utterance', 'status' ]
 })
 
 export class AsrComponent implements OnInit { 
@@ -21,8 +20,8 @@ export class AsrComponent implements OnInit {
   vbtSpeechRecognizer;
   result: string;
   window: any;
-  utterance = new EventEmitter<string>();
-  status = new EventEmitter<string>();
+  @Output() utterance = new EventEmitter<string>();
+  @Output() status = new EventEmitter<string>();
 
   constructor(private http: Http, private annyang: AnnyangService) { }
 
@@ -115,7 +114,7 @@ export class AsrComponent implements OnInit {
           case 'data':
             let resultJson = JSON.parse(data);
             if (resultJson.hasOwnProperty('results')) {
-              this.result = resultJson.results[0].utterance
+              this.result = resultJson.results[0].utterance;
               this.sendUtterance(this.result);
               this.sendStatus(resultJson.status);
             } else {

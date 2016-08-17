@@ -3,7 +3,7 @@
  */
 export class Period {
   constructor(public condition: string,
-              public temperature: string,
+              public temperature: Object,
               public time?: string,
               public month?: string,
               public day?: string) { }

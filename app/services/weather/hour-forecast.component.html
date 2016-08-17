@@ -2,13 +2,12 @@
   <table class="forecast">
       <tr> <h2>{{month}} {{day}}</h2> </tr>
       <tr>
-          <th *ngFor="let hour of periods" id="time">{{hour.time}}</th>
+          <th *ngFor="let hour of periods" id="forecastTime">{{hour.time}}</th>
       </tr>
       <tr>
           <th *ngFor="let hour of periods">
-              <i [class]="getIcon(hour.condition)"></i> 
-              <span id="temp">{{hour.temperature}}</span>
-              <i class="wi wi-fahrenheit"></i>
+              <i id="weatherIcon" [class]="getIcon(hour.condition)"></i> 
+              <p id="tableTemp">{{hour.temperature}} <i id="tableTemp" class="wi wi-fahrenheit"></i></p>
           </th>
       </tr>
   </table>

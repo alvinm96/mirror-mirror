@@ -17,6 +17,8 @@ export class TodoistComponent implements OnInit {
     setInterval(() => {
       this.getTodos();
     }, 1000);    
+
+    this.addTodo();
   }
 
   getTodos() {
@@ -24,5 +26,9 @@ export class TodoistComponent implements OnInit {
       then((res) => {
         this.todos = res.items;
       });
+  }
+
+  addTodo() {
+    this.todo.addTodo('test todo1');
   }
 }

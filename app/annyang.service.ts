@@ -14,6 +14,7 @@ export class AnnyangService {
 
   addCommands(phrase: string, callback: Function) {
     this.commands[phrase] = callback;
+    return callback;
   } 
 
   pause() {
@@ -46,7 +47,7 @@ export class AnnyangService {
   }
 
   getSpeechRecognizer() {
-    console.log(this.annyang.getSpeechRecognizer());
+    // console.log(this.annyang.getSpeechRecognizer());
   }
 
 }

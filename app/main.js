@@ -3,6 +3,7 @@ const electron = require('electron');
 const {app} = electron;
 // Module to create native browser window.
 const {BrowserWindow} = electron;
+
 // Prevent the monitor from going to sleep.
 const powerSaveBlocker = electron.powerSaveBlocker
 powerSaveBlocker.start('prevent-display-sleep')
@@ -13,7 +14,20 @@ let win;
 
 function createWindow() {
   // Create the browser window.
-  win = new BrowserWindow({ fullscreen: true });
+  let displays = electron.screen.getAllDisplays();
+  let externalDisplay = displays.find((display) => {
+    return display.bounds.x !== 0 || display.bounds.y !== 0;
+  });
+
+  if (externalDisplay) {
+    win = new BrowserWindow({ 
+      fullscreen: true,
+      x: externalDisplay.bounds.x + 50,
+      y: externalDisplay.bounds.y + 50,
+    });
+  } else {
+    win = new BrowserWindow({fullscreen: true});
+  }
 
   // and load the index.html of the app.
   win.loadURL(`file://${__dirname}/index.html`);
