@@ -11,33 +11,31 @@ import { config } from './../../config.ts';
 
 @Injectable()
 export class WeatherService {
-  location = {
-    'state': config.weather.location.state || 'WA',
-    'city': config.weather.location.city || 'Bellevue'
-  }
-
-  private currentWeatherUrl = 'http://api.wunderground.com/api/' + config.weather.key + '/conditions/q/' + this.location.state + '/' + this.location.city + '.json';
-  private tenDayForecastUrl = 'http://api.wunderground.com/api/' + config.weather.key + '/forecast10day/q/' + this.location.state + '/' + this.location.city + '.json';
-  private hourlyForecastUrl = 'http://api.wunderground.com/api/' + config.weather.key + '/hourly/q/' + this.location.state + '/' + this.location.city + '.json';
+  private baseUrl: string = 'http://api.wunderground.com/api/' + config.weather.key + '/';
 
   constructor(private http: Http) { }
 
   getCurrentWeather() {
-    return this.http.get(this.currentWeatherUrl)
+    let url = this.baseUrl + 'conditions/q/' + config.user.location.state + '/' + config.user.location.city + '.json';
+    return this.http.get(url)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
   getTenDayForecast() {
-    return this.http.get(this.tenDayForecastUrl)
+    let url = this.baseUrl + 'forecast10day/q/' + config.user.location.state + '/' + config.user.location.city + '.json';
+
+    return this.http.get(url)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
   getHourlyForecast() {
-    return this.http.get(this.hourlyForecastUrl)
+    let url = this.baseUrl + 'hourly/q/' + config.user.location.state + '/' + config.user.location.city + '.json';
+    
+    return this.http.get(url)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);

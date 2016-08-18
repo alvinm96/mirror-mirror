@@ -1,7 +1,7 @@
 /**
  * Created by alvinm on 7/27/16.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { WeatherService } from './weather.service';
 import { Period } from './period';
