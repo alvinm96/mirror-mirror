@@ -1,18 +1,19 @@
 /**
  * Created by alvinm on 7/25/16.
  */
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { HourForecastComponent } from './services/weather/hour-forecast.component';
 import { WeekForecastComponent } from './services/weather/week-forecast.component';
 import { MapsComponent } from './services/maps/maps.component';
 import { AsrComponent } from './services/asr/asr.component';
 import { CommandsComponent } from './services/help/commands.component.ts';
-import { SpotifyComponent } from './services/spotify/spotify.component.ts';
+import { MusicComponent } from './services/music/music.component.ts';
 
 import { AnnyangService } from './annyang.service.ts';
 import { TtsService } from './services/tts/tts.service.ts';
 
+import { NluResponse } from './services/nlu/nlu.ts';
 import { config } from './config.ts';
 
 @Component({
@@ -25,17 +26,17 @@ import { config } from './config.ts';
     MapsComponent,
     AsrComponent,
     CommandsComponent,
-    SpotifyComponent
+    MusicComponent
   ]
 })
 
 export class DashboardComponent implements OnInit {
-  utterance: string;
-  status: string;
   window: any;
   wakePhrase: string = config.annyang.wakePhrase || 'mirror mirror';
   audio: HTMLAudioElement; 
   destination: string;
+  app: string;
+  nluResponse: NluResponse;
 
   constructor(private annyang: AnnyangService, private tts: TtsService) { }
 
@@ -43,13 +44,11 @@ export class DashboardComponent implements OnInit {
     this.audio = new Audio('../tpirding.wav');
     this.annyang.addCommands(this.wakePhrase, () => {
       this.audio.play();
-      this.utterance = 'asr';
+      this.app = 'asr';
       this.annyang.pause();
     });
 
     this.annyang.addCommands('add *tag', this.addTodo);
-
-    this.annyang.addCommands('get the directions to *destination', this.getDirections);
 
     this.annyang.debug(true);
 
@@ -62,21 +61,15 @@ export class DashboardComponent implements OnInit {
     console.log(tag);
   }
 
-  getDirections = (destination) => {
-    this.utterance = 'get maps';
-    this.destination = destination;
+  getNLUResponse(response) {
+    this.nluResponse = response;
+    this.app = this.nluResponse.result.parameters.app;
+    this.destination = this.nluResponse.result.parameters.address ||
+                       this.nluResponse.result.parameters.location;
   }
 
-  print = () => {
-    console.log(this.utterance);
-  }
-  
-  directionsTest() {
-    this.annyang.trigger('get the directions to bothell, washington');
-  }
-
-  todoTest() {
-    this.annyang.trigger('add todo1');
+  test() {
+    console.log(this.nluResponse);
   }
 
   triggerKeyword() {

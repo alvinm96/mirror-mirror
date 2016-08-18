@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { AnnyangService } from './../../annyang.service.ts'
+import { NluService } from './../nlu/nlu.service.ts';
 
 import { config } from './../../config.ts';
 
@@ -20,10 +21,11 @@ export class AsrComponent implements OnInit {
   vbtSpeechRecognizer: any;
   result: string;
   window: any;
-  @Output() utterance = new EventEmitter<string>();
-  @Output() status = new EventEmitter<string>();
+  @Output() response = new EventEmitter<Object>();
 
-  constructor(private http: Http, private annyang: AnnyangService) { }
+  constructor(private http: Http, 
+              private annyang: AnnyangService,
+              private nlu: NluService) { }
 
   ngOnInit() {
     this.window = window;
@@ -45,13 +47,9 @@ export class AsrComponent implements OnInit {
     }); 
   }
 
-  sendUtterance(val: string) {
-    this.utterance.emit(val);
-  }
-
-  sendStatus(val: string) {
-    this.status.emit(val);
-  }
+  sendResponse(resJson: Object) {
+    this.response.emit(resJson); 
+  } 
 
   private setListening() {
     if (this.vbtSpeechRecognizer) {
@@ -115,8 +113,13 @@ export class AsrComponent implements OnInit {
             let resultJson = JSON.parse(data);
             if (resultJson.hasOwnProperty('results')) {
               this.result = resultJson.results[0].utterance;
-              this.sendUtterance(this.result);
-              this.sendStatus(resultJson.status);
+
+              if (resultJson.status === 'finalResult') {
+                this.nlu.getIntent(this.result)
+                  .then((res) => {
+                    this.sendResponse(res);
+                  });
+              }
             } else {
               let rawJson = JSON.stringify(resultJson, null, 2);
             }

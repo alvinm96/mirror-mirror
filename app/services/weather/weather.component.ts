@@ -13,7 +13,7 @@ import { Period } from './period';
 })
 
 export class WeatherComponent implements OnInit {
-  current: Period = new Period('', '');
+  current: Period = new Period(null, null);
 
   constructor(private weatherService: WeatherService) { }
 

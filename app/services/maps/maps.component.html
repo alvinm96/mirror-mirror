@@ -1,4 +1,4 @@
-<div class="maps">
+<div class="maps" *ngIf="destination !== undefined">
   <img [src]="map"/>
   <p>Distance: {{response.dist}} Duration: {{response.dur}}</p>
 </div>

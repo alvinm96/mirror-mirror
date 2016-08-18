@@ -14,8 +14,8 @@ import { config } from './../../config.ts';
 })
 
 export class MapsComponent implements OnInit {
-  origin = config.weather.location.city;
-  @Input() destination;
+  origin = config.user.location.city;
+  @Input() destination: string;
   response = {
     dist: null,
     dur: null
@@ -29,8 +29,12 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getMap(this.destination);
-    this.getDirections(this.destination);
+    if (this.destination) {
+      this.getMap(this.destination);
+      this.getDirections(this.destination);
+    } else {
+      this.tts.synthesizeSpeech('Destination was not found');
+    }
   }
 
   getMap(destination: string) {
