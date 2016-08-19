@@ -5,7 +5,6 @@ import { TodoistService } from './todoist.service.ts';
 @Component({
   selector: 'todoist',
   templateUrl: './services/todoist/todoist.component.html',
-  providers: [ TodoistService ]
 })
 
 export class TodoistComponent implements OnInit {
