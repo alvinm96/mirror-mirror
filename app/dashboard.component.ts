@@ -10,11 +10,11 @@ import { AsrComponent } from './services/asr/asr.component';
 import { CommandsComponent } from './services/help/commands.component.ts';
 import { MusicComponent } from './services/music/music.component.ts';
 
-import { AnnyangService } from './annyang.service.ts';
 import { TtsService } from './services/tts/tts.service.ts';
 
 import { NluResponse } from './services/nlu/nlu.ts';
 import { config } from './config.ts';
+let PythonShell = require('python-shell');
 
 @Component({
   selector: 'dashboard',
@@ -32,33 +32,25 @@ import { config } from './config.ts';
 
 export class DashboardComponent implements OnInit {
   window: any;
-  wakePhrase: string = config.annyang.wakePhrase || 'mirror mirror';
   audio: HTMLAudioElement; 
   destination: string;
   app: string;
   nluResponse: NluResponse;
+  options = {
+    pythonOptions: ['-u'],
+    args: ['./app/mirror-mirror.pmdl']
+  };
 
-  constructor(private annyang: AnnyangService, private tts: TtsService) { }
+  constructor(private tts: TtsService) { }
 
   ngOnInit() {
-    this.audio = new Audio('../tpirding.wav');
-    this.annyang.addCommands(this.wakePhrase, () => {
-      this.audio.play();
-      this.app = 'asr';
-      this.annyang.pause();
-    });
-
-    this.annyang.addCommands('add *tag', this.addTodo);
-
-    this.annyang.debug(true);
-
-    if (this.annyang) {
-      setTimeout(this.annyang.start(), 1000);
-    }       
-  }
-
-  addTodo = (tag) => {
-    console.log(tag);
+    var shell = new PythonShell('./app/snowboy/examples/Python/demo.py', this.options);
+    shell.on('message', (message) => {
+      console.log(message);
+      if (message === 'keyword detected') {
+        this.app = 'asr';
+      }
+    });        
   }
 
   getNLUResponse(response) {
@@ -68,11 +60,7 @@ export class DashboardComponent implements OnInit {
                        this.nluResponse.result.parameters.location;
   }
 
-  test() {
-    console.log(this.nluResponse);
-  }
-
   triggerKeyword() {
-    this.annyang.trigger(this.wakePhrase);
+    this.app = 'asr';
   }
 }
