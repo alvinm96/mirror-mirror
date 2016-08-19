@@ -1,7 +1,4 @@
 export let config = {
-  'annyang': {
-    'wakePhrase': 'hello mirror'
-  },
   'user': {
     'location': {
       'state': 'WA',
@@ -23,9 +20,5 @@ export let config = {
   },
   'todoist': {
     'key': '5bc966e246c5b6c7c0e0b06a8ddc4e965b0e16f0'
-  },
-  'googleMusic': {
-    'email': 'a.manalastas28@gmail.com',
-    'password': 'Diego1996'
   }
 };
