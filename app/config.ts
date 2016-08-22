@@ -1,9 +1,12 @@
 export let config = {
+  'snowboy': {
+    'model': 'hello-mirror.pmdl'
+  },
   'user': {
     'location': {
       'state': 'WA',
       'city': 'Bellevue'
-    }
+    },
   },
   'weather': {
     'key': 'e7bd2c3d8009a801'

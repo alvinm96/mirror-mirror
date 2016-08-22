@@ -21,9 +21,9 @@ function createWindow() {
 
   if (externalDisplay) {
     win = new BrowserWindow({ 
-      fullscreen: true,
       x: externalDisplay.bounds.x + 50,
       y: externalDisplay.bounds.y + 50,
+      fullscreen: true
     });
   } else {
     win = new BrowserWindow({fullscreen: true});
