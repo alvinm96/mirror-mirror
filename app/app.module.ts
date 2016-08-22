@@ -33,7 +33,7 @@ import { TodoistService } from './services/todoist/todoist.service';
     WeekForecastComponent,
     DashboardComponent
     ],
-  providers: [ 
+  providers: [
     TtsService, 
     NluService, 
     TodoistService,

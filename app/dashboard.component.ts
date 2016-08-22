@@ -11,8 +11,7 @@ let PythonShell = require('python-shell');
 
 @Component({
   selector: 'dashboard',
-  templateUrl: './dashboard.component.html',
-  styles: ['#testBtn{border-style: none; background-color: black; color: black;}'],
+  templateUrl: './dashboard.component.html'
 })
 
 export class DashboardComponent implements OnInit {
@@ -23,7 +22,7 @@ export class DashboardComponent implements OnInit {
   nluResponse: NluResponse;
   options = {
     pythonOptions: ['-u'],
-    args: ['./app/mirror-mirror.pmdl']
+    args: ['./app/hello-mirror.pmdl']
   };
 
   constructor(private tts: TtsService) { }
