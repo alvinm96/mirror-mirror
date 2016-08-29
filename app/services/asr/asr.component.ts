@@ -1,5 +1,5 @@
 /// <reference path="./../../../typings/index.d.ts" />
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, AfterContentInit, EventEmitter, Output } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -13,7 +13,7 @@ import { config } from './../../config.ts';
   templateUrl: './services/asr/asr.component.html',
 })
 
-export class AsrComponent implements OnInit { 
+export class AsrComponent implements AfterContentInit { 
   isListening: boolean = false;
   audioContext: AudioContext;
   audioNode: AudioNode;
@@ -25,7 +25,7 @@ export class AsrComponent implements OnInit {
   constructor(private http: Http, 
               private nlu: NluService) { }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.window = window;
 
     navigator.getUserMedia = navigator.getUserMedia ||
