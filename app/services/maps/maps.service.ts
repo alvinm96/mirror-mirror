@@ -12,12 +12,12 @@ import { config } from './../../config.ts'
 @Injectable()
 export class MapsService {
   private key: string = config.google.key;
-  private directionsUrl: string = 'https://maps.googleapis.com/maps/api/directions/json?';
+  private base: string = 'https://maps.googleapis.com/maps/api/';
 
   constructor(private http: Http) { }
 
   getDirections(origin:any, destination:any) {
-    let url = this.directionsUrl +
+    let url = this.base + 'directions/json?' + 
       'origin=' + origin +
       '&destination=' + destination +
       '&key=' + this.key;
@@ -28,6 +28,18 @@ export class MapsService {
       .catch(this.handleError);
   }
 
+  getPlaces(destination: string) {
+    let url = this.base + 'place/textsearch/json?' +
+      'key=' + config.google.key + 
+      '&query=' + destination +
+      '&location=' + config.user.location.lat + ',' + config.user.location.lng +
+      '&radius=10';
+    
+    return this.http.post(url, null)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
 
   private extractData(res: Response) {
     let body = res.json();

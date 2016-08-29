@@ -22,7 +22,7 @@ export class PushbulletService {
       .catch(this.handleError);
   }
 
-  sendToDevice(message: string) {
+  sendToDevice(message) {
     let url = 'https://api.pushbullet.com/v2/pushes';
     let headers = new Headers({
       'Access-Token': config.pushbullet.key,
@@ -30,8 +30,10 @@ export class PushbulletService {
     });
     let options = new RequestOptions({headers:headers});
     let body = {
-      'type': 'link',
-      'url': message
+      'type': message.type,
+      'title': message.title,
+      'body': message.body,
+      'url': message.url
     };
     return this.http.post(url, JSON.stringify(body), options)
       .toPromise()

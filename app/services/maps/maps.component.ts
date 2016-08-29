@@ -3,6 +3,7 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 
+import { PushbulletService } from './../pushbullet/pushbullet.service.ts';
 import { MapsService } from './maps.service';
 import { TtsService } from './../tts/tts.service.ts';
 import { config } from './../../config.ts';
@@ -25,12 +26,10 @@ export class MapsComponent implements OnInit {
   zoom: number = 15;
   map;
 
-  constructor(private mapsService: MapsService, private tts: TtsService) { 
-  }
+  constructor(private mapsService: MapsService, private tts: TtsService, private push: PushbulletService) { }
 
   ngOnInit() {
     if (this.destination) {
-      this.getMap(this.destination);
       this.getDirections(this.destination);
     } else {
       this.tts.synthesizeSpeech('Destination was not found');
@@ -45,19 +44,33 @@ export class MapsComponent implements OnInit {
   }
 
   getDirections(destination) {
-    this.mapsService.getDirections(this.origin, destination)
+    let formattedAddress;
+    this.mapsService.getPlaces(destination)
       .then((res) => {
-        this.response.dist = res.routes[0].legs[0].distance.text;
-        this.response.dur = res.routes[0].legs[0].duration.text;
-        this.lat = res.routes[0].legs[0].start_location.lat;
-        this.lng = res.routes[0].legs[0].start_location.lng;
-        
-        this.tts.synthesizeSpeech('it is ' + 
-          this.response.dist + ' to ' + destination +
-           ' it will take ' + this.response.dur);
-      })
-      .catch((err) => {
-        alert('Location not found');
+        formattedAddress = res.results[0].formatted_address;
       });
+  
+    if (formattedAddress) {
+      this.mapsService.getDirections(this.origin, formattedAddress)
+        .then((res) => {
+          this.response.dist = res.routes[0].legs[0].distance.text;
+          this.response.dur = res.routes[0].legs[0].duration.text;
+          this.lat = res.routes[0].legs[0].start_location.lat;
+          this.lng = res.routes[0].legs[0].start_location.lng;
+          
+          this.getMap(formattedAddress);
+
+          this.tts.synthesizeSpeech('it is ' + 
+            this.response.dist + ' to your destination, it will take ' + this.response.dur);
+
+          let obj = {
+            type: 'link',
+            title: 'Maps',
+            body: 'Open in Google Maps',
+            url: 'https://www.google.com/maps/place/' + this.origin + '/' + formattedAddress
+          }   
+          // this.push.sendToDevice(obj);   
+        });
+    }
   }
 }
