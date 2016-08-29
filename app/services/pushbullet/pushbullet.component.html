@@ -1,0 +1,9 @@
+<table *ngIf="body" class="notification">
+  <tr id="image"> 
+    <td><img *ngIf="img" [src]="img"/></td>
+    <td id="info">
+      <span id="title">{{sender}} {{title}}</span><br><br>
+      <span id="body">{{body}}</span>
+    </td>
+  </tr>
+</table>

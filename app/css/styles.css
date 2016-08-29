@@ -94,6 +94,23 @@ iframe {
     text-align: center;
     font-size: 60px;
 }
+.notification {
+    max-width: 40%;
+    max-height: 25%;
+    background-color: #1a1a1a; 
+}
+#title {
+    font-size: 30px;
+}
+#body {
+    font-size: 20px;
+}
+#info {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 @keyframes showApp {
     0% {
         opacity: 0;
