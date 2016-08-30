@@ -1,13 +1,11 @@
 <asr (response)="getNLUResponse($event)" *ngIf="app === 'asr'"></asr>
 <music *ngIf="app === 'music'"></music>
-
 <pushbullet></pushbullet>
 
+<!--<hour-forecast></hour-forecast>-->
 <div [ngSwitch]="app">
   <hour-forecast *ngSwitchCase="'weather'"></hour-forecast>
   <week-forecast *ngSwitchCase="'weekForecast'"></week-forecast>
   <map [destination]="destination" *ngSwitchCase="'directions'"></map>
   <commands *ngSwitchCase="'help'"></commands>
 </div>
-
-<button (click)="app = 'directions'">MAPS</button>

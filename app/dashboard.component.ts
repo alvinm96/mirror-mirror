@@ -30,7 +30,6 @@ export class DashboardComponent implements AfterContentInit {
   ngAfterContentInit() {
     var shell = new PythonShell('./app/snowboy/examples/Python/demo.py', this.options);
     shell.on('message', (message) => {
-      console.log(message);
       if (message === 'keyword detected') {
         this.app = 'asr';
       }
@@ -39,8 +38,13 @@ export class DashboardComponent implements AfterContentInit {
 
   getNLUResponse(response) {
     this.nluResponse = response;
+    console.log(response);
     this.app = this.nluResponse.result.parameters.app;
-    this.destination = this.nluResponse.result.parameters.address ||
-                       this.nluResponse.result.parameters.location;
+    if (this.app === 'music') {
+      
+    }
+    this.destination = this.nluResponse.result.parameters.location ||
+                       this.nluResponse.result.parameters.address ||
+                       this.nluResponse.result.parameters['geo-city'];
   }
 }

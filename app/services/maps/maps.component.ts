@@ -31,8 +31,6 @@ export class MapsComponent implements OnInit {
   ngOnInit() {
     if (this.destination) {
       this.getDirections(this.destination);
-    } else {
-      this.tts.synthesizeSpeech('Destination was not found');
     }
   }
 
@@ -40,37 +38,36 @@ export class MapsComponent implements OnInit {
     this.map = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0=' + encodeURIComponent(this.origin) +
       '&wp.1=' + encodeURIComponent(destination) +
       '&key=' + config.bing.key + 
-      '&mapSize=' + window.innerWidth/2 + ',' + window.innerHeight/2;    
+      '&mapSize=' + window.innerWidth + ',' + window.innerHeight/2;    
   }
 
   getDirections(destination) {
+    console.log(destination);
     let formattedAddress;
     this.mapsService.getPlaces(destination)
       .then((res) => {
         formattedAddress = res.results[0].formatted_address;
-      });
-  
-    if (formattedAddress) {
-      this.mapsService.getDirections(this.origin, formattedAddress)
-        .then((res) => {
-          this.response.dist = res.routes[0].legs[0].distance.text;
-          this.response.dur = res.routes[0].legs[0].duration.text;
-          this.lat = res.routes[0].legs[0].start_location.lat;
-          this.lng = res.routes[0].legs[0].start_location.lng;
+        this.mapsService.getDirections(this.origin, formattedAddress)
+          .then((res) => {
+            this.response.dist = res.routes[0].legs[0].distance.text;
+            this.response.dur = res.routes[0].legs[0].duration.text;
+            this.lat = res.routes[0].legs[0].start_location.lat;
+            this.lng = res.routes[0].legs[0].start_location.lng;
           
-          this.getMap(formattedAddress);
+            this.tts.synthesizeSpeech('it is ' + this.response.dist + ' to your destination, it will take ' + this.response.dur);
 
-          this.tts.synthesizeSpeech('it is ' + 
-            this.response.dist + ' to your destination, it will take ' + this.response.dur);
-
-          let obj = {
-            type: 'link',
-            title: 'Maps',
-            body: 'Open in Google Maps',
-            url: 'https://www.google.com/maps/place/' + this.origin + '/' + formattedAddress
-          }   
-          // this.push.sendToDevice(obj);   
-        });
-    }
+            this.getMap(formattedAddress);
+            let obj = {
+              type: 'link',
+              title: 'Maps',
+              body: 'Open in Google Maps',
+              url: 'https://www.google.com/maps/place/' + this.origin + '/' + formattedAddress
+            }   
+            this.push.sendToDevice(obj);   
+        });        
+    })
+    .catch((err) => {
+      this.tts.synthesizeSpeech('destination was not found');
+    });
   }
 }

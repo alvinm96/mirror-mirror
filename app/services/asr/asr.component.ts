@@ -22,8 +22,7 @@ export class AsrComponent implements AfterContentInit {
   @Output() response = new EventEmitter<Object>();
   utterance: string;
 
-  constructor(private http: Http, 
-              private nlu: NluService) { }
+  constructor(private http: Http, private nlu: NluService) { }
 
   ngAfterContentInit() {
     this.window = window;
