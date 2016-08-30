@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
             <time></time>
             <dashboard></dashboard>
             <todoist></todoist>
+            <pushbullet></pushbullet>
             `
 })
 export class AppComponent { }

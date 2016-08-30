@@ -13,7 +13,7 @@ export class TodoistComponent implements OnInit {
   constructor(private todo: TodoistService) { }
 
   ngOnInit() { 
-    this.getTodos(); 
+    setInterval(this.getTodos(), 10000);
   }
 
   getTodos() {
@@ -21,9 +21,5 @@ export class TodoistComponent implements OnInit {
       then((res) => {
         this.todos = res.items;
       });
-  }
-
-  addTodo(text: string) {
-    this.todo.addTodo();
   }
 }

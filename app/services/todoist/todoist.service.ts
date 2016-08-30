@@ -29,16 +29,17 @@ export class TodoistService {
       .catch(this.handleError);
   }
 
-  addTodo() {
-    let command = {
+  addTodo(todo: string) {
+    let command = [{
       'type': 'item_add',
       'temp_id': uuid.v4(),
       'uuid': uuid.v1(),
       'args': {
-        'content': 'this is a test task'
+        'content': todo
       }
-    };
-    let body = 'token='+ this.token + '&commands=' + command;
+    }];
+
+    let body = 'token='+ this.token + '&commands=' + JSON.stringify(command);
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
@@ -46,6 +47,9 @@ export class TodoistService {
     
     return this.http.post(this.url, body, options)
       .toPromise()
+      .then((res) => {
+        this.getTodoist();
+      })
       .catch(this.handleError);   
   }
 
