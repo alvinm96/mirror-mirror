@@ -5,24 +5,26 @@ Mirror Mirror is a "smart mirror" that integrates Voicebox Technologies' service
 ##Setting up the Mirror Mirror app
 1. Clone the Mirror Mirror repository
 2. In your preferred IDE, navigate to `mirror-mirror/app/config.ts`
-3. Enter a wake phrase (defaults to 'mirror mirror'), enter API keys, location, and TTS Voice
+3. Enter API keys, location, and TTS Voice
  * Get API keys from:
     * [VoiceBox Technologies](https://developer.voicebox.com/) 
     * [Weather Underground](https://www.wunderground.com/weather/api/)
     * [Google](https://developers.google.com/maps/)
     * [Todoist](https://developer.todoist.com/)
     * [Pushbullet](https://docs.pushbullet.com/)
+4. Go to https://snowboy.kitt.ai/ and follow the installation guide (optional: create your own hotword with snowboy, place model in `app` directory and change model name in `config.ts`)
 4. Run `npm install`
 5. Run `typings install`
 6. Run `npm run build`
 7. Run `npm run electron`
 
 ##Available Commands
-After saying wake phrase, you can then say the one of the following:
-* "Get today's forecast"
-* "Get the forecast for the week"
-* "Get maps"
-* "Help"
+After saying wake phrase, you can then do the following:
+* Ask for the weather
+* Get directions to a destination
+* Say "Add" then follow up with a task to add to Todoist
+* Play music
+* Ask for help to see available commands within app
 
 ##Setting up the Raspberry Pi
 1. Go to https://www.raspberrypi.org/downloads/raspbian/
