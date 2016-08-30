@@ -1,6 +1,5 @@
 <asr (response)="getNLUResponse($event)" *ngIf="app === 'asr'"></asr>
 <music *ngIf="musicPlaying"></music>
-<!--<hour-forecast></hour-forecast>-->
 <div [ngSwitch]="app">
   <hour-forecast *ngSwitchCase="'weather'"></hour-forecast>
   <week-forecast *ngSwitchCase="'weekForecast'"></week-forecast>

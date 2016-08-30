@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TodoistService } from './todoist.service.ts';
+import { TodoistService } from './todoist.service';
 
 @Component({
   selector: 'todoist',
@@ -13,7 +13,10 @@ export class TodoistComponent implements OnInit {
   constructor(private todo: TodoistService) { }
 
   ngOnInit() { 
-    setInterval(this.getTodos(), 10000);
+    this.getTodos();
+    setInterval(() => {
+      this.getTodos()
+    }, 10000);
   }
 
   getTodos() {

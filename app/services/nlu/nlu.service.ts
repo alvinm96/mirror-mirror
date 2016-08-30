@@ -4,7 +4,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
-import { config } from './../../config.ts';
+import { config } from './../../config';
 
 @Injectable()
 export class NluService {

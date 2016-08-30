@@ -15,6 +15,7 @@ import { WeekForecastComponent } from './services/weather/week-forecast.componen
 import { DashboardComponent } from './dashboard.component';
 import { PushbulletComponent } from './services/pushbullet/pushbullet.component';
 
+import { MapsService } from './services/maps/maps.service';
 import { TtsService } from './services/tts/tts.service';
 import { NluService } from './services/nlu/nlu.service';
 import { TodoistService } from './services/todoist/todoist.service';
@@ -37,6 +38,7 @@ import { PushbulletService } from './services/pushbullet/pushbullet.service';
     PushbulletComponent
     ],
   providers: [
+    MapsService,
     TtsService, 
     NluService, 
     TodoistService,

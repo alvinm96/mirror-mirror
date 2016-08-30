@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
               <ul id="commandsList">
                 <li>Ask for the weather</li>
                 <li>Ask for directions</li>
-                <li>Ask for music</li>
+                <li>Play music</li>
+                <li>Add todo task</li>
               </ul>
             </div>
             `

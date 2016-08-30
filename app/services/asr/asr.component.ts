@@ -4,9 +4,9 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
-import { NluService } from './../nlu/nlu.service.ts';
+import { NluService } from './../nlu/nlu.service';
 
-import { config } from './../../config.ts';
+import { config } from './../../config';
 
 @Component({
   selector: 'asr',

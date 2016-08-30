@@ -3,19 +3,19 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 
-import { PushbulletService } from './../pushbullet/pushbullet.service.ts';
+import { PushbulletService } from './../pushbullet/pushbullet.service';
 import { MapsService } from './maps.service';
-import { TtsService } from './../tts/tts.service.ts';
-import { config } from './../../config.ts';
+import { TtsService } from './../tts/tts.service';
+
+import { config } from './../../config';
 
 @Component({
   selector: 'map',
   templateUrl: './services/maps/maps.component.html',
-  providers: [ MapsService ]
 })
 
 export class MapsComponent implements OnInit {
-  origin = config.user.location.city;
+  origin: string = config.user.location.address;
   @Input() destination: string;
   response = {
     dist: null,
@@ -24,7 +24,7 @@ export class MapsComponent implements OnInit {
   lat: number;
   lng: number;
   zoom: number = 15;
-  map;
+  map: any;
 
   constructor(private mapsService: MapsService, private tts: TtsService, private push: PushbulletService) { }
 
@@ -42,8 +42,7 @@ export class MapsComponent implements OnInit {
   }
 
   getDirections(destination) {
-    console.log(destination);
-    let formattedAddress;
+    let formattedAddress: string;
     this.mapsService.getPlaces(destination)
       .then((res) => {
         formattedAddress = res.results[0].formatted_address;
@@ -61,8 +60,9 @@ export class MapsComponent implements OnInit {
               type: 'link',
               title: 'Maps',
               body: 'Open in Google Maps',
-              url: 'https://www.google.com/maps/place/' + this.origin + '/' + formattedAddress
-            }   
+              url: 'https://www.google.com/maps/dir/' + this.origin + '/' + formattedAddress.split(' ').join('+')
+            };
+            console.log(obj.url);
             this.push.sendToDevice(obj);   
         });        
     })
