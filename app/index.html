@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Smart Mirror</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/weather-icons.min.css">
+    <script src="js/recorder/vbtSpeechRecognizer.js"></script>
+    <script src="js/tts.js"></script>
+    <script src="js/recorder/vbtVad.js"></script>
+    <script src="js/recorder/ringBuffer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7D0qLI2yzBdNqzSKvZjtnf9yCAUeduVc"></script>
+  </head>
+  <body>
+    <div class="container">
+      <app></app>
+    </div>
+    <script>
+      require("zone.js");
+    </script>
+    <script src="../build/common.js"></script>
+    <script src="../build/angular2.js"></script>
+    <script src="../build/app.js"></script>
+  </body>
+</html>

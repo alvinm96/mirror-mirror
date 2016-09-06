@@ -1,0 +1,5 @@
+node_modules/*
+typings/*
+build/*
+.vscode/*
+app/config.ts

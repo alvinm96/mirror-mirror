@@ -1,0 +1,11 @@
+<asr (response)="getNLUResponse($event)" *ngIf="app === 'asr'"></asr>
+<music *ngIf="musicPlaying"></music>
+<div [ngSwitch]="app">
+  <hour-forecast *ngSwitchCase="'weather'"></hour-forecast>
+  <!--<week-forecast *ngSwitchCase="'weekForecast'"></week-forecast>-->
+  <map [destination]="destination" *ngSwitchCase="'directions'"></map>
+  <commands *ngSwitchCase="'help'"></commands>
+  <youtube [query]="video" *ngSwitchCase="'video'"></youtube>
+</div>
+
+<button (click)="app = 'asr'">Test</button>

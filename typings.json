@@ -1,0 +1,10 @@
+{
+  "name": "mirror-mirror",
+  "dependencies": {},
+  "globalDependencies": {
+    "github-electron": "github:DefinitelyTyped/DefinitelyTyped/github-electron/github-electron.d.ts#f16c4922a7dd6d359a197e4cc5103463ba68cf9e",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#138ad74b9e8e6c08af7633964962835add4c91e2",
+    "webaudioapi/waa": "registry:dt/webaudioapi/waa#0.0.0+20160328224055",
+    "webrtc/mediastream": "registry:dt/webrtc/mediastream#0.0.0+20160317120654"
+  }
+}

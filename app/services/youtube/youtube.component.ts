@@ -1,0 +1,29 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizationService, SafeResourceUrl } from '@angular/platform-browser';
+
+import { YoutubeService } from './youtube.service';
+
+@Component({
+  'selector': 'youtube',
+  'template': '<div class="app" *ngIf="video"><iframe width="560" height="315" [src]="video" frameborder="0" allowfullscreen></iframe></div>',
+  'providers': [ YoutubeService ]
+})
+
+export class YoutubeComponent {
+  video: SafeResourceUrl;
+  @Input() query: string;
+
+  ngOnInit() {
+    this.getVideo();
+  }
+
+  constructor(private youtube: YoutubeService, private sanitizer: DomSanitizationService) { }
+
+  getVideo() {
+    this.youtube.searchVideos(this.query)
+      .then((res) => {
+        let videoId = res.items[0].id.videoId;
+        this.video = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoId + '?autoplay=1');
+      });
+  }
+}
