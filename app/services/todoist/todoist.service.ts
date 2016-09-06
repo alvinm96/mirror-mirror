@@ -14,8 +14,8 @@ export class TodoistService {
   private token: string = config.todoist.key;
 
   constructor(private http: Http) { }
- 
-  getTodoist() {
+
+  getTodos() {
     let body = 'token='+ this.token +'&sync_token=*&resource_types=["items"]';  
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -48,7 +48,7 @@ export class TodoistService {
     return this.http.post(this.url, body, options)
       .toPromise()
       .then((res) => {
-        this.getTodoist();
+        this.getTodos();
       })
       .catch(this.handleError);   
   }

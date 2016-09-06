@@ -20,7 +20,7 @@ export class TodoistComponent implements OnInit {
   }
 
   getTodos() {
-    this.todo.getTodoist().
+    this.todo.getTodos().
       then((res) => {
         this.todos = res.items;
       });
