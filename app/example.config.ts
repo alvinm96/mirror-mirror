@@ -30,6 +30,6 @@ export let config = {
   },
   'pushbullet': {
     'key': '',
-    'device_iden': 'ujDRvg64D8Ksjz7O3P0Jl6'
+    'device_iden': ''
   },
 };
