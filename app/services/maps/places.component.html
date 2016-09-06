@@ -1,0 +1,12 @@
+<div class="app">
+<table>
+  <tr><td>{{query}}</td></tr>
+  <tr *ngFor="let place of places">
+    <td>{{place.name}}</td>
+    <td>
+      Address: {{place.formatted_address}} <br>
+      Rating: {{place.rating}}
+    </td>
+  <tr>
+</table>
+</div>

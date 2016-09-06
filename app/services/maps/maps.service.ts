@@ -31,9 +31,10 @@ export class MapsService {
   getPlaces(destination: string) {
     let url = this.base + 'place/textsearch/json?' +
       'key=' + config.google.key + 
-      '&query=' + destination +
+      '&query=' + encodeURIComponent(destination) +
       '&location=' + config.user.location.lat + ',' + config.user.location.lng +
       '&radius=10';
+      console.log(url);
     
     return this.http.post(url, null)
       .toPromise()
