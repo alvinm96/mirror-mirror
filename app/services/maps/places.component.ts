@@ -9,9 +9,9 @@ import { config } from './../../config'
 })
 
 export class PlacesComponent implements OnInit {
+  @Input() query: string;
   places: Object[] = [ ];
   distances: number[] = [ ];
-  @Input() query: string;
 
   constructor(private maps: MapsService) { }
 

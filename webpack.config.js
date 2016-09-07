@@ -39,7 +39,20 @@ module.exports = {
 
   plugins: [
     new CommonsChunkPlugin({ name: 'angular2', filename: 'angular2.js', minChunks: Infinity }),
-    new CommonsChunkPlugin({ name: 'common',   filename: 'common.js' })
+    new CommonsChunkPlugin({ name: 'common',   filename: 'common.js' }),
+    new webpack.ExternalsPlugin('commonjs', [
+            'desktop-capturer',
+            'electron',
+            'ipc',
+            'ipc-renderer',
+            'native-image',
+            'remote',
+            'web-frame',
+            'clipboard',
+            'crash-reporter',
+            'screen',
+            'shell'
+        ])
   ],
   target:'node-webkit'
 };

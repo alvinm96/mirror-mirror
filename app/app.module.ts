@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard.component';
 import { PushbulletComponent } from './services/pushbullet/pushbullet.component';
 import { PlacesComponent } from './services/maps/places.component';
 import { YoutubeComponent } from './services/youtube/youtube.component';
+import { SpotifyComponent } from './services/spotify/spotify.component';
 
 import { MapsService } from './services/maps/maps.service';
 import { TtsService } from './services/tts/tts.service';
@@ -39,7 +40,8 @@ import { PushbulletService } from './services/pushbullet/pushbullet.service';
     DashboardComponent,
     PushbulletComponent,
     PlacesComponent,
-    YoutubeComponent
+    YoutubeComponent,
+    SpotifyComponent
     ],
   providers: [
     MapsService,

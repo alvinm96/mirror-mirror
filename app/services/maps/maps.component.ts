@@ -15,15 +15,14 @@ import { config } from './../../config';
 })
 
 export class MapsComponent implements OnInit {
-  origin: string = config.user.location.address;
   @Input() destination: string;
+  origin: string = config.user.location.address;
   response = {
     dist: null,
     dur: null
   }
   lat: number;
   lng: number;
-  zoom: number = 15;
   map: any;
 
   constructor(private mapsService: MapsService, private tts: TtsService, private push: PushbulletService) { }
