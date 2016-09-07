@@ -35,7 +35,7 @@ export class TodoistService {
       'temp_id': uuid.v4(),
       'uuid': uuid.v1(),
       'args': {
-        'content': todo
+        'content': this.capitalize(todo)
       }
     }];
 
@@ -64,4 +64,8 @@ export class TodoistService {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
+
+  private capitalize(s: string) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }  
 }

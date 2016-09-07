@@ -35,7 +35,7 @@ export class PushbulletComponent implements OnInit {
     }
   }
 
-  onMessage(event) {
+  onMessage(event: MessageEvent) {
     let stream = eval('(' + event.data + ')');
     let type = stream.type;
     if (type === 'tickle') {

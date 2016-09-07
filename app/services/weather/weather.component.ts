@@ -17,7 +17,7 @@ export class WeatherComponent implements OnInit {
 
   constructor(private weatherService: WeatherService) { }
 
-  getCurrentObservations(res) {
+  getCurrentObservations(res: any) {
     this.current = new Period(res.current_observation.icon, res.current_observation.feelslike_f);
   }
 
@@ -28,7 +28,7 @@ export class WeatherComponent implements OnInit {
       });
   }
 
-  getIcon(condition) {
+  getIcon(condition: string) {
     return 'wi wi-wu-' + condition;
   }
 }

@@ -89,7 +89,7 @@ export class AsrComponent implements AfterContentInit {
     return Observable.throw(errMsg);
   }
 
-  private initVbtSpeechRecognition(jwt) {
+  private initVbtSpeechRecognition(jwt: any) {
     if (!this.audioNode) {
       this.tts.synthesizeSpeech('There was an error. Restarting now');
       this.window.location.reload();

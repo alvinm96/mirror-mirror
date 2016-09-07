@@ -41,7 +41,7 @@ export class MapsComponent implements OnInit {
       '&mapSize=' + window.innerWidth/2 + ',' + window.innerHeight/2;    
   }
 
-  getDirections(destination) {
+  getDirections(destination: string) {
     let formattedAddress: string;
     this.mapsService.getPlaces(destination)
       .then((res) => {

@@ -16,7 +16,7 @@ export class MapsService {
 
   constructor(private http: Http) { }
 
-  getDirections(origin:any, destination:any) {
+  getDirections(origin: any, destination: any) {
     let url = this.base + 'directions/json?' + 
       'origin=' + origin +
       '&destination=' + destination +

@@ -39,7 +39,7 @@ export class DashboardComponent implements AfterContentInit {
     });        
   }
 
-  getNLUResponse(response) {
+  getNLUResponse(response: NluResponse) {
     this.nluResponse = response;
     console.log(response);
     this.app = this.nluResponse.result.parameters.app;
