@@ -1,0 +1,27 @@
+.musicPlayer {
+  background-color: #282828;
+  height: 110px;
+  width: 300px;
+}
+.cover {
+  width: 100px;
+  height: 100px; 
+  position: relative;
+  top: 5px;  
+  left: 5px;
+}
+
+#songTitle {
+  position: relative;
+  left: 120px;
+  font-size: 1.25em;
+  font-weight: bold;
+  top: -85px;
+}
+
+#artist {
+  position: relative;
+  left: 120px;
+  top: -95px;
+  color: #a0a0a0;
+}

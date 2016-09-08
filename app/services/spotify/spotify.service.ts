@@ -1,8 +1,12 @@
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 
+import { TtsService } from './../tts/tts.service'
+
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+
+import { config } from './../../config';
 
 const electron = require('electron');
 const remote = electron.remote;
@@ -10,11 +14,11 @@ const BrowserWindow = remote.BrowserWindow;
 
 @Injectable()
 export class SpotifyService {
-  private client_id: string = '78de19497f9742c9a41f220188a617da';
   private redirect_uri: string = 'http://localhost';
   authWin: Electron.BrowserWindow;
+  private audio: HTMLAudioElement;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private tts: TtsService) { }
 
   getAccessToken() {
     let url = this.getLoginUrl(['user-read-email']);
@@ -50,9 +54,8 @@ export class SpotifyService {
         console.log(body);
       })
       .catch((err: any) => {
-      alert(err);
-      });
-      
+        this.tts.synthesizeSpeech('There was an error getting your profile. Please authorize the mirror first.');
+      });   
   }
 
   searchSong(query: string) {
@@ -70,10 +73,10 @@ export class SpotifyService {
       .toPromise()
       .then((res: Response) => {
         let body = res.json();
-        console.log(body);
+        return body;
       })
       .catch((err: any) => {
-      alert(err);
+        this.tts.synthesizeSpeech('There was an error searching the song. Please authorize the mirror first.');
       });
   }
 
@@ -93,10 +96,9 @@ export class SpotifyService {
   }
 
   private getLoginUrl(scopes) {
-    return 'https://accounts.spotify.com/authorize?client_id=' + this.client_id +
+    return 'https://accounts.spotify.com/authorize?client_id=' + config.spotify.client_id +
       '&redirect_uri=' + encodeURIComponent(this.redirect_uri) +
       '&scope=' + encodeURIComponent(scopes.join(' ')) +
       '&response_type=token';
   }
-
 }
