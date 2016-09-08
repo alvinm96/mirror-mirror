@@ -14,7 +14,6 @@ const BrowserWindow = remote.BrowserWindow;
 
 @Injectable()
 export class SpotifyService {
-  private redirect_uri: string = 'http://localhost';
   authWin: Electron.BrowserWindow;
   private audio: HTMLAudioElement;
 
@@ -97,7 +96,7 @@ export class SpotifyService {
 
   private getLoginUrl(scopes) {
     return 'https://accounts.spotify.com/authorize?client_id=' + config.spotify.client_id +
-      '&redirect_uri=' + encodeURIComponent(this.redirect_uri) +
+      '&redirect_uri=' + encodeURIComponent('http://localhost') +
       '&scope=' + encodeURIComponent(scopes.join(' ')) +
       '&response_type=token';
   }
