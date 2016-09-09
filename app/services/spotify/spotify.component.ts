@@ -34,7 +34,7 @@ export class SpotifyComponent implements OnInit {
     this.spotify.getUserProfile();
   }
   playSong() {
-    this.spotify.searchSong(this.query)
+    this.spotify.searchSong('ultralight beam')
       .then((res) => {
         try {
           let song = res.tracks.items[0];

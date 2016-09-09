@@ -23,8 +23,7 @@ import { NluService } from './services/nlu/nlu.service';
 import { TodoistService } from './services/todoist/todoist.service';
 import { PushbulletService } from './services/pushbullet/pushbullet.service';
 
-
-import { SongTime } from './services/spotify/song-time.pipe';
+import { Timer } from './pipes/timer.pipe';
 
 @NgModule({
   imports: [ BrowserModule ],
@@ -43,7 +42,7 @@ import { SongTime } from './services/spotify/song-time.pipe';
     PlacesComponent,
     YoutubeComponent,
     SpotifyComponent,
-    SongTime
+    Timer
     ],
   providers: [
     MapsService,
