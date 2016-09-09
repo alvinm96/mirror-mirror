@@ -50,10 +50,11 @@ export class SpotifyService {
       })
       .catch((err: any) => {
         this.tts.synthesizeSpeech('There was an error getting your profile. Please authorize the mirror first.');
+        this.getAccessToken();
       });   
   }
 
-  searchSong(query: string) {
+  searchSong(query) {
     let url = 'https://api.spotify.com/v1/search';
     let params = new URLSearchParams();
     params.set('q', query);
@@ -72,6 +73,7 @@ export class SpotifyService {
       })
       .catch((err: any) => {
         this.tts.synthesizeSpeech('There was an error searching the song. Please authorize the mirror first.');
+        this.getAccessToken();
       });
   }
 

@@ -100,7 +100,7 @@ td {
 input {
     color: black;
 }
-#music {
+.music {
     position: absolute;
     right: 1.5%;
     bottom: 1%;

@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
             <pushbullet></pushbullet>
             <dashboard></dashboard>
             <todoist></todoist>
-            <spotify></spotify>
             `
 })
 export class AppComponent { }

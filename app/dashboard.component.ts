@@ -21,12 +21,15 @@ export class DashboardComponent implements AfterContentInit {
   destination: string;
   app: string;
   nluResponse: NluResponse;
-  musicPlaying: boolean = false;
+  showSoundcloud: boolean = false;
+  showSpotify: boolean = false;
   video: string;
   options = {
     pythonOptions: ['-u'],
     args: ['./app/hello-mirror.pmdl']
   };
+  song: string;
+  
 
   constructor(private tts: TtsService, private todoist: TodoistService) { }
 
@@ -47,7 +50,10 @@ export class DashboardComponent implements AfterContentInit {
       this.tts.synthesizeSpeech('I didn\'t get that. Can you try again?');
     }
     if (this.app === 'music') {
-      this.musicPlaying = true;
+      this.showSoundcloud = true;
+      if (this.showSpotify) {
+        this.showSpotify = false;
+      }
     }
     if (this.app === 'todo') {
       this.addTodo(this.nluResponse.result.parameters.query);
@@ -64,6 +70,17 @@ export class DashboardComponent implements AfterContentInit {
 
     if (this.nluResponse.result.parameters.action === 'close') {
       this.app = '';
+    }
+
+    if (this.app === 'spotify') {
+      this.showSpotify = true;
+      if (this.showSoundcloud) {
+        this.showSoundcloud = false;
+      }
+      this.song = this.nluResponse.result.parameters.song;
+      if (this.nluResponse.result.parameters.artist) {
+        this.song += ' artist:' + this.nluResponse.result.parameters.artist;
+      }
     }
 
     this.destination = this.nluResponse.result.parameters.location ||

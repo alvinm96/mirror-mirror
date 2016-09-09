@@ -1,14 +1,12 @@
-<button (click)="authorize()">Login</button>
-<button (click)="playSong('ultralight beam')">Song</button>
+<div class="music">
+  <div class="musicPlayer" *ngIf="songSrc">
+    <img class="cover" [src]="albumSrc"/>
+    <p id="songTitle">{{name}}</p>
+    <p id="artist">{{artist}}</p>
+    <span id="track">
+      <span id="progress" [style.width]="progressWidth"></span>
+    </span>
 
-<div class="musicPlayer" *ngIf="songSrc">
-  <img class="cover" [src]="albumSrc"/>
-  <p id="songTitle">{{name}}</p>
-  <p id="artist">{{artist}}</p>
-  <!--<input id="track" type="range" [value]="slideVal"/>-->
-  <span id="track">
-    <span id="progress" [style.width]="progressWidth"></span>
-  </span>
-
-  <p id="duration">{{duration | songTime}}</p>
+    <p id="duration">{{duration | songTime}}</p>
+  </div>
 </div>
