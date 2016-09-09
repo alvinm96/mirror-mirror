@@ -21,7 +21,6 @@ export class DashboardComponent implements AfterContentInit {
   destination: string;
   app: string;
   nluResponse: NluResponse;
-  showSoundcloud: boolean = false;
   showSpotify: boolean = false;
   video: string;
   options = {
@@ -49,12 +48,7 @@ export class DashboardComponent implements AfterContentInit {
     if (this.nluResponse.result.action === 'input.unknown') {
       this.tts.synthesizeSpeech('I didn\'t get that. Can you try again?');
     }
-    if (this.app === 'music') {
-      this.showSoundcloud = true;
-      if (this.showSpotify) {
-        this.showSpotify = false;
-      }
-    }
+
     if (this.app === 'todo') {
       this.addTodo(this.nluResponse.result.parameters.query);
       this.tts.synthesizeSpeech('Adding' + this.nluResponse.result.parameters.query);
@@ -74,9 +68,6 @@ export class DashboardComponent implements AfterContentInit {
 
     if (this.app === 'spotify') {
       this.showSpotify = true;
-      if (this.showSoundcloud) {
-        this.showSoundcloud = false;
-      }
       this.song = this.nluResponse.result.parameters.song;
       if (this.nluResponse.result.parameters.artist) {
         this.song += ' artist:' + this.nluResponse.result.parameters.artist;

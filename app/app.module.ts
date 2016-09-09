@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AsrComponent } from './services/asr/asr.component';
 import { CommandsComponent } from './services/help/commands.component';
 import { MapsComponent } from './services/maps/maps.component';
-import { MusicComponent } from './services/music/music.component';
 import { TimeComponent } from './services/time/time.component';
 import { TodoistComponent } from './services/todoist/todoist.component';
 import { HourForecastComponent } from './services/weather/hour-forecast.component';
@@ -34,7 +33,6 @@ import { SongTime } from './services/spotify/song-time.pipe';
     AsrComponent,
     CommandsComponent,
     MapsComponent,
-    MusicComponent,
     TimeComponent,
     TodoistComponent,
     HourForecastComponent,

@@ -1,5 +1,4 @@
 <asr (response)="getNLUResponse($event)" *ngIf="app === 'asr'"></asr>
-<music *ngIf="showSoundcloud"></music>
 <spotify [query]="song" *ngIf="showSpotify"></spotify>
 <div [ngSwitch]="app">
   <hour-forecast *ngSwitchCase="'weather'"></hour-forecast>

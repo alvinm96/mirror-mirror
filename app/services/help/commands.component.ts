@@ -7,9 +7,10 @@ import { Component } from '@angular/core';
               <h3 id="commandsTitle">What can I do?</h3>
               <ul id="commandsList">
                 <li>Ask for the weather</li>
-                <li>Ask for directions</li>
-                <li>Play music</li>
-                <li>Add todo task</li>
+                <li>Get directions to a destination</li>
+                <li>Play a YouTube video</li>
+                <li>Play music from Spotify</li>
+                <li>Add a task to your todo list</li>
               </ul>
             </div>
             `
