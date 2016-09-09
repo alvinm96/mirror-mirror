@@ -21,7 +21,6 @@ export class TodoistService {
   constructor(private http: Http) { }
 
   getTodos() {
-    console.log(this.token);
     let body = 'token='+ this.token +'&sync_token=*&resource_types=["items"]';  
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -80,10 +79,6 @@ export class TodoistService {
 
     this.authWin = new BrowserWindow({fullscreen: true, show: true, webPreferences: {nodeIntegration: false}});
     this.authWin.loadURL(url);
-
-    this.authWin.webContents.on('did-navigate', (event, url) => {
-      this.handleCallback(url);
-    });
 
     this.authWin.webContents.on('will-navigate', (event, url) => {
       this.handleCallback(url);

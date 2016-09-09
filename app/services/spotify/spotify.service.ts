@@ -24,11 +24,7 @@ export class SpotifyService {
 
     this.authWin = new BrowserWindow({fullscreen: true, show: true, webPreferences: {nodeIntegration: false}});
     this.authWin.loadURL(url);
-
-    this.authWin.webContents.on('did-navigate', (event, url) => {
-      this.handleCallback(url);
-    });
-
+    
     this.authWin.webContents.on('will-navigate', (event, url) => {
       this.handleCallback(url);
     });

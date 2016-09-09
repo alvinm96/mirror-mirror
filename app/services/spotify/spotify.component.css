@@ -2,6 +2,9 @@
   background-color: #282828;
   height: 110px;
   width: 300px;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap;
 }
 .cover {
   width: 100px;
