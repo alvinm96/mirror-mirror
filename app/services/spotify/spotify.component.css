@@ -1,7 +1,7 @@
 .musicPlayer {
   background-color: #282828;
   height: 110px;
-  width: 300px;
+  width: 320px;
   overflow: hidden; 
   text-overflow: ellipsis; 
   white-space: nowrap;
@@ -17,7 +17,7 @@
 #songTitle {
   position: relative;
   left: 120px;
-  font-size: 1.25em;
+  font-size: 1.1em;
   font-weight: bold;
   top: -85px;
 }
@@ -26,5 +26,31 @@
   position: relative;
   left: 120px;
   top: -95px;
+  color: #a0a0a0;
+}
+
+#track {
+  position: relative;
+  left: 120px;
+  top: -80px;
+  width: 150px;  
+  height: 3px;
+  background-color: #404040;
+  display: block;
+  border-radius: 25px;
+}
+
+#progress {
+  display:block;
+  height: 3px;
+  border-radius: 25px;
+  background-color: #1ed760;
+}
+
+#duration {
+  font-size: 0.8em;
+  position: relative;
+  top: -90px;
+  left: 280px;
   color: #a0a0a0;
 }

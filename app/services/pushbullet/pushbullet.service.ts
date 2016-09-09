@@ -105,7 +105,6 @@ export class PushbulletService {
   }
 
   private handleCallback(url) {
-    console.log(url);
     var raw_code = /code=([^&]*)/.exec(url) || null;
     var code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
     var error = /\?error=(.+)$/.exec(url);

@@ -24,6 +24,9 @@ import { NluService } from './services/nlu/nlu.service';
 import { TodoistService } from './services/todoist/todoist.service';
 import { PushbulletService } from './services/pushbullet/pushbullet.service';
 
+
+import { SongTime } from './services/spotify/song-time.pipe';
+
 @NgModule({
   imports: [ BrowserModule ],
   declarations: [
@@ -41,7 +44,8 @@ import { PushbulletService } from './services/pushbullet/pushbullet.service';
     PushbulletComponent,
     PlacesComponent,
     YoutubeComponent,
-    SpotifyComponent
+    SpotifyComponent,
+    SongTime
     ],
   providers: [
     MapsService,
