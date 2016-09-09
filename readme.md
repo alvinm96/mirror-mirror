@@ -12,6 +12,7 @@ Mirror Mirror is a "smart mirror" that integrates Voicebox Technologies' service
     * [Google](https://developers.google.com/maps/)
     * [Todoist](https://developer.todoist.com/)
     * [Pushbullet](https://docs.pushbullet.com/)
+    * [Spotify](https://developer.spotify.com/)
 4. Go to https://snowboy.kitt.ai/ and follow the installation guide (optional: create your own hotword with snowboy, place model in `app` directory and change model name in `config.ts`)
 5. Run `npm install`
 6. Run `typings install`
@@ -24,7 +25,7 @@ After saying the wake phrase (defaults to `hello mirror`), listen for the ding t
 * Get directions to a destination
 * Add a task to your todo list
 * Play a YouTube video
-* Play music from SoundCloud
+* Play music from Spotify
 * Ask for help to see available commands within app
 
 ##Setting up the Raspberry Pi

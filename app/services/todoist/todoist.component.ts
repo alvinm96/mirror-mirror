@@ -13,16 +13,20 @@ export class TodoistComponent implements OnInit {
   constructor(private todo: TodoistService) { }
 
   ngOnInit() { 
-    this.getTodos();
+    this.authorize();
     setInterval(() => {
       this.getTodos()
-    }, 10000);
+    }, 10000);      
   }
 
   getTodos() {
-    this.todo.getTodoist().
+    this.todo.getTodos().
       then((res) => {
         this.todos = res.items;
       });
+  }
+
+  authorize() {
+    this.todo.authorize();
   }
 }

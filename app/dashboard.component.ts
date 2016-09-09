@@ -21,12 +21,14 @@ export class DashboardComponent implements AfterContentInit {
   destination: string;
   app: string;
   nluResponse: NluResponse;
-  musicPlaying: boolean = false;
+  showSpotify: boolean = false;
   video: string;
   options = {
     pythonOptions: ['-u'],
     args: ['./app/hello-mirror.pmdl']
   };
+  song: string;
+  
 
   constructor(private tts: TtsService, private todoist: TodoistService) { }
 
@@ -39,16 +41,14 @@ export class DashboardComponent implements AfterContentInit {
     });        
   }
 
-  getNLUResponse(response) {
+  getNLUResponse(response: NluResponse) {
     this.nluResponse = response;
     console.log(response);
     this.app = this.nluResponse.result.parameters.app;
     if (this.nluResponse.result.action === 'input.unknown') {
       this.tts.synthesizeSpeech('I didn\'t get that. Can you try again?');
     }
-    if (this.app === 'music') {
-      this.musicPlaying = true;
-    }
+
     if (this.app === 'todo') {
       this.addTodo(this.nluResponse.result.parameters.query);
       this.tts.synthesizeSpeech('Adding' + this.nluResponse.result.parameters.query);
@@ -64,6 +64,14 @@ export class DashboardComponent implements AfterContentInit {
 
     if (this.nluResponse.result.parameters.action === 'close') {
       this.app = '';
+    }
+
+    if (this.app === 'spotify') {
+      this.showSpotify = true;
+      this.song = this.nluResponse.result.parameters.song;
+      if (this.nluResponse.result.parameters.artist) {
+        this.song += ' artist:' + this.nluResponse.result.parameters.artist;
+      }
     }
 
     this.destination = this.nluResponse.result.parameters.location ||

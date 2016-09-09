@@ -100,7 +100,7 @@ td {
 input {
     color: black;
 }
-.music {
+#music {
     position: absolute;
     right: 1.5%;
     bottom: 1%;
@@ -112,11 +112,15 @@ input {
     padding-top: 25%;
 }
 .app {
-    float: center;
-    z-index: 3000;
-    top: 20%;
+    margin: auto;
+    width: 50%;
+    padding-top: 30%;
     animation: showApp linear 4s;
     animation-iteration-count: 1;
+}
+.app#forecastTable {
+    position: absolute;
+    left: 0;
 }
 .maps {
     padding-top: 25%;

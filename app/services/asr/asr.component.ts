@@ -11,16 +11,16 @@ import { config } from './../../config';
 
 @Component({
   selector: 'asr',
-  templateUrl: './services/asr/asr.component.html',
+  templateUrl: './services/asr/asr.component.html'
 })
 
 export class AsrComponent implements AfterContentInit { 
+  @Output() response = new EventEmitter<Object>();
   isListening: boolean = false;
   audioContext: AudioContext;
   audioNode: AudioNode;
   vbtSpeechRecognizer: any;
   window: any;
-  @Output() response = new EventEmitter<Object>();
   utterance: string;
 
   constructor(private http: Http, private nlu: NluService, private tts: TtsService) { }
@@ -89,7 +89,7 @@ export class AsrComponent implements AfterContentInit {
     return Observable.throw(errMsg);
   }
 
-  private initVbtSpeechRecognition(jwt) {
+  private initVbtSpeechRecognition(jwt: any) {
     if (!this.audioNode) {
       this.tts.synthesizeSpeech('There was an error. Restarting now');
       this.window.location.reload();

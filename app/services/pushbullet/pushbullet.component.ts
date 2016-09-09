@@ -18,24 +18,30 @@ export class PushbulletComponent implements OnInit {
   constructor(private pushbullet: PushbulletService) { }
 
   ngOnInit() {
-    this.ws = new WebSocket('wss://stream.pushbullet.com/websocket/' + config.pushbullet.key);
+    this.pushbullet.authorize();
+    
+    this.pushbullet.sendToken.subscribe((token) => {
+      if (token) {
+        this.ws = new WebSocket('wss://stream.pushbullet.com/websocket/' + token);
 
-    this.ws.onopen = (event) => {
-      console.log('Pushbullet WebSocket opened');
-    };
+        this.ws.onopen = (event) => {
+          console.log('Pushbullet WebSocket opened');
+        };
 
-    this.ws.onmessage = (event) => { this.onMessage(event); };
+        this.ws.onmessage = (event) => { this.onMessage(event); };
 
-    this.ws.onerror = (event) => {
-      console.log('There was an error');
-    };
+        this.ws.onerror = (event) => {
+          console.log('There was an error');
+        };
 
-    this.ws.onclose = (event) => {
-      console.log('Pushbullet WebSocket closed');
-    }
+        this.ws.onclose = (event) => {
+          console.log('Pushbullet WebSocket closed');
+        }
+      }
+    });
   }
 
-  onMessage(event) {
+  onMessage(event: MessageEvent) {
     let stream = eval('(' + event.data + ')');
     let type = stream.type;
     if (type === 'tickle') {

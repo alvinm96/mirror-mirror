@@ -1,7 +1,7 @@
 export let config = {
   'snowboy': {
     'model': 'hello-mirror.pmdl',
-    'sensitivity': 0.5
+    'sensitivity': 0.5,
   },
   'user': {
     'location': {
@@ -13,23 +13,29 @@ export let config = {
     },
   },
   'weather': {
-    'key': '0'
+    'key': ''
   },
   'voicebox': {
-    'key': '0',
+    'key': '',
     'ttsVoice': 'Amelia'
   },
   'google': {
-    'key': '0'
+    'key': ''
   },
   'bing': {
     'key': ''
   },
   'todoist': {
-    'key': ''
+    'client_id': '',
+    'client_secret': '',
+    'key': '' //for testing
+  },
+  'spotify': {
+    'client_id': ''
   },
   'pushbullet': {
-    'key': '',
-    'device_iden': 'ujDRvg64D8Ksjz7O3P0Jl6'
+    'client_id': '',
+    'client_secret': '',
+    'key': '', //for testing
   },
 };

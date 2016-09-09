@@ -5,7 +5,7 @@ import { config } from './../../config'
 @Injectable()
 export class TtsService {
   private key: string = config.voicebox.key;
-  private voice: string = config.voicebox.ttsVoice || 'Amelia';
+  private voice: string = config.voicebox.ttsVoice;
   voices: Object[] = [];
   synthesize: any;
   window;

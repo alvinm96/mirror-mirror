@@ -1,0 +1,12 @@
+<div class="music">
+  <div class="musicPlayer" *ngIf="songSrc">
+    <img class="cover" [src]="albumSrc"/>
+    <p id="songTitle">{{name}}</p>
+    <p id="artist">{{artist}}</p>
+    <span id="track">
+      <span id="progress" [style.width]="progressWidth"></span>
+    </span>
+
+    <p id="duration">{{duration | timer}}</p>
+  </div>
+</div>

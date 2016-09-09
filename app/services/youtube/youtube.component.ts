@@ -10,8 +10,8 @@ import { YoutubeService } from './youtube.service';
 })
 
 export class YoutubeComponent {
-  video: SafeResourceUrl;
   @Input() query: string;
+  video: SafeResourceUrl;
 
   ngOnInit() {
     this.getVideo();
