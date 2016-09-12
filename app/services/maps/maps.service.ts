@@ -1,7 +1,7 @@
 /**
  * Created by alvinm on 7/26/16.
  */
-import { Http, Response } from '@angular/http';
+import { Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
@@ -17,26 +17,30 @@ export class MapsService {
   constructor(private http: Http) { }
 
   getDirections(origin: any, destination: any) {
-    let url = this.base + 'directions/json?' + 
-      'origin=' + origin +
-      '&destination=' + destination +
-      '&key=' + this.key;
+    let url = this.base + 'directions/json';
 
-    return this.http.get(url)
+    let params = new URLSearchParams();
+    params.set('origin', origin);
+    params.set('destination', destination);
+    params.set('key', this.key);
+    let options = new RequestOptions({search: params});
+
+    return this.http.get(url, options)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
   getPlaces(destination: string) {
-    let url = this.base + 'place/textsearch/json?' +
-      'key=' + config.google.key + 
-      '&query=' + encodeURIComponent(destination) +
-      '&location=' + config.user.location.lat + ',' + config.user.location.lng +
-      '&radius=10';
-      console.log(url);
+    let url = this.base + 'place/textsearch/json';
+    let params = new URLSearchParams();
+    params.set('query', encodeURIComponent(destination));
+    params.set('location', (config.user.location.lat + ',' + config.user.location.lng));
+    params.set('key', this.key);
+    params.set('radius', '10');
+    let options = new RequestOptions({search: params});    
     
-    return this.http.post(url, null)
+    return this.http.post(url, null, options)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
