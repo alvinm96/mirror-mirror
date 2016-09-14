@@ -2,11 +2,9 @@
  * Created by alvinm on 7/27/16.
  */
 import { Component, Input, OnInit } from '@angular/core';
-
 import { PushbulletService } from './../pushbullet/pushbullet.service';
 import { MapsService } from './maps.service';
 import { TtsService } from './../tts/tts.service';
-
 import { config } from './../../config';
 
 @Component({

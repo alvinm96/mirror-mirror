@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { config } from './../../config'
+import { config } from './../../config';
 
 @Injectable()
 export class TtsService {

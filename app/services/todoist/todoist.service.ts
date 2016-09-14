@@ -1,12 +1,10 @@
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
 import { config } from './../../config';
+import * as electron from 'electron';
 
-const electron = require('electron');
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
 let uuid = require('node-uuid');

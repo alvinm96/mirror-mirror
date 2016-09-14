@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizationService, SafeResourceUrl } from '@angular/platform-browser';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { YoutubeService } from './youtube.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class YoutubeComponent {
     this.getVideo();
   }
 
-  constructor(private youtube: YoutubeService, private sanitizer: DomSanitizationService) { }
+  constructor(private youtube: YoutubeService, private sanitizer: DomSanitizer) { }
 
   getVideo() {
     this.youtube.searchVideos(this.query)

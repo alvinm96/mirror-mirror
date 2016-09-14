@@ -3,10 +3,8 @@ import { Component, AfterContentInit, EventEmitter, Output } from '@angular/core
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
 import { TtsService } from './../tts/tts.service.ts';
 import { NluService } from './../nlu/nlu.service';
-
 import { config } from './../../config';
 
 @Component({
