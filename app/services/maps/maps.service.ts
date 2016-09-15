@@ -3,10 +3,8 @@
  */
 import { Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
 import { config } from './../../config'
 
 @Injectable()
@@ -43,6 +41,21 @@ export class MapsService {
     return this.http.post(url, null, options)
       .toPromise()
       .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getLatLng(location: string) {
+    let url = this.base + 'geocode/json';
+    let params = new URLSearchParams();
+    params.set('address', location);
+    params.set('key', this.key);
+    let options = new RequestOptions({search: params});    
+    
+    return this.http.get(url, options)
+      .toPromise()
+      .then((res: Response) => {
+        return res.json().results[0].geometry.location;
+      })
       .catch(this.handleError);
   }
 
