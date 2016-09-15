@@ -54,7 +54,7 @@ export class MapsService {
     return this.http.get(url, options)
       .toPromise()
       .then((res: Response) => {
-        return res.json().results[0].geometry.location;
+        return res.json().results[0];
       })
       .catch(this.handleError);
   }

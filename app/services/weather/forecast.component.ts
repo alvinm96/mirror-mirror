@@ -43,59 +43,42 @@ export class ForecastComponent implements OnInit {
   }
 
   getForecast() {
+    this.location = (this.location === undefined ? config.user.location.city : this.location);
     this.maps.getLatLng(this.location)
-      .then((latLng) => {
+      .then((place) => {
         if (this.date) {
-          this.forecast.getForecast(latLng.lat, latLng.lng, this.date)
-            .then((res) => {
-              this.currentData = res.currently;
-
-              let times = _.map(res.hourly.data, (hour: any, index: number) => {
-                if (index < 24) {
-                  this.datasets[0].data.push(hour.temperature);
-
-                  if (index % 3 === 1) {
-                    let time = new Date(hour.time * 1000);
-                    let hours = time.getHours();
-                    let ampm = hours >= 12 ? 'pm' : 'am';
-                    hours = hours % 12;
-                    hours = hours ? hours: 12;                    
-                    this.labels.push(hours + ampm);
-                  } else {
-                    this.labels.push(' ');
-                  }
-                }
-              });
-            
-            });          
+          this.forecast.getForecast(place.geometry.location.lat, place.geometry.location.lng, this.date)
+            .then((res) => { this.handleData(res); });          
         } else {
-          this.forecast.getForecast(latLng.lat, latLng.lng)
-            .then((res) => {
-              this.currentData = res.currently;
-              let weekly = res.daily;
-              this.weeklyData = weekly.data;
-
-              let times = _.map(res.hourly.data, (hour: any, index: number) => {
-                if (index < 24) {
-                  this.datasets[0].data.push(hour.temperature);
-
-                  if (index % 3 === 1) {
-                    let time = new Date(hour.time * 1000);
-                    let hours = time.getHours();
-                    let ampm = hours >= 12 ? 'pm' : 'am';
-                    hours = hours % 12;
-                    hours = hours ? hours: 12;                    
-                    this.labels.push(hours + ampm);
-                  } else {
-                    this.labels.push(' ');
-                  }
-                }
-              });
-            
-            });
+          this.forecast.getForecast(place.geometry.location.lat, place.geometry.location.lng)
+            .then((res) => { this.handleData(res); });
         }
       });
   }
+  handleData(res) {
+    this.currentData = res.currently;
+    let weekly = res.daily;
+    if (weekly.data.length > 1) {
+      this.weeklyData = weekly.data;
+    }
+    console.log(this.weeklyData);
+    let times = _.map(res.hourly.data, (hour: any, index: number) => {
+      if (index < 24) {
+        this.datasets[0].data.push(hour.temperature);   
+        if (index % 3 === 1) {
+          let time = new Date(hour.time * 1000);
+          let hours = time.getHours();
+          let ampm = hours >= 12 ? 'pm' : 'am';
+          hours = hours % 12;
+          hours = hours ? hours: 12;                    
+          this.labels.push(hours + ampm);
+        } else {
+          this.labels.push(' ');
+        }
+      }
+    });
+  }
+
   getTomomorrow() {
     let today = new Date();
     let year = today.getFullYear();

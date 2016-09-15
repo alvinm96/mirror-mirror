@@ -1,5 +1,6 @@
 <div class="app">
   <div *ngIf="currentData" class="info">
+    <p id="city">{{location | uppercase}}</p>
     <p id="infoTime">{{convertTime(currentData.time) | date: 'EEEE'}}  {{convertTime(currentData.time) | date: 'shortTime'}}</p>
     <p id="summary">{{currentData.summary}}</p>
     <div id="currentData">
