@@ -17,41 +17,10 @@ body {
 #commandsList {
     font-size: 4em;
 }
-#forecastTime {
-    font-size: 1.5em;
-}
-#forecastTable {
-    padding-top: 30%;
-}
-.forecast {
-    float: center;
-    width: 100%;
-}
-tr:nth-child(2) {
-    padding-bottom: 50px;
-}
-#tableTemp {
-    font-size: 1.5em;
-}
-#tableDate {
-    font-size: 3em;
-}
-#tableTime {
-    font-size: 1.75em;
-}
-#tableIcon {
-    font-size: 1.5em;
-}
-#tableF {
-    font-size: 1.5em;
-}
-#tableAmpm {
-    font-size: 0.75em;
-}
-td {
+/*td {
     padding-left: 5px;
     padding-right: 5px;
-}
+}*/
 #time {
     position: absolute;
     left: 0;
@@ -78,24 +47,6 @@ td {
     padding-top: 15%;
     display: flex;
     justify-content: center;
-}
-#homeIcon {
-    position: absolute;
-    top: 25%;
-    right: 100%;
-    font-size: 0.5em;
-}
-#homeTemp {
-    font-size: 1em;
-    position: absolute;
-    left: 100%;
-    top: 10%;
-}
-#temp {
-    font-size: 9em;
-    position: absolute;
-    right: 10%; 
-    top: 0;
 }
 input {
     color: black;

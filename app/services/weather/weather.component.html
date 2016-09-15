@@ -1,4 +1,5 @@
-<span id="temp">
-  <i id="homeIcon" [class]="getIcon(current.condition)"></i> 
-  {{current.temperature}} <i id="homeTemp" class="wi wi-fahrenheit"></i>
-</span>
+<div class="weather">
+  <i [class]="icon"></i>
+  <span>{{temperature}}</span>
+  <i class="wi wi-fahrenheit"></i>
+</div>

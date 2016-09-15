@@ -2,33 +2,27 @@
  * Created by alvinm on 7/22/16.
  */
 import { Component, OnInit } from '@angular/core';
-
-import { WeatherService } from './weather.service';
-import { Period } from './period';
+import { ForecastService } from './forecast.service';
+import { config } from './../../config';
 
 @Component({
   selector: 'weather',
   templateUrl: './services/weather/weather.component.html',
-  providers: [ WeatherService ]
+  styleUrls: ['./services/weather/weather.component.css'],
+  providers: [ ForecastService ]
 })
 
 export class WeatherComponent implements OnInit {
-  current: Period = new Period(null, null);
+  icon: string;
+  temperature: number;
 
-  constructor(private weatherService: WeatherService) { }
-
-  getCurrentObservations(res: any) {
-    this.current = new Period(res.current_observation.icon, res.current_observation.feelslike_f);
-  }
+  constructor(private forecast: ForecastService) { }
 
   ngOnInit() {
-    this.weatherService.getCurrentWeather()
+    this.forecast.getForecast(config.user.location.lat, config.user.location.lng)
       .then((res) => {
-        this.getCurrentObservations(res);
+        this.icon = 'wi wi-forecast-io-' + res.currently.icon;
+        this.temperature = res.currently.temperature;
       });
-  }
-
-  getIcon(condition: string) {
-    return 'wi wi-wu-' + condition;
   }
 }

@@ -2,13 +2,12 @@
  * Created by alvinm on 7/25/16.
  */
 import { Component, Input, AfterContentInit } from '@angular/core';
-
 import { TtsService } from './services/tts/tts.service';
 import { TodoistService } from './services/todoist/todoist.service';
-
 import { NluResponse } from './services/nlu/nlu';
 import { config } from './config';
-let PythonShell = require('python-shell');
+
+const PythonShell = require('python-shell');
 
 @Component({
   selector: 'dashboard',
@@ -28,6 +27,8 @@ export class DashboardComponent implements AfterContentInit {
     args: ['./app/hello-mirror.pmdl']
   };
   song: string;
+  location: string;
+  date: string;
   
 
   constructor(private tts: TtsService, private todoist: TodoistService) { }
@@ -47,6 +48,11 @@ export class DashboardComponent implements AfterContentInit {
     this.app = this.nluResponse.result.parameters.app;
     if (this.nluResponse.result.action === 'input.unknown') {
       this.tts.synthesizeSpeech('I didn\'t get that. Can you try again?');
+    }
+
+    if (this.app === 'weather') {
+      this.location = this.nluResponse.result.parameters.location;
+      this.date = this.nluResponse.result.parameters.date;
     }
 
     if (this.app === 'todo') {

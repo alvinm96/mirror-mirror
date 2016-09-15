@@ -1,0 +1,38 @@
+<div class="app">
+  <div *ngIf="currentData" class="info">
+    <p id="infoTime">{{convertTime(currentData.time) | date: 'EEEE'}}  {{convertTime(currentData.time) | date: 'shortTime'}}</p>
+    <p id="summary">{{currentData.summary}}</p>
+    <div id="currentData">
+      <i [class]="'wi wi-forecast-io-' + currentData.icon"></i>
+      <span>{{currentData.temperature}}</span>
+      <i class="wi wi-fahrenheit"></i>
+    </div>
+    <base-chart *ngIf="datasets"
+      class="chart"
+      [datasets]="datasets"
+      [labels]="labels"
+      [chartType]="'line'"
+      [colors]="colors">
+    </base-chart>  
+    <div id="extra">
+      <p>Precipitation: {{currentData.precipProbability * 100}}%</p>
+      <p>Humidity: {{currentData.humidity * 100}}%</p>
+      <p>Wind: {{currentData.windSpeed}} mph</p>
+    </div>
+  </div>
+  <table *ngIf="weeklyData">
+    <tr>
+      <td class="period" *ngFor="let period of weeklyData.slice(0, 10)">{{convertTime(period.time) | date: 'EE'}}</td>    
+    </tr>
+    <tr>
+      <td class="icons" *ngFor="let period of weeklyData.slice(0, 10)">
+        <i [class]="'wi wi-forecast-io-' + period.icon"></i>
+      <td>  
+    </tr>    
+    <tr>
+      <td class="data" *ngFor="let period of weeklyData.slice(0, 10)">
+        <span>{{(period.temperatureMin + ' | ' + period.temperatureMax)}}</span>
+      </td>
+    </tr>
+  </table>
+</div>
