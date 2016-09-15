@@ -43,7 +43,7 @@ export class ForecastComponent implements OnInit {
   }
 
   getForecast() {
-    this.location = (this.location === undefined ? config.user.location.city : this.location);
+    this.location = (this.location === "" ? config.user.location.city : this.location);
     this.maps.getLatLng(this.location)
       .then((place) => {
         if (this.date) {

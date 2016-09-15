@@ -1,7 +1,7 @@
 <asr (response)="getNLUResponse($event)" *ngIf="app === 'asr'"></asr>
-<spotify [query]="song" *ngIf="showSpotify"></spotify>
+<spotify [query]="song" *ngIf="showSpotify === true"></spotify>
 <div [ngSwitch]="app">
-  <forecast [date]="date" [location]="" *ngSwitchCase="'weather'"></forecast>
+  <forecast [date]="date" [location]="location" *ngSwitchCase="'weather'"></forecast>
   <map [destination]="destination" *ngSwitchCase="'directions'"></map>
   <commands *ngSwitchCase="'help'"></commands>
   <youtube [query]="video" *ngSwitchCase="'video'"></youtube>
