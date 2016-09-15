@@ -1,14 +1,11 @@
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-import { Injectable } from '@angular/core';
-
+import { Injectable, EventEmitter } from '@angular/core';
 import { TtsService } from './../tts/tts.service'
-
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
 import { config } from './../../config';
+import * as electron from 'electron';
 
-const electron = require('electron');
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
 
@@ -16,6 +13,7 @@ const BrowserWindow = remote.BrowserWindow;
 export class SpotifyService {
   authWin: Electron.BrowserWindow;
   private audio: HTMLAudioElement;
+  authorized = new EventEmitter<boolean>();
 
   constructor(private http: Http, private tts: TtsService) { }
 
@@ -46,7 +44,6 @@ export class SpotifyService {
       .toPromise()
       .then((res: Response) => {
         let body = res.json();
-        console.log(body);
       })
       .catch((err: any) => {
         this.tts.synthesizeSpeech('There was an error getting your profile. Please authorize the mirror first.');
@@ -86,6 +83,7 @@ export class SpotifyService {
       this.authWin.destroy();
     }
     if (code) {
+      this.authorized.emit(true);
       window.localStorage.setItem('spotify-token', code);
     } else if (error) {
       alert('Error with logging in');

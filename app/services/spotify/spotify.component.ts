@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-
 import { SpotifyService } from './spotify.service';
 import { TtsService } from './../tts/tts.service';
 
@@ -24,7 +23,13 @@ export class SpotifyComponent implements OnInit {
   constructor(private spotify: SpotifyService, private tts: TtsService) { }
 
   ngOnInit() {
-    this.playSong();
+    let isAuthorized = this.spotify.authorized.subscribe(res => {  return res;  })
+
+    if (isAuthorized && this.query) {
+      this.playSong();
+    } else {
+      this.authorize();
+    }
   }
 
   authorize() {
@@ -34,7 +39,7 @@ export class SpotifyComponent implements OnInit {
     this.spotify.getUserProfile();
   }
   playSong() {
-    this.spotify.searchSong('ultralight beam')
+    this.spotify.searchSong(this.query)
       .then((res) => {
         try {
           let song = res.tracks.items[0];
