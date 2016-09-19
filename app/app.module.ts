@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { AsrComponent } from './services/asr/asr.component';
 import { CommandsComponent } from './services/help/commands.component';
 import { MapsComponent } from './services/maps/maps.component';
 import { TimeComponent } from './services/time/time.component';
@@ -15,6 +14,7 @@ import { PushbulletComponent } from './services/pushbullet/pushbullet.component'
 import { PlacesComponent } from './services/maps/places.component';
 import { YoutubeComponent } from './services/youtube/youtube.component';
 import { SpotifyComponent } from './services/spotify/spotify.component';
+import { AsrComponent } from './services/asr/asr.component';
 
 import { MapsService } from './services/maps/maps.service';
 import { TtsService } from './services/tts/tts.service';
@@ -32,8 +32,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ChartsModule 
     ],
   declarations: [
-    AppComponent,
     AsrComponent,
+    AppComponent,
     CommandsComponent,
     MapsComponent,
     TimeComponent,

@@ -1,130 +1,52 @@
-/// <reference path="./../../../typings/index.d.ts" />
-import { Component, AfterContentInit, EventEmitter, Output } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import { TtsService } from './../tts/tts.service.ts';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AsrService } from './asr.service';
 import { NluService } from './../nlu/nlu.service';
-import { config } from './../../config';
+const PythonShell = require('python-shell');
 
 @Component({
   selector: 'asr',
-  templateUrl: './services/asr/asr.component.html'
+  template: '<button (click)="startRecording()">start</button> <p>{{utterance}}</p>',
+  providers: [ AsrService ]
 })
-
-export class AsrComponent implements AfterContentInit { 
-  @Output() response = new EventEmitter<Object>();
-  isListening: boolean = false;
-  audioContext: AudioContext;
-  audioNode: AudioNode;
-  vbtSpeechRecognizer: any;
-  window: any;
+export class AsrComponent implements OnInit {
+  private options = {
+    pythonOptions: ['-u'],
+    args: ['./app/hello-mirror.pmdl']
+  };
   utterance: string;
+  status: string;
+  @Output() intent = new EventEmitter<any>();;
 
-  constructor(private http: Http, private nlu: NluService, private tts: TtsService) { }
+  constructor(private asr: AsrService, private nlu: NluService) { }
 
-  ngAfterContentInit() {
-    this.window = window;
-
-    navigator.getUserMedia = navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia;
-
-    this.audioContext = new AudioContext();
-
-    navigator.getUserMedia({audio: true}, (stream) => {
-      this.audioNode = this.audioContext.createMediaStreamSource(stream);
-    }, (err) => {
-      console.log('navigator.getUserMedia error');
-    })        
-    this.getJWT().then((res) => {
-      this.initVbtSpeechRecognition(res);
-      this.setListening();
-    }); 
-  }
-
-  sendResponse(resJson: Object) {
-    this.response.emit(resJson); 
-  } 
-
-  private setListening() {
-    if (this.vbtSpeechRecognizer) {
-      if (!this.isListening) {
-        this.vbtSpeechRecognizer.startListening();
-        this.isListening = false;
-      } else {
-        this.vbtSpeechRecognizer.stopListening();
-        this.isListening = true;
+  ngOnInit() {
+    this.asr.initASR();
+    this.asr.isready.subscribe((val) => {
+      if (val === true) {
+        var shell = new PythonShell('./app/snowboy/examples/Python/demo.py', this.options);
+        shell.on('message', (message) => {
+          if (message === 'keyword detected') {
+            this.asr.setListening();
+          }
+        });     
       }
-    }
-  }
-
-  private getJWT() {
-    let body = JSON.toString();
-    let apiKey = config.voicebox.key;
-    let url = 'https://api.voicebox.com/authn/v1/jwt';
-    let headers = new Headers({
-      'Accept': 'application/json',
-      'Authorization': 'Basic ' + apiKey
     });
-    let options = new RequestOptions({headers: headers});
 
-    return this.http.post(url, body, options)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
-  }
-
-  private extractData(res: Response) {
-    let body = res.json();
-    return body || { }; 
-  }
-
-  private handleError(error: any) {
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
-
-  private initVbtSpeechRecognition(jwt: any) {
-    if (!this.audioNode) {
-      this.tts.synthesizeSpeech('There was an error. Restarting now');
-      this.window.location.reload();
-    } else {
-      let options = {
-        jwt: jwt,
-        audioInputNode: this.audioNode,
-        vadBufferLen: 512
+    this.asr.asrResult.subscribe((res) => {
+      this.utterance = res.results[0].utterance;
+      if (res.status === 'finalResult') {
+        this.nlu.getIntent(res.results[0].utterance).then((intent) => {
+          this.intent.emit(intent);
+        });
+        setTimeout(() => {
+          this.utterance = '';
+        }, 2000);
       }
-    
-      this.vbtSpeechRecognizer = new this.window.VbtSpeechRecognizer(options, (event, data) => {
-        switch(event) {
-          case 'error':
-            console.log(data);
-            break;
-          case 'stopSpeech':
-            break;
-          case 'data':
-            let resultJson = JSON.parse(data);
-            if (resultJson.hasOwnProperty('results')) {
-              let result = resultJson.results[0].utterance;
-              this.utterance = result;
+    });
+  }
 
-              if (resultJson.status === 'finalResult') {
-                this.nlu.getIntent(result)
-                  .then((res) => {
-                    this.sendResponse(res);
-                  });
-              }
-            } else {
-              let rawJson = JSON.stringify(resultJson, null, 2);
-            }
-            break;
-          default:
-            break;
-        }
-      });
-    }
+
+  startRecording() {
+    this.asr.setListening();
   }
 }
