@@ -9,7 +9,7 @@ import { config } from './../../config';
 
 @Injectable()
 export class ForecastService {
-  private baseUrl: string = 'https://api.forecast.io/forecast/' + config.forecastio.key + '/';
+  private baseUrl: string = 'https://api.darksky.net/forecast/' + config.darksky.key + '/';
 
   constructor(private http: Http) { }
 

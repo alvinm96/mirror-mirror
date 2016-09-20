@@ -12,7 +12,7 @@ export let config = {
       'address': ''
     },
   },
-  'weather': {
+  'darksky': {
     'key': ''
   },
   'voicebox': {
@@ -36,6 +36,5 @@ export let config = {
   'pushbullet': {
     'client_id': '',
     'client_secret': '',
-    'key': '', //for testing
   },
 };
