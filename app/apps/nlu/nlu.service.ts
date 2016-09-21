@@ -9,7 +9,7 @@ import { config } from './../../config';
 @Injectable()
 export class NluService {
   private baseUrl: string = 'https://api.api.ai/v1/';
-  private accessToken = 'a0a85234535040f7b878ce32d38191de';
+  private accessToken = config.apiai.key;
 
   constructor(private http: Http) { }
 

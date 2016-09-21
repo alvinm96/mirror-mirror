@@ -4,8 +4,8 @@ import { TtsService } from './../tts/tts.service';
 
 @Component({
   'selector': 'spotify',
-  'templateUrl': './services/spotify/spotify.component.html',
-  'styleUrls': ['./services/spotify/spotify.component.css'],
+  'templateUrl': './apps/spotify/spotify.component.html',
+  'styleUrls': ['./apps/spotify/spotify.component.css'],
   'providers': [ SpotifyService ],
 })
 

@@ -7,8 +7,8 @@ import { config } from './../../config';
 
 @Component({
   selector: 'weather',
-  templateUrl: './services/weather/weather.component.html',
-  styleUrls: ['./services/weather/weather.component.css'],
+  templateUrl: './apps/weather/weather.component.html',
+  styleUrls: ['./apps/weather/weather.component.css'],
   providers: [ ForecastService ]
 })
 

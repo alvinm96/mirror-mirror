@@ -5,7 +5,7 @@ import { config } from './../../config'
 
 @Component({
   'selector': 'places',
-  'templateUrl': './services/maps/places.component.html'
+  'templateUrl': './apps/maps/places.component.html'
 })
 
 export class PlacesComponent implements OnInit {

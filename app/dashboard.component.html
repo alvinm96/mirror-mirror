@@ -1,7 +1,7 @@
 <spotify [query]="song" *ngIf="showSpotify === true"></spotify>
 <div [ngSwitch]="app">
   <forecast [date]="date" [location]="location" *ngSwitchCase="'weather'"></forecast>
-  <map [destination]="destination" *ngSwitchCase="'directions'"></map>
+  <map (responseUrl)="setSendUrl($event)" [destination]="destination" *ngSwitchCase="'directions'"></map>
   <commands *ngSwitchCase="'help'"></commands>
   <youtube [query]="video" *ngSwitchCase="'video'"></youtube>
 </div>

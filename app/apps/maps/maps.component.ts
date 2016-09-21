@@ -1,7 +1,7 @@
 /**
  * Created by alvinm on 7/27/16.
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { PushbulletService } from './../pushbullet/pushbullet.service';
 import { MapsService } from './maps.service';
 import { TtsService } from './../tts/tts.service';
@@ -9,7 +9,7 @@ import { config } from './../../config';
 
 @Component({
   selector: 'map',
-  templateUrl: './services/maps/maps.component.html',
+  templateUrl: './apps/maps/maps.component.html',
 })
 
 export class MapsComponent implements OnInit {
@@ -22,6 +22,7 @@ export class MapsComponent implements OnInit {
   lat: number;
   lng: number;
   map: any;
+  @Output() responseUrl = new EventEmitter<string>();
 
   constructor(private mapsService: MapsService, private tts: TtsService, private push: PushbulletService) { }
 
@@ -53,14 +54,7 @@ export class MapsComponent implements OnInit {
             this.tts.synthesizeSpeech('it is ' + this.response.dist + ' to your destination, it will take ' + this.response.dur);
 
             this.getMap(formattedAddress);
-            let obj = {
-              type: 'link',
-              title: 'Maps',
-              body: 'Open in Google Maps',
-              url: 'https://www.google.com/maps/dir/' + this.origin + '/' + formattedAddress.split(' ').join('+')
-            };
-            console.log(obj.url);
-            this.push.sendToDevice(obj);   
+            this.responseUrl.emit('https://www.google.com/maps/dir/' + this.origin + '/' + formattedAddress.split(' ').join('+'));
         });        
     })
     .catch((err) => {

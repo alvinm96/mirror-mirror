@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'time',
-  templateUrl: './services/time/time.html'
+  templateUrl: './apps/time/time.html'
 })
 
 export class TimeComponent {
-  private date;
+  date;
 
   constructor() {
     this.date = new Date();

@@ -2,9 +2,10 @@
  * Created by alvinm on 7/25/16.
  */
 import { Component, Input, AfterContentInit } from '@angular/core';
-import { TtsService } from './services/tts/tts.service';
-import { TodoistService } from './services/todoist/todoist.service';
-import { NluResponse } from './services/nlu/nlu';
+import { TtsService } from './apps/tts/tts.service';
+import { TodoistService } from './apps/todoist/todoist.service';
+import { PushbulletService } from './apps/pushbullet/pushbullet.service';
+import { NluResponse } from './apps/nlu/nlu';
 import { config } from './config';
 const PythonShell = require('python-shell');
 
@@ -13,7 +14,7 @@ const PythonShell = require('python-shell');
   templateUrl: './dashboard.component.html'
 })
 
-export class DashboardComponent implements AfterContentInit {
+export class DashboardComponent {
   window: any;
   audio: HTMLAudioElement; 
   destination: string;
@@ -24,11 +25,13 @@ export class DashboardComponent implements AfterContentInit {
   song: string;
   location: string;
   date: string;
+  sendUrl: string;
+  sendObj: Object;
 
-  constructor(private tts: TtsService, private todoist: TodoistService) { }
+  constructor(private tts: TtsService, private todoist: TodoistService, private push: PushbulletService) { }
 
-  ngAfterContentInit() {
-
+  setSendUrl(url: string) {
+    this.sendUrl = url;
   }
 
   getNLUResponse(response: NluResponse) {
@@ -53,7 +56,17 @@ export class DashboardComponent implements AfterContentInit {
       case 'video':      this.getVideo();
                          break;
       case 'close':      this.app = '';
+                         break;
+      case 'send':       this.sendToPhone();
                          break; 
+    }
+  }
+
+  sendToPhone() {
+    if (this.sendObj) {
+      this.push.sendToDevice(this.sendObj);
+    } else {
+      console.log('Nothing to send');
     }
   }
 
@@ -68,7 +81,16 @@ export class DashboardComponent implements AfterContentInit {
   getDirections() {
     this.destination = this.nluResponse.result.parameters.location ||
                        this.nluResponse.result.parameters.address ||
-                       this.nluResponse.result.parameters['geo-city'];    
+                       this.nluResponse.result.parameters['geo-city'];
+                  
+    this.sendObj = {
+      type: 'link',
+      title: 'Maps',
+      body: 'Open in Google Maps',
+      url: this.sendUrl
+    };
+
+    console.log(this.sendObj);
   }
 
   getSpotify() {

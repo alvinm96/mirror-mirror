@@ -3,22 +3,21 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-import { TtsService } from './../tts/tts.service.ts';
 import { NluService } from './../nlu/nlu.service';
 import { config } from './../../config';
 
 @Injectable()
 export class AsrService { 
-  isListening: boolean = false;
+  isListening: boolean = false;  
   audioContext: AudioContext;
   audioNode: AudioNode;
   vbtSpeechRecognizer: any;
   window: any;
-  asrResult = new EventEmitter<Object>();
-  isready = new EventEmitter<boolean>(false);
+  isReady = new EventEmitter<boolean>(false);
   intent = new EventEmitter<Object>();
+  asrResult = new EventEmitter<Object>();
 
-  constructor(private http: Http, private nlu: NluService, private tts: TtsService) { }
+  constructor(private http: Http, private nlu: NluService) { }
 
   initASR() {
     this.window = window;
@@ -26,17 +25,17 @@ export class AsrService {
     navigator.getUserMedia = navigator.getUserMedia ||
       navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia;
-
+    
     this.audioContext = new AudioContext();
 
     navigator.getUserMedia({audio: true}, (stream) => {
-      this.audioNode = this.audioContext.createMediaStreamSource(stream);
+      this.audioNode = this.audioContext.createMediaStreamSource(stream);     
     }, (err) => {
       console.log('navigator.getUserMedia error');
     })        
-    this.getJWT().then((res) => {
+    this.getJWT().then((res) => {    
       this.initVbtSpeechRecognition(res);
-      this.isready.emit(true);
+      this.isReady.emit(true);
     }); 
   }
 

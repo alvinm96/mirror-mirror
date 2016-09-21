@@ -5,7 +5,7 @@ import { config } from './../../config';
 
 @Component({
   'selector': 'pushbullet',
-  'templateUrl': './services/pushbullet/pushbullet.component.html'
+  'templateUrl': './apps/pushbullet/pushbullet.component.html'
 })
 
 export class PushbulletComponent implements OnInit {
