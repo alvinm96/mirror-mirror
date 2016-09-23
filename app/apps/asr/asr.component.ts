@@ -6,6 +6,7 @@ const PythonShell = require('python-shell');
 @Component({
   selector: 'asr',
   template: require('./asr.component.html'),
+  styleUrls: [ './apps/asr/asr.component.css' ],
   providers: [ AsrService ]
 })
 export class AsrComponent implements OnInit {
@@ -27,7 +28,7 @@ export class AsrComponent implements OnInit {
       if (val === true) {
         var shell = new PythonShell('./app/snowboy/examples/Python/demo.py', this.options);
         shell.on('message', (message) => {
-          if (message === 'keyword detected') {
+          if (message === 'keyword detected' && this.isListening === false) {
             this.isListening = true;
             this.asr.setListening();
           }
@@ -42,6 +43,9 @@ export class AsrComponent implements OnInit {
           this.intent.emit(intent);
           this.isListening = false;
           this.utterance = '';          
+        }).catch((err) => {
+          this.isListening = false;
+          this.utterance = '';     
         });
       }
     });  
@@ -49,5 +53,6 @@ export class AsrComponent implements OnInit {
 
   startRecording() {
     this.asr.setListening();
+    this.isListening = true;
   }
 }
