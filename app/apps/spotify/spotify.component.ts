@@ -64,6 +64,10 @@ export class SpotifyComponent implements OnInit {
       });
   }
 
+  resumeSong() {
+    this.playing[this.numSongsPlaying-1].play();
+  }
+
   pauseSong() {
     if (this.numSongsPlaying > 0) {
       this.playing[this.numSongsPlaying-1].pause();

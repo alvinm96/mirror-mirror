@@ -24,7 +24,6 @@ export class DashboardComponent {
   nluResponse: NluResponse;
   showSpotify: boolean = false;
   video: string;
-  song: string;
   location: string;
   date: string;
   sendUrl: string;
@@ -90,6 +89,7 @@ export class DashboardComponent {
     };
   }
 
+
   playSpotify() {
     this.showSpotify = true;
 
@@ -99,12 +99,14 @@ export class DashboardComponent {
     }
 
     if (this.nluResponse.result.parameters.action === 'play') {
-      this.spotify.playSong(this.test);
+      this.spotify.playSong(song);
     } else if (this.nluResponse.result.parameters.action === 'pause') {
       this.spotify.pauseSong();
     } else if (this.nluResponse.result.parameters.action === 'hide') {
       this.spotify.pauseSong();
       this.showSpotify = false;
+    } else if (this.nluResponse.result.parameters.action === 'resume') {
+      this.spotify.resumeSong();
     }
   }
 
