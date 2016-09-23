@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { AsrService } from './asr.service';
 import { NluService } from './../nlu/nlu.service';
 const PythonShell = require('python-shell');
@@ -9,7 +9,7 @@ const PythonShell = require('python-shell');
   styleUrls: [ './apps/asr/asr.component.css' ],
   providers: [ AsrService ]
 })
-export class AsrComponent implements OnInit {
+export class AsrComponent implements AfterContentInit {
   private options = {
     pythonOptions: ['-u'],
     args: ['./app/hello-mirror.pmdl']
@@ -21,7 +21,7 @@ export class AsrComponent implements OnInit {
 
   constructor(private asr: AsrService, private nlu: NluService) { }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.asr.initASR();
 
     this.asr.isReady.subscribe((val) => {

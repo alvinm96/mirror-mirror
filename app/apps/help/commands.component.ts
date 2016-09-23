@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
                 <li>Add a task to your todo list</li>
               </ul>
             </div>
-            `
+            `,
+  styleUrls: ['./apps/help/commands.component.css']
 })
 
 export class CommandsComponent {

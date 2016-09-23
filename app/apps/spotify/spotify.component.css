@@ -1,3 +1,6 @@
+.music {
+  position: absolute;
+}
 .musicPlayer {
   background-color: #282828;
   height: 110px;

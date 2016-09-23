@@ -88,7 +88,7 @@ export class AsrService {
   }
   private initVbtSpeechRecognition(jwt: any) {
     if (!this.audioNode) {
-      this.window.location.reload();
+      alert('There was an error with initializing audio');
     } else {
       let options = {
         jwt: jwt,
