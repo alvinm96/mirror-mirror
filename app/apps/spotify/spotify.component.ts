@@ -3,10 +3,10 @@ import { SpotifyService } from './spotify.service';
 import { TtsService } from './../tts/tts.service';
 
 @Component({
-  'selector': 'spotify',
-  'templateUrl': './apps/spotify/spotify.component.html',
-  'styleUrls': ['./apps/spotify/spotify.component.css'],
-  'providers': [ SpotifyService ],
+  selector: 'spotify',
+  template: require('./spotify.component.html'),
+  styleUrls: ['./apps/spotify/spotify.component.css'],
+  providers: [ SpotifyService ],
 })
 
 export class SpotifyComponent implements OnInit {

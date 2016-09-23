@@ -3,7 +3,7 @@ import { TodoistService } from './todoist.service';
 
 @Component({
   selector: 'todoist',
-  templateUrl: './apps/todoist/todoist.component.html',
+  template: require('./todoist.component.html'),
 })
 
 export class TodoistComponent implements OnInit {

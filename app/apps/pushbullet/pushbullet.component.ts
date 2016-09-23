@@ -4,8 +4,8 @@ import { PushbulletService } from './pushbullet.service';
 import { config } from './../../config';
 
 @Component({
-  'selector': 'pushbullet',
-  'templateUrl': './apps/pushbullet/pushbullet.component.html'
+  selector: 'pushbullet',
+  template: require('./pushbullet.component.html')
 })
 
 export class PushbulletComponent implements OnInit {

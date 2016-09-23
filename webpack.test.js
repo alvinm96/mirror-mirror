@@ -11,11 +11,11 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loaders: ['ts']
+        loader: 'ts'
       },
       {
         test: /\.html$/,
-        loader: 'html'
+        loader: 'html-loader'
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,

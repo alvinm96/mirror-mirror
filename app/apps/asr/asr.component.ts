@@ -3,12 +3,9 @@ import { AsrService } from './asr.service';
 import { NluService } from './../nlu/nlu.service';
 const PythonShell = require('python-shell');
 
-// const record = require('node-record-lpcm16');
-// const {Detector, Models} = require('snowboy');
-
 @Component({
   selector: 'asr',
-  templateUrl: './apps/asr/asr.component.html',
+  template: require('./asr.component.html'),
   providers: [ AsrService ]
 })
 export class AsrComponent implements OnInit {
@@ -47,27 +44,7 @@ export class AsrComponent implements OnInit {
           this.utterance = '';          
         });
       }
-    });
-
-    // const models = new Models();
-    // models.add({file: './../../hello-mirror.pmdl', sensitivity: '0.5', hotwords: 'hello mirror'});
-
-    // const detector = new Detector({
-    //   resource: './../../snowboy/resources/common.res',
-    //   models: models,
-    //   audioGain: 2.0
-    // })
-
-    // detector.on('hotword', (index, hotword) => {
-    //   console.log('hotword', index, hotword);
-    // });
-
-    // const mic = record.start({
-    //   threshold: 0,
-    //   verbose: true
-    // });
-
-    // mic.pipe(detector);
+    });  
   }
 
   startRecording() {

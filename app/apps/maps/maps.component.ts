@@ -1,6 +1,3 @@
-/**
- * Created by alvinm on 7/27/16.
- */
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { PushbulletService } from './../pushbullet/pushbullet.service';
 import { MapsService } from './maps.service';
@@ -9,11 +6,12 @@ import { config } from './../../config';
 
 @Component({
   selector: 'map',
-  templateUrl: './apps/maps/maps.component.html',
+  template: require('./maps.component.html'),
 })
 
 export class MapsComponent implements OnInit {
   @Input() destination: string;
+  @Output() responseUrl = new EventEmitter<any>();  
   origin: string = config.user.location.address;
   response = {
     dist: null,
@@ -22,7 +20,6 @@ export class MapsComponent implements OnInit {
   lat: number;
   lng: number;
   map: any;
-  @Output() responseUrl = new EventEmitter<string>();
 
   constructor(private mapsService: MapsService, private tts: TtsService, private push: PushbulletService) { }
 

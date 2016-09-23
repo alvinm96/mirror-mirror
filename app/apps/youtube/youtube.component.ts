@@ -3,9 +3,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { YoutubeService } from './youtube.service';
 
 @Component({
-  'selector': 'youtube',
-  'template': '<div class="app" *ngIf="video"><iframe width="560" height="315" [src]="video" frameborder="0" allowfullscreen></iframe></div>',
-  'providers': [ YoutubeService ]
+  selector: 'youtube',
+  template: '<div class="app" *ngIf="video"><iframe width="560" height="315" [src]="video" frameborder="0" allowfullscreen></iframe></div>',
+  providers: [ YoutubeService ]
 })
 
 export class YoutubeComponent {

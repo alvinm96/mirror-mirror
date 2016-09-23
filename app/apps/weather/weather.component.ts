@@ -7,7 +7,7 @@ import { config } from './../../config';
 
 @Component({
   selector: 'weather',
-  templateUrl: './apps/weather/weather.component.html',
+  template: require('./weather.component.html'),
   styleUrls: ['./apps/weather/weather.component.css'],
   providers: [ ForecastService ]
 })

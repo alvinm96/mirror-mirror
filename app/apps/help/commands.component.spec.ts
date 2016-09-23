@@ -5,21 +5,23 @@ import { DebugElement } from '@angular/core';
 
 import { CommandsComponent } from './commands.component';
 
-let comp: CommandsComponent;
-let fixture: ComponentFixture<CommandsComponent>;
-let el: DebugElement;
-
 describe('CommandsComponent', () => {
+  let component: CommandsComponent;
+  let fixture: ComponentFixture<CommandsComponent>;
+  let el: DebugElement;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ CommandsComponent ]
     });
 
     fixture = TestBed.createComponent(CommandsComponent);
-
-    comp = fixture.componentInstance;
-    
+    component = fixture.componentInstance;
     el = fixture.debugElement.query(By.css('div'));
+  });
+
+  it('should have a defined component', () => {
+    expect(component).toBeDefined();
   });
 
   it('should display "What can I do?"', () => {

@@ -1,25 +1,31 @@
 /// <reference path="./../../../typings/index.d.ts" />
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 import { TimeComponent } from './time.component';
 
-// describe('TimeComponent', () => {
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ TimeComponent ]
-//     });
-//   }));    
+describe('TimeComponent', () => {
+  let component: TimeComponent;
+  let fixture: ComponentFixture<TimeComponent>;
+  let el: DebugElement;
 
-//   it('should display a time', () => {
-//     TestBed.compileComponents().then(() => {
-//       let fixture = TestBed.createComponent(TimeComponent);
-//       fixture.detectChanges();
-//       let compiled = fixture.debugElement.nativeElement;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ TimeComponent ]
+    });
 
-//       expect(compiled).toBeUndefined();
-//     });
-//   });
-// });
+    fixture = TestBed.createComponent(TimeComponent);
+    component = fixture.componentInstance;
+    el = fixture.debugElement.query(By.css('div'));
+  });
+
+  it('should have a defined component', () => {
+    expect(component).toBeDefined();
+  });
+
+  it('should have the current date', () => {
+    let currentDate = new Date();
+    expect(component.date.getDate).toEqual(currentDate.getDate);
+  });
+});

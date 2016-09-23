@@ -4,8 +4,8 @@ import { MapsService } from './maps.service';
 import { config } from './../../config'
 
 @Component({
-  'selector': 'places',
-  'templateUrl': './apps/maps/places.component.html'
+  selector: 'places',
+  template: require('./places.component.html')
 })
 
 export class PlacesComponent implements OnInit {
