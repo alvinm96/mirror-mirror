@@ -1,9 +1,8 @@
-<spotify [query]="song" *ngIf="showSpotify === true"></spotify>
+<asr (intent)="getNLUResponse($event)"></asr> 
+<spotify></spotify>
 <div [ngSwitch]="app">
   <forecast [date]="date" [location]="location" *ngSwitchCase="'weather'"></forecast>
-  <map (responseUrl)="setSendUrl($event)" [destination]="destination" *ngSwitchCase="'directions'"></map>
+  <map (responseUrl)="sendUrl=$event" [destination]="destination" *ngSwitchCase="'directions'"></map>
   <commands *ngSwitchCase="'help'"></commands>
   <youtube [query]="video" *ngSwitchCase="'video'"></youtube>
 </div>
-
-<asr (intent)="getNLUResponse($event)"></asr> 

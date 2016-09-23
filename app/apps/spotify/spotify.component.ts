@@ -10,7 +10,7 @@ import { TtsService } from './../tts/tts.service';
 })
 
 export class SpotifyComponent implements OnInit {
-  activeSong: any;
+  activeSong: HTMLAudioElement;
   songSrc: string;
   name: string;
   artist: string;
@@ -18,16 +18,14 @@ export class SpotifyComponent implements OnInit {
   album: string;
   progressWidth: number = 0;
   duration: number = 0;
-  @Input() query: string;
+  playing: HTMLAudioElement[] = [ ];
+  numSongsPlaying: number = 0;
 
   constructor(private spotify: SpotifyService, private tts: TtsService) { }
 
   ngOnInit() {
-    let isAuthorized = this.spotify.authorized.subscribe(res => {  return res;  })
-
-    if (isAuthorized && this.query) {
-      this.playSong();
-    } else {
+    let isAuthorized = this.spotify.authorized.subscribe((res) => {  return res;  })
+    if (!isAuthorized) {
       this.authorize();
     }
   }
@@ -38,10 +36,9 @@ export class SpotifyComponent implements OnInit {
   getUserProfile() {
     this.spotify.getUserProfile();
   }
-  playSong() {
-    this.spotify.searchSong(this.query)
+  playSong(query: string) {
+    this.spotify.searchSong(query)
       .then((res) => {
-        try {
           let song = res.tracks.items[0];
           this.name = song.name;
           this.artist = song.artists[0].name;
@@ -49,16 +46,27 @@ export class SpotifyComponent implements OnInit {
           this.album = song.album.name;
           this.songSrc = song.preview_url;
           this.activeSong = new Audio();
-          this.activeSong.src = this.songSrc;
-          this.activeSong.play();
+          this.activeSong.src = this.songSrc;          
           this.activeSong.addEventListener('timeupdate', () => {
             let percentOfSong = this.activeSong.currentTime / this.activeSong.duration;
             this.progressWidth = document.getElementById('track').offsetWidth * percentOfSong;
             this.duration = Math.floor(this.activeSong.currentTime);
           });
-        } catch(err) {
-          this.tts.synthesizeSpeech('That song was not found');
-        }
+
+          this.playing[this.numSongsPlaying++] = this.activeSong;
+
+          if (this.numSongsPlaying === 1) {
+            this.playing[this.numSongsPlaying-1].play();
+          } else {
+            this.playing[this.numSongsPlaying-2].pause();
+            this.playing[this.numSongsPlaying-1].play();
+          }
       });
+  }
+
+  pauseSong() {
+    if (this.numSongsPlaying > 0) {
+      this.playing[this.numSongsPlaying-1].pause();
+    }
   }
 }

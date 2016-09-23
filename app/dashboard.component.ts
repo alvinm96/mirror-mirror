@@ -1,7 +1,8 @@
 /**
  * Created by alvinm on 7/25/16.
  */
-import { Component, Input, AfterContentInit } from '@angular/core';
+import { Component, Input, AfterContentInit, ViewChild } from '@angular/core';
+import { SpotifyComponent } from './apps/spotify/spotify.component';
 import { TtsService } from './apps/tts/tts.service';
 import { TodoistService } from './apps/todoist/todoist.service';
 import { PushbulletService } from './apps/pushbullet/pushbullet.service';
@@ -11,10 +12,11 @@ const PythonShell = require('python-shell');
 
 @Component({
   selector: 'dashboard',
-  templateUrl: './dashboard.component.html'
+  template: require('./dashboard.component.html')
 })
 
 export class DashboardComponent {
+  @ViewChild(SpotifyComponent) private spotify: SpotifyComponent;
   window: any;
   audio: HTMLAudioElement; 
   destination: string;
@@ -27,12 +29,8 @@ export class DashboardComponent {
   date: string;
   sendUrl: string;
   sendObj: Object;
-
+  test;
   constructor(private tts: TtsService, private todoist: TodoistService, private push: PushbulletService) { }
-
-  setSendUrl(url: string) {
-    this.sendUrl = url;
-  }
 
   getNLUResponse(response: NluResponse) {
     this.nluResponse = response;
@@ -49,7 +47,7 @@ export class DashboardComponent {
                          break;
       case 'todo':       this.addTodo;
                          break;
-      case 'spotify':    this.getSpotify();
+      case 'spotify':    this.playSpotify();
                          break;
       case 'directions': this.getDirections();
                          break;        
@@ -57,13 +55,14 @@ export class DashboardComponent {
                          break;
       case 'close':      this.app = '';
                          break;
-      case 'send':       this.sendToPhone();
+      case 'send':       this.send();
                          break; 
     }
   }
 
-  sendToPhone() {
+  send() {
     if (this.sendObj) {
+      console.log(this.sendObj);
       this.push.sendToDevice(this.sendObj);
     } else {
       console.log('Nothing to send');
@@ -89,15 +88,23 @@ export class DashboardComponent {
       body: 'Open in Google Maps',
       url: this.sendUrl
     };
-
-    console.log(this.sendObj);
   }
 
-  getSpotify() {
+  playSpotify() {
     this.showSpotify = true;
-    this.song = this.nluResponse.result.parameters.song;
+
+    let song = this.nluResponse.result.parameters.song
     if (this.nluResponse.result.parameters.artist) {
-      this.song += ' artist:' + this.nluResponse.result.parameters.artist;
+      song += ' artist:' + this.nluResponse.result.parameters.artist;
+    }
+
+    if (this.nluResponse.result.parameters.action === 'play') {
+      this.spotify.playSong(this.test);
+    } else if (this.nluResponse.result.parameters.action === 'pause') {
+      this.spotify.pauseSong();
+    } else if (this.nluResponse.result.parameters.action === 'hide') {
+      this.spotify.pauseSong();
+      this.showSpotify = false;
     }
   }
 
