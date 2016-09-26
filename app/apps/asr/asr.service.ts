@@ -2,7 +2,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 import { NluService } from './../nlu/nlu.service';
 import { config } from './../../config';
 

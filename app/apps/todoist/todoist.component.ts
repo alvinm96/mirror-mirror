@@ -19,8 +19,8 @@ export class TodoistComponent implements OnInit {
   }
 
   getTodos() {
-    this.todo.getTodos().
-      map((res) => {
+    this.todo.getTodos()
+      .subscribe((res) => {
         this.todos = res.items;
       });
   }

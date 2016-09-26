@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 import { config } from './../../config';
 import * as electron from 'electron';
 

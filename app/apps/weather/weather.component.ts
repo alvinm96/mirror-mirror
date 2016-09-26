@@ -22,9 +22,11 @@ export class WeatherComponent implements OnInit {
   ngOnInit() {
     this.maps.geolocation().subscribe((location) => {
       this.forecast.getForecast(location.lat, location.lng)
-        .map((res) => {
+        .subscribe((res) => {
           this.icon = 'wi wi-forecast-io-' + res.currently.icon;
           this.temperature = res.currently.temperature;
+        }, (error) => {
+          console.log('There was an error');
         });
     });
   }

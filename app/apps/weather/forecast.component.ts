@@ -48,10 +48,10 @@ export class ForecastComponent implements OnInit {
       .subscribe((place) => {
         if (this.date) {
           this.forecast.getForecast(place.geometry.location.lat, place.geometry.location.lng, this.date)
-            .map((res) => { this.handleData(res); });          
+            .subscribe((res) => { this.handleData(res); });          
         } else {
           this.forecast.getForecast(place.geometry.location.lat, place.geometry.location.lng)
-            .map((res) => { this.handleData(res); });
+            .subscribe((res) => { this.handleData(res); });
         }
       });
   }
@@ -61,7 +61,6 @@ export class ForecastComponent implements OnInit {
     if (weekly.data.length > 1) {
       this.weeklyData = weekly.data;
     }
-    console.log(this.weeklyData);
     let times = _.map(res.hourly.data, (hour: any, index: number) => {
       if (index < 24) {
         this.datasets[0].data.push(hour.temperature);   

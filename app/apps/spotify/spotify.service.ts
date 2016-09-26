@@ -2,7 +2,6 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import { Injectable, EventEmitter } from '@angular/core';
 import { TtsService } from './../tts/tts.service'
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 import { config } from './../../config';
 import * as electron from 'electron';
 

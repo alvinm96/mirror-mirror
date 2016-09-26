@@ -38,7 +38,7 @@ export class SpotifyComponent implements OnInit {
   }
   playSong(query: string) {
     this.spotify.searchSong(query)
-      .map((res) => {
+      .subscribe((res) => {
           let song = res.tracks.items[0];
           this.name = song.name;
           this.artist = song.artists[0].name;
