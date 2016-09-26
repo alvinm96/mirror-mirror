@@ -7,6 +7,8 @@ import { MapsService } from './apps/maps/maps.service';
             <weather></weather>
             <time></time>
             <dashboard></dashboard>
+            <pushbullet></pushbullet>
+            <todoist></todoist>
             `
 })
 export class AppComponent implements OnInit { 

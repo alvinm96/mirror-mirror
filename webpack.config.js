@@ -31,12 +31,12 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'ts',
+        loader: 'awesome-typescript-loader',
         exclude: [ /node_modules/ ]
       },
       {
         test: /\.html$/,
-        loader: 'html-loader',
+        loader: 'html',
         exclude: [ /node_modules/ ]
       }      
     ]
@@ -45,7 +45,11 @@ module.exports = {
   plugins: [
     new CommonsChunkPlugin({ name: 'angular2', filename: 'angular2.js', minChunks: Infinity }),
     new CommonsChunkPlugin({ name: 'common',   filename: 'common.js' }),
-    new webpack.ExternalsPlugin('commonjs', ['electron'])
+    new webpack.ExternalsPlugin('commonjs', ['electron']),
+    new webpack.ContextReplacementPlugin(
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      __dirname
+    ),    
   ],
   target:'node-webkit'
 };
