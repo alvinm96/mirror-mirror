@@ -44,7 +44,7 @@ export class MapsService {
   getMap(routes: any[]) {
     let url = this.base + 'staticmap';
     let params = new URLSearchParams();
-    params.set('size', window.innerHeight/2 + 'x' + window.innerWidth/2); 
+    params.set('size', Math.floor(window.innerHeight/2) + 'x' + Math.floor(window.innerWidth/2)); 
     params.set('key', this.key);
     params.set('path', 'color:blue|weight:4|enc:' + routes);
     let options = new RequestOptions({search: params});

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 
-
 import { AppComponent } from './app.component';
 import { CommandsComponent } from './apps/help/commands.component';
 import { MapsComponent } from './apps/maps/maps.component';
@@ -13,7 +12,6 @@ import { WeatherComponent } from './apps/weather/weather.component';
 import { ForecastComponent } from './apps/weather/forecast.component';
 import { DashboardComponent } from './dashboard.component';
 import { PushbulletComponent } from './apps/pushbullet/pushbullet.component';
-import { PlacesComponent } from './apps/maps/places.component';
 import { YoutubeComponent } from './apps/youtube/youtube.component';
 import { SpotifyComponent } from './apps/spotify/spotify.component';
 import { AsrComponent } from './apps/asr/asr.component';
@@ -45,7 +43,6 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     WeatherComponent,
     DashboardComponent,
     PushbulletComponent,
-    PlacesComponent,
     YoutubeComponent,
     SpotifyComponent,
     ForecastComponent,
