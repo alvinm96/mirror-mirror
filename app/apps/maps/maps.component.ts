@@ -17,8 +17,6 @@ export class MapsComponent implements OnInit {
     dist: null,
     dur: null
   }
-  // lat: number;
-  // lng: number;
   map: any;
 
   constructor(private mapsService: MapsService, private tts: TtsService, private push: PushbulletService) { }
@@ -29,34 +27,31 @@ export class MapsComponent implements OnInit {
     }
 
     this.mapsService.geolocation().subscribe((val) => {
-      this.origin = val.location.lat + ',' + val.location.lng; 
+      this.origin = val.lat + ',' + val.lng; 
     });
-  }
-
-  getMap(destination: string) {
-    this.map = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0=' + encodeURIComponent(this.origin) +
-      '&wp.1=' + encodeURIComponent(destination) +
-      '&key=' + config.bing.key + 
-      '&mapSize=' + window.innerWidth/2 + ',' + window.innerHeight/2;    
   }
 
   getDirections(destination: string) {
     let formattedAddress: string;
-    this.mapsService.getPlaces(destination)
-      .subscribe((res) => {
-        formattedAddress = res.results[0].formatted_address;
-        this.mapsService.getDirections(this.origin, formattedAddress)
-          .subscribe((dir) => {
-            this.response.dist = dir.routes[0].legs[0].distance.text;
-            this.response.dur = dir.routes[0].legs[0].duration.text;
-            // this.lat = res.routes[0].legs[0].start_location.lat;
-            // this.lng = res.routes[0].legs[0].start_location.lng;
-          
-            this.tts.synthesizeSpeech('it is ' + this.response.dist + ' to your destination, it will take ' + this.response.dur);
+    this.mapsService.geolocation().subscribe((val) => {
+      this.mapsService.getPlaces((val.lat + ',' + val.lng) ,destination)
+        .subscribe((res) => {
+          formattedAddress = res.results[0].formatted_address;
+          this.mapsService.getDirections(this.origin, formattedAddress)
+            .subscribe((dir) => {
+              this.response.dist = dir.routes[0].legs[0].distance.text;
+              this.response.dur = dir.routes[0].legs[0].duration.text;
 
-            this.getMap(formattedAddress);
-            this.responseUrl.emit('https://www.google.com/maps/dir/' + this.origin + '/' + formattedAddress.split(' ').join('+'));
-        });        
-    });
+              this.mapsService.getMap(dir.routes[0].overview_polyline.points)
+                .subscribe((res) => {
+                  this.map = res;
+                });
+
+              this.tts.synthesizeSpeech('it is ' + this.response.dist + ' to your destination, it will take ' + this.response.dur);
+
+              this.responseUrl.emit('https://www.google.com/maps/dir/' + this.origin + '/' + formattedAddress.split(' ').join('+'));
+          });        
+      });      
+    })
   }
 }

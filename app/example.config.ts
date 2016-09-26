@@ -7,8 +7,6 @@ export let config = {
     'location': {
       'state': '',
       'city': '',
-      'lat': 0,
-      'lng': 0,
       'address': ''
     },
   },
@@ -20,9 +18,6 @@ export let config = {
     'ttsVoice': 'Amelia'
   },
   'google': {
-    'key': ''
-  },
-  'bing': {
     'key': ''
   },
   'todoist': {

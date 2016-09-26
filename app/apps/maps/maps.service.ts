@@ -27,11 +27,11 @@ export class MapsService {
       .catch(this.handleError);
   }
 
-  getPlaces(destination: string) {
+  getPlaces(origin: string, destination: string) {
     let url = this.base + 'place/textsearch/json';
     let params = new URLSearchParams();
     params.set('query', encodeURIComponent(destination));
-    params.set('location', (config.user.location.lat + ',' + config.user.location.lng));
+    params.set('location', origin);
     params.set('key', this.key);
     params.set('radius', '10');
     let options = new RequestOptions({search: params});    
@@ -39,6 +39,19 @@ export class MapsService {
     return this.http.post(url, null, options)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  getMap(routes: any[]) {
+    let url = this.base + 'staticmap';
+    let params = new URLSearchParams();
+    params.set('size', window.innerHeight/2 + 'x' + window.innerWidth/2); 
+    params.set('key', this.key);
+    params.set('path', 'color:blue|weight:4|enc:' + routes);
+    let options = new RequestOptions({search: params});
+    return this.http.get(url, options)
+      .map((res) => {
+        return res.url;
+      });
   }
 
   getLatLng(location: string) {
