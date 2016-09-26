@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'time',
-  template: require('./time.html')
+  templateUrl: './time.html'
 })
 
 export class TimeComponent {

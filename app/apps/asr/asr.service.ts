@@ -19,12 +19,14 @@ export class AsrService {
 
   initASR() {
     this.window = window;
-
-    navigator.getUserMedia = navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia;
     
     this.audioContext = new AudioContext();
+    
+    navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
+
 
     navigator.getUserMedia({audio: true}, (stream) => {
       this.audioNode = this.audioContext.createMediaStreamSource(stream);     
@@ -43,7 +45,6 @@ export class AsrService {
         this.vbtSpeechRecognizer.startListening();
         this.isListening = false;
       } else {
-        this.audioContext.close();
         this.vbtSpeechRecognizer.stopListening();
         this.isListening = true;
       }

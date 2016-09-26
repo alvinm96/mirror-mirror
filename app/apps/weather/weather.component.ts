@@ -8,8 +8,8 @@ import { config } from './../../config';
 
 @Component({
   selector: 'weather',
-  template: require('./weather.component.html'),
-  styleUrls: ['./apps/weather/weather.component.css'],
+  templateUrl: './weather.component.html',
+  styleUrls: ['./weather.component.css'],
   providers: [ ForecastService ]
 })
 

@@ -11,7 +11,7 @@ import { MapsService } from './apps/maps/maps.service';
             <todoist></todoist>
             `
 })
-export class AppComponent implements OnInit { 
+export class AppComponent implements OnInit {
   constructor(private maps: MapsService) { }
 
   ngOnInit() {

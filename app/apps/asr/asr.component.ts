@@ -5,8 +5,8 @@ const PythonShell = require('python-shell');
 
 @Component({
   selector: 'asr',
-  template: require('./asr.component.html'),
-  styleUrls: [ './apps/asr/asr.component.css' ],
+  templateUrl: './asr.component.html',
+  styleUrls: [ './asr.component.css' ],
 })
 export class AsrComponent implements AfterContentInit {
   private options = {

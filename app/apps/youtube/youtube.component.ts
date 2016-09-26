@@ -5,7 +5,7 @@ import { YoutubeService } from './youtube.service';
 @Component({
   selector: 'youtube',
   template: '<div class="app" *ngIf="video"><iframe autoplay width="560" height="315" [src]="video" frameborder="0" allowfullscreen></iframe></div>',
-  styleUrls: ['./apps/youtube/youtube.component.css'],
+  styleUrls: ['./youtube.component.css'],
   providers: [ YoutubeService ]
 })
 

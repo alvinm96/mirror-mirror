@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
+
 module.exports = {
   devtool: 'source-map',
   debug: true,
@@ -31,14 +32,14 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
+        loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
         exclude: [ /node_modules/ ]
       },
       {
-        test: /\.html$/,
-        loader: 'html',
+        test: /\.(html|css)$/,
+        loader: 'raw-loader',
         exclude: [ /node_modules/ ]
-      }      
+      }
     ]
   },
 
@@ -49,7 +50,8 @@ module.exports = {
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
       __dirname
-    ),    
+    )
+    
   ],
   target:'node-webkit'
 };

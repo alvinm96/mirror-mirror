@@ -12,7 +12,7 @@ const PythonShell = require('python-shell');
 
 @Component({
   selector: 'dashboard',
-  template: require('./dashboard.component.html')
+  templateUrl: './dashboard.component.html'
 })
 
 export class DashboardComponent {

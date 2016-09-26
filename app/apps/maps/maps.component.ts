@@ -6,7 +6,7 @@ import { config } from './../../config';
 
 @Component({
   selector: 'map',
-  template: require('./maps.component.html'),
+  templateUrl: './maps.component.html',
 })
 
 export class MapsComponent implements OnInit {

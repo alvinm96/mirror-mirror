@@ -10,8 +10,8 @@ import { config } from './../../config';
 
 @Component({
   selector: 'forecast',
-  template: require('./forecast.component.html'),
-  styleUrls: ['./apps/weather/forecast.component.css'],
+  templateUrl: './forecast.component.html',
+  styleUrls: ['./forecast.component.css'],
   providers: [ ForecastService ]
 })
 
