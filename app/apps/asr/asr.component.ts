@@ -7,7 +7,6 @@ const PythonShell = require('python-shell');
   selector: 'asr',
   template: require('./asr.component.html'),
   styleUrls: [ './apps/asr/asr.component.css' ],
-  providers: [ AsrService ]
 })
 export class AsrComponent implements AfterContentInit {
   private options = {
@@ -39,16 +38,18 @@ export class AsrComponent implements AfterContentInit {
     this.asr.asrResult.subscribe((res) => {
       this.utterance = res.results[0].utterance;
       if (res.status === 'finalResult') {
-        this.nlu.getIntent(res.results[0].utterance).then((intent) => {
-          this.intent.emit(intent);
-          this.isListening = false;
-          this.utterance = '';          
-        }).catch((err) => {
-          this.isListening = false;
-          this.utterance = '';     
-        });
+        this.nlu.getIntent(res.results[0].utterance)
+          .subscribe(
+            (intent) => {
+            this.intent.emit(intent);
+            this.isListening = false;
+            this.utterance = '';          
+          },(error) => {
+            this.isListening = false;
+            this.utterance = '';     
+          });
       }
-    });  
+    });
   }
 
   startRecording() {

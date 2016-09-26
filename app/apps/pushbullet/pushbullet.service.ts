@@ -22,8 +22,7 @@ export class PushbulletService {
     let options = new RequestOptions({headers: headers});
     
     return this.http.get(url, options)
-      .toPromise()
-      .then(this.extractData)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
@@ -41,13 +40,10 @@ export class PushbulletService {
       'url': message.url
     };
     return this.http.post(url, JSON.stringify(body), options)
-      .toPromise()
-      .then(() => {
+      .map(() => {
         console.log('Message sent');
       })
-      .catch((err) => {
-        console.log('Failed to send');
-      });
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {
@@ -94,8 +90,7 @@ export class PushbulletService {
 
     let options = new RequestOptions({headers: headers});
     return this.http.post(url, JSON.stringify(body), options)
-      .toPromise()
-      .then((res: Response) => {
+      .map((res: Response) => {
         let body = res.json();
         this.sendToken.emit(body.access_token);
         this.token = body.access_token;

@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MapsService } from './apps/maps/maps.service';
 
 @Component({
   selector: 'app',
   template: `
             <weather></weather>
             <time></time>
-            <pushbullet></pushbullet>
             <dashboard></dashboard>
-            <todoist></todoist>
             `
 })
-export class AppComponent { }
+export class AppComponent implements OnInit { 
+  constructor(private maps: MapsService) { }
+
+  ngOnInit() {
+    this.maps.geolocation();
+  }
+}

@@ -1,7 +1,7 @@
 /**
  * Created by alvinm on 7/26/16.
  */
-import { Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
+import { Http, Response, URLSearchParams, RequestOptions, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -24,8 +24,7 @@ export class MapsService {
     let options = new RequestOptions({search: params});
 
     return this.http.get(url, options)
-      .toPromise()
-      .then(this.extractData)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
@@ -39,8 +38,7 @@ export class MapsService {
     let options = new RequestOptions({search: params});    
     
     return this.http.post(url, null, options)
-      .toPromise()
-      .then(this.extractData)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
@@ -52,9 +50,21 @@ export class MapsService {
     let options = new RequestOptions({search: params});    
     
     return this.http.get(url, options)
-      .toPromise()
-      .then((res: Response) => {
+      .map((res: Response) => {
         return res.json().results[0];
+      })
+      .catch(this.handleError);
+  }
+
+  geolocation() {
+    let url = 'https://www.googleapis.com/geolocation/v1/geolocate';
+    let params = new URLSearchParams();
+    params.set('key', config.google.key);
+    let options = new RequestOptions({search: params});
+
+    return this.http.post(url, null, options)
+      .map((res: Response) => {
+        return res.json().location;
       })
       .catch(this.handleError);
   }

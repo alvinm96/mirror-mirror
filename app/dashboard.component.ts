@@ -1,7 +1,7 @@
 /**
  * Created by alvinm on 7/25/16.
  */
-import { Component, Input, AfterContentInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { SpotifyComponent } from './apps/spotify/spotify.component';
 import { TtsService } from './apps/tts/tts.service';
 import { TodoistService } from './apps/todoist/todoist.service';
@@ -28,7 +28,7 @@ export class DashboardComponent {
   date: string;
   sendUrl: string;
   sendObj: Object;
-  test;
+
   constructor(private tts: TtsService, private todoist: TodoistService, private push: PushbulletService) { }
 
   getNLUResponse(response: NluResponse) {

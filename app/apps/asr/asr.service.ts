@@ -33,7 +33,7 @@ export class AsrService {
     }, (err) => {
       console.log('navigator.getUserMedia error');
     })        
-    this.getJWT().then((res) => {    
+    this.getJWT().subscribe((res) => {    
       this.initVbtSpeechRecognition(res);
       this.isReady.emit(true);
     }); 
@@ -63,8 +63,7 @@ export class AsrService {
     let options = new RequestOptions({headers: headers});
 
     return this.http.post(url, body, options)
-      .toPromise()
-      .then(this.extractData)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
@@ -82,7 +81,7 @@ export class AsrService {
 
   private handleUtterance(utterance: string) {
     this.nlu.getIntent(utterance)
-      .then((res) => {
+      .map((res) => {
         this.intent.emit(res);
       });
   }

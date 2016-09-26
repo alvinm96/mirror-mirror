@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { FormsModule }   from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { CommandsComponent } from './apps/help/commands.component';
@@ -16,6 +18,7 @@ import { YoutubeComponent } from './apps/youtube/youtube.component';
 import { SpotifyComponent } from './apps/spotify/spotify.component';
 import { AsrComponent } from './apps/asr/asr.component';
 
+import { AsrService } from './apps/asr/asr.service';
 import { MapsService } from './apps/maps/maps.service';
 import { TtsService } from './apps/tts/tts.service';
 import { NluService } from './apps/nlu/nlu.service';
@@ -29,7 +32,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
   imports: [ 
     BrowserModule, 
     HttpModule, 
-    ChartsModule 
+    ChartsModule,
+    FormsModule 
     ],
   declarations: [
     AsrComponent,
@@ -48,6 +52,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     Timer
     ],
   providers: [
+    AsrService,
     MapsService,
     TtsService, 
     NluService, 

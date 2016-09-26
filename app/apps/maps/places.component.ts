@@ -21,7 +21,7 @@ export class PlacesComponent implements OnInit {
 
   getPlaces(query: string) {
     this.maps.getPlaces('malls nearby')
-      .then((res) => {
+      .subscribe((res) => {
         this.places = res.results;      
         console.log(this.places);
       });

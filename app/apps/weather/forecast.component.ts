@@ -45,13 +45,13 @@ export class ForecastComponent implements OnInit {
   getForecast() {
     this.location = (this.location === "" ? config.user.location.city : this.location);
     this.maps.getLatLng(this.location)
-      .then((place) => {
+      .subscribe((place) => {
         if (this.date) {
           this.forecast.getForecast(place.geometry.location.lat, place.geometry.location.lng, this.date)
-            .then((res) => { this.handleData(res); });          
+            .map((res) => { this.handleData(res); });          
         } else {
           this.forecast.getForecast(place.geometry.location.lat, place.geometry.location.lng)
-            .then((res) => { this.handleData(res); });
+            .map((res) => { this.handleData(res); });
         }
       });
   }

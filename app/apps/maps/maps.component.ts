@@ -12,13 +12,13 @@ import { config } from './../../config';
 export class MapsComponent implements OnInit {
   @Input() destination: string;
   @Output() responseUrl = new EventEmitter<any>();  
-  origin: string = config.user.location.address;
+  origin: string;
   response = {
     dist: null,
     dur: null
   }
-  lat: number;
-  lng: number;
+  // lat: number;
+  // lng: number;
   map: any;
 
   constructor(private mapsService: MapsService, private tts: TtsService, private push: PushbulletService) { }
@@ -27,6 +27,10 @@ export class MapsComponent implements OnInit {
     if (this.destination) {
       this.getDirections(this.destination);
     }
+
+    this.mapsService.geolocation().subscribe((val) => {
+      this.origin = val.location.lat + ',' + val.location.lng; 
+    });
   }
 
   getMap(destination: string) {
@@ -39,23 +43,20 @@ export class MapsComponent implements OnInit {
   getDirections(destination: string) {
     let formattedAddress: string;
     this.mapsService.getPlaces(destination)
-      .then((res) => {
+      .subscribe((res) => {
         formattedAddress = res.results[0].formatted_address;
         this.mapsService.getDirections(this.origin, formattedAddress)
-          .then((res) => {
-            this.response.dist = res.routes[0].legs[0].distance.text;
-            this.response.dur = res.routes[0].legs[0].duration.text;
-            this.lat = res.routes[0].legs[0].start_location.lat;
-            this.lng = res.routes[0].legs[0].start_location.lng;
+          .subscribe((dir) => {
+            this.response.dist = dir.routes[0].legs[0].distance.text;
+            this.response.dur = dir.routes[0].legs[0].duration.text;
+            // this.lat = res.routes[0].legs[0].start_location.lat;
+            // this.lng = res.routes[0].legs[0].start_location.lng;
           
             this.tts.synthesizeSpeech('it is ' + this.response.dist + ' to your destination, it will take ' + this.response.dur);
 
             this.getMap(formattedAddress);
             this.responseUrl.emit('https://www.google.com/maps/dir/' + this.origin + '/' + formattedAddress.split(' ').join('+'));
         });        
-    })
-    .catch((err) => {
-      this.tts.synthesizeSpeech('destination was not found');
     });
   }
 }

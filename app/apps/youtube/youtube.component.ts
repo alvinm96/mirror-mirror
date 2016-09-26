@@ -21,7 +21,7 @@ export class YoutubeComponent {
 
   getVideo() {
     this.youtube.searchVideos(this.query)
-      .then((res) => {
+      .map((res) => {
         let videoId = res.items[0].id.videoId;
         this.video = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoId + '?autoplay=1');
       });

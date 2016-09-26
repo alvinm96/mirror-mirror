@@ -47,7 +47,7 @@ export class PushbulletComponent implements OnInit {
     if (type === 'tickle') {
       if (stream.subtype === 'push') {
         this.pushbullet.getPushes()
-          .then((res) => {
+          .map((res) => {
             this.sender = res.pushes[0].sender_name + ':';
             this.title = res.pushes[0].body;
           });

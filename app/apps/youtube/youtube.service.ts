@@ -20,8 +20,7 @@ export class YoutubeService {
     let options = new RequestOptions({search: params});
 
     return this.http.get(url, options)
-      .toPromise()
-      .then(this.extractData)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 

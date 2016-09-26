@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 
 import { config } from './../../config';
 
@@ -31,8 +30,7 @@ export class NluService {
     let options = new RequestOptions({headers: headers});
 
     return this.http.post(url, JSON.stringify(body), options)
-      .toPromise()
-      .then(this.extractData)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 

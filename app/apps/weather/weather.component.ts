@@ -3,6 +3,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { ForecastService } from './forecast.service';
+import { MapsService } from './../maps/maps.service';
 import { config } from './../../config';
 
 @Component({
@@ -16,13 +17,15 @@ export class WeatherComponent implements OnInit {
   icon: string;
   temperature: number;
 
-  constructor(private forecast: ForecastService) { }
+  constructor(private forecast: ForecastService, private maps: MapsService) { }
 
   ngOnInit() {
-    this.forecast.getForecast(config.user.location.lat, config.user.location.lng)
-      .then((res) => {
-        this.icon = 'wi wi-forecast-io-' + res.currently.icon;
-        this.temperature = res.currently.temperature;
-      });
+    this.maps.geolocation().subscribe((location) => {
+      this.forecast.getForecast(location.lat, location.lng)
+        .map((res) => {
+          this.icon = 'wi wi-forecast-io-' + res.currently.icon;
+          this.temperature = res.currently.temperature;
+        });
+    });
   }
 }

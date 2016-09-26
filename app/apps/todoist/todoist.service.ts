@@ -27,8 +27,7 @@ export class TodoistService {
     let options = new RequestOptions({headers: headers});
 
     return this.http.post(this.baseUrl, body, options)
-      .toPromise()
-      .then(this.extractData)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
@@ -49,8 +48,7 @@ export class TodoistService {
     let options = new RequestOptions({headers: headers});
     
     return this.http.post(this.baseUrl, body, options)
-      .toPromise()
-      .then((res) => {
+      .map((res) => {
         this.getTodos();
       })
       .catch(this.handleError);   
@@ -113,8 +111,7 @@ export class TodoistService {
     let options = new RequestOptions({search: params});
 
     return this.http.post(url, JSON.stringify({}), options)
-      .toPromise()
-      .then((res: Response) => {
+      .map((res: Response) => {
         let body = res.json();
         this.token = body.access_token;
       })

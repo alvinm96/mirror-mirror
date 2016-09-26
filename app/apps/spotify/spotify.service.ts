@@ -41,17 +41,21 @@ export class SpotifyService {
     let options = new RequestOptions({headers: headers});
 
     return this.http.get(url, options)
-      .toPromise()
-      .then((res: Response) => {
+      .map((res: Response) => {
         let body = res.json();
       })
       .catch((err: any) => {
         this.tts.synthesizeSpeech('There was an error getting your profile. Please authorize the mirror first.');
         this.getAccessToken();
+        return Observable.throw(err);
       });   
   }
 
-  searchSong(query) {
+  seachMultipleSongs(query: string) {
+    
+  }
+
+  searchSong(query: string) {
     let url = 'https://api.spotify.com/v1/search';
     let params = new URLSearchParams();
     params.set('q', query);
@@ -63,14 +67,14 @@ export class SpotifyService {
     let options = new RequestOptions({headers: headers, search: params});
 
     return this.http.get(url, options)
-      .toPromise()
-      .then((res: Response) => {
+      .map((res: Response) => {
         let body = res.json();
         return body;
       })
       .catch((err: any) => {
         this.tts.synthesizeSpeech('There was an error searching the song. Please authorize the mirror first.');
         this.getAccessToken();
+        return Observable.throw(err);
       });
   }
 
