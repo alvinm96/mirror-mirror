@@ -17,7 +17,7 @@ export class TodoistService {
 
   constructor(private http: Http) { }
 
-  getTodos() {
+  getTodos(): Observable<any> {
     let body = 'token='+ this.token +'&sync_token=*&resource_types=["items"]';  
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -30,7 +30,7 @@ export class TodoistService {
       .catch(this.handleError);
   }
 
-  addTodo(todo: string) {
+  addTodo(todo: string): Observable<any> {
     let command = [{
       'type': 'item_add',
       'temp_id': uuid.v4(),
@@ -94,13 +94,15 @@ export class TodoistService {
     }
 
     if (code) {
-      this.getToken(code);
+      this.getToken(code).subscribe((token) => {
+        this.token = token.access_token;
+      });
     } else if (error) {
       alert('Error with logging in');
     }
   }
 
-  private getToken(code) {
+  private getToken(code): Observable<any> {
     let url = 'https://todoist.com/oauth/access_token';
     let params = new URLSearchParams();
     params.set('client_id', config.todoist.client_id);
@@ -112,7 +114,7 @@ export class TodoistService {
     return this.http.post(url, JSON.stringify({}), options)
       .map((res: Response) => {
         let body = res.json();
-        this.token = body.access_token;
+        return body;
       })
       .catch(this.handleError);
   }  
@@ -120,6 +122,6 @@ export class TodoistService {
   private getLoginUrl(scopes) {
     return 'https://todoist.com/oauth/authorize?client_id=' + config.todoist.client_id +
       '&scope=' + encodeURIComponent(scopes.join(',')) +
-      '&state=thisisasecretstring';
+      '&state=secreterstring';
   }  
 }
