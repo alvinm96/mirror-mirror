@@ -12,7 +12,7 @@ export class ForecastService {
 
   constructor(private http: Http) { }
 
-  getForecast(lat: number, lng: number, time?: string) {
+  getForecast(lat: number, lng: number, time?: string): Observable<any> {
     let url = this.baseUrl + lat + ',' + lng;
 
     if (time) {

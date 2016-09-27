@@ -10,7 +10,7 @@ export class YoutubeService {
 
   constructor(private http: Http) { }
 
-  searchVideos(query: string) {
+  searchVideos(query: string): Observable<any> {
     let url = this.baseUrl + 'search';
     let params: URLSearchParams = new URLSearchParams();
     params.set('part', 'snippet');

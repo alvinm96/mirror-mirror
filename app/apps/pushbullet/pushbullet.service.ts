@@ -15,7 +15,7 @@ export class PushbulletService {
 
   constructor(private http: Http) { }
 
-  getPushes() {
+  getPushes(): Observable<any> {
     let url = 'https://api.pushbullet.com/v2/pushes?limit=1';
     let headers = new Headers({'Access-Token': this.token});
     let options = new RequestOptions({headers: headers});
@@ -25,7 +25,7 @@ export class PushbulletService {
       .catch(this.handleError);
   }
 
-  sendToDevice(message: any) {
+  sendToDevice(message: any): Observable<any> {
     let url = 'https://api.pushbullet.com/v2/pushes';
     let headers = new Headers({
       'Access-Token': this.token,
@@ -75,7 +75,7 @@ export class PushbulletService {
     }); 
   }
 
-  private getToken(code) {
+  private getToken(code: string): Observable<any> {
     let url = 'https://api.pushbullet.com/oauth2/token';
     
     let body = {

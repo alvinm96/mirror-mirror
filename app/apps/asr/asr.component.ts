@@ -1,4 +1,4 @@
-import { Component, AfterContentInit, Output, EventEmitter } from '@angular/core';
+import { Component, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { AsrService } from './asr.service';
 import { NluService } from './../nlu/nlu.service';
 const PythonShell = require('python-shell');
@@ -8,7 +8,7 @@ const PythonShell = require('python-shell');
   templateUrl: './asr.component.html',
   styleUrls: [ './asr.component.css' ],
 })
-export class AsrComponent implements AfterContentInit {
+export class AsrComponent implements AfterViewInit {
   private options = {
     pythonOptions: ['-u'],
     args: ['./app/hello-mirror.pmdl']
@@ -20,8 +20,8 @@ export class AsrComponent implements AfterContentInit {
 
   constructor(private asr: AsrService, private nlu: NluService) { }
 
-  ngAfterContentInit() {
-    this.asr.initASR();
+  ngAfterViewInit() {
+    setTimeout(this.asr.initASR());
 
     this.asr.isReady.subscribe((val) => {
       if (val === true) {

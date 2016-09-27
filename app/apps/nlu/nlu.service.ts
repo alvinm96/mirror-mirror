@@ -12,7 +12,7 @@ export class NluService {
 
   constructor(private http: Http) { }
 
-  getIntent(utterance: string) { 
+  getIntent(utterance: string): Observable<any> { 
     let url = this.baseUrl + 'query/';
 
     let body = {

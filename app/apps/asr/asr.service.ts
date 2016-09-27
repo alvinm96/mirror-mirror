@@ -51,7 +51,7 @@ export class AsrService {
     }
   }
 
-  private getJWT() {
+  private getJWT(): Observable<any> {
     let body = JSON.toString();
     let apiKey = config.voicebox.key;
     let url = 'https://api.voicebox.com/authn/v1/jwt';
@@ -80,7 +80,7 @@ export class AsrService {
 
   private handleUtterance(utterance: string) {
     this.nlu.getIntent(utterance)
-      .map((res) => {
+      .subscribe((res) => {
         this.intent.emit(res);
       });
   }

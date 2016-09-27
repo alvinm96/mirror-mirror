@@ -13,7 +13,7 @@ export class MapsService {
 
   constructor(private http: Http) { }
 
-  getDirections(origin: any, destination: any) {
+  getDirections(origin: any, destination: any): Observable<any> {
     let url = this.base + 'directions/json';
 
     let params = new URLSearchParams();
@@ -27,7 +27,7 @@ export class MapsService {
       .catch(this.handleError);
   }
 
-  getPlaces(origin: string, destination: string) {
+  getPlaces(origin: string, destination: string): Observable<any> {
     let url = this.base + 'place/textsearch/json';
     let params = new URLSearchParams();
     params.set('query', encodeURIComponent(destination));
@@ -41,7 +41,7 @@ export class MapsService {
       .catch(this.handleError);
   }
 
-  getMap(routes: any[]) {
+  getMap(routes: any[]): Observable<any> {
     let url = this.base + 'staticmap';
     let params = new URLSearchParams();
     params.set('size', Math.floor(window.innerHeight/2) + 'x' + Math.floor(window.innerWidth/2)); 
@@ -54,7 +54,7 @@ export class MapsService {
       });
   }
 
-  getLatLng(location: string) {
+  getLatLng(location: string): Observable<any> {
     let url = this.base + 'geocode/json';
     let params = new URLSearchParams();
     params.set('address', location);
@@ -68,7 +68,7 @@ export class MapsService {
       .catch(this.handleError);
   }
 
-  geolocation() {
+  geolocation(): Observable<any> {
     let url = 'https://www.googleapis.com/geolocation/v1/geolocate';
     let params = new URLSearchParams();
     params.set('key', config.google.key);

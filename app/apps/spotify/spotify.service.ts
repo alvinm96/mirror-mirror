@@ -31,7 +31,7 @@ export class SpotifyService {
     });
   }
 
-  getUserProfile() {
+  getUserProfile(): Observable<any> {
     let url = 'https://api.spotify.com/v1/me';
     let headers = new Headers({
       'Accept': 'application/json',
@@ -54,7 +54,7 @@ export class SpotifyService {
     
   }
 
-  searchSong(query: string) {
+  searchSong(query: string): Observable<any> {
     let url = 'https://api.spotify.com/v1/search';
     let params = new URLSearchParams();
     params.set('q', query);
