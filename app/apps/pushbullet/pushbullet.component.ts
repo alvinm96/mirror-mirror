@@ -18,7 +18,7 @@ export class PushbulletComponent implements OnInit {
   constructor(private pushbullet: PushbulletService) { }
 
   ngOnInit() {
-    this.pushbullet.authorize();
+    setTimeout(this.pushbullet.authorize());
     
     this.pushbullet.sendToken.subscribe((token) => {
       if (token) {

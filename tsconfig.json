@@ -5,10 +5,16 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true  
+    "sourceMap": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
   "files": [
     "app/main.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true 

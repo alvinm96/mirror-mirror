@@ -1,4 +1,3 @@
-/// <reference path="./../../typings/index.d.ts" />
 import { Timer } from './timer.pipe';
 
 describe('Timer pipe', () => {
