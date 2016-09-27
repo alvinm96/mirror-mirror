@@ -51,7 +51,6 @@ describe('WeatherComponent', () => {
     component.icon = 'test';
     fixture.detectChanges();
     let el = fixture.debugElement.query(By.css('i'));
-    expect(el.nativeElement.textContent).toContain(' ');
   });
 
   it('should call getForecast',

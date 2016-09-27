@@ -1,4 +1,4 @@
-/// <reference path="./../../../typings/index.d.ts" />
+/// <reference path="../../../node_modules/@types/jasmine/index.d.ts" />
 import { inject, async, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { TtsService } from './tts.service';
 import { config } from './../../config';

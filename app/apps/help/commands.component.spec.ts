@@ -1,4 +1,4 @@
-/// <reference path="./../../../typings/index.d.ts" />
+/// <reference path="../../../node_modules/@types/jasmine/index.d.ts" />
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
