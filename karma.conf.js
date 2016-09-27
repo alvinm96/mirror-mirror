@@ -22,9 +22,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './karma-test-shim.js': ['webpack']
+      './karma-test-shim.js': ['webpack', 'coverage']
     },
-
+    coverageReporter: {
+      dir : 'coverage/',
+      reporters: [
+        { type: 'text-summary' },
+        { type: 'json' },
+        { type: 'html' }
+      ]
+    },
     // webpack
     webpack: webpackConfig,
 
@@ -36,7 +43,7 @@ module.exports = function(config) {
       noInfo: true
     },
 
-    reporters: ['progress'],
+    reporters: [ 'mocha', 'coverage' ],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
