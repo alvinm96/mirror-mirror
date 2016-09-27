@@ -123,5 +123,5 @@ describe('MapsService', () => {
         expect(res).toBe(true);
         done();
       });
-  });           
+  });       
 });
