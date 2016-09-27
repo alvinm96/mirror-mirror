@@ -1,3 +1,4 @@
+/// <reference path="../../../node_modules/@types/electron/index.d.ts"/>
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
