@@ -47,10 +47,10 @@ describe('WeatherComponent', () => {
     expect(el.nativeElement.textContent).toContain('100');
   });
 
-  it('should display the condition icon', () => {
-    component.icon = 'test';
+  it('should display the condition and degrees icon', () => {
     fixture.detectChanges();
-    let el = fixture.debugElement.query(By.css('i'));
+    let el = fixture.debugElement.queryAll(By.css('i'));
+    expect(el.length).toEqual(2);
   });
 
   it('should call getForecast',
