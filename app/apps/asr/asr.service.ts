@@ -51,7 +51,7 @@ export class AsrService {
     }
   }
 
-  private getJWT(): Observable<any> {
+  getJWT(): Observable<any> {
     let body = JSON.toString();
     let apiKey = config.voicebox.key;
     let url = 'https://api.voicebox.com/authn/v1/jwt';

@@ -10,6 +10,7 @@
       "./node_modules/@types"
     ]
   },
+  "atom": { "rewriteTsconfig": false },
   "files": [
     "app/main.ts"
   ],
