@@ -1,21 +1,22 @@
 /**
  * Created by alvinm on 7/25/16.
  */
-import { Component, Input, AfterContentInit } from '@angular/core';
-
-import { TtsService } from './services/tts/tts.service';
-import { TodoistService } from './services/todoist/todoist.service';
-
-import { NluResponse } from './services/nlu/nlu';
+import { Component, Input, ViewChild } from '@angular/core';
+import { SpotifyComponent } from './apps/spotify/spotify.component';
+import { TtsService } from './apps/tts/tts.service';
+import { TodoistService } from './apps/todoist/todoist.service';
+import { PushbulletService } from './apps/pushbullet/pushbullet.service';
+import { NluResponse } from './apps/nlu/nlu';
 import { config } from './config';
-let PythonShell = require('python-shell');
+const PythonShell = require('python-shell');
 
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html'
 })
 
-export class DashboardComponent implements AfterContentInit {
+export class DashboardComponent {
+  @ViewChild(SpotifyComponent) private spotify: SpotifyComponent;
   window: any;
   audio: HTMLAudioElement; 
   destination: string;
@@ -23,63 +24,99 @@ export class DashboardComponent implements AfterContentInit {
   nluResponse: NluResponse;
   showSpotify: boolean = false;
   video: string;
-  options = {
-    pythonOptions: ['-u'],
-    args: ['./app/hello-mirror.pmdl']
-  };
-  song: string;
-  
+  location: string;
+  date: string;
+  sendUrl: string;
+  sendObj: Object;
 
-  constructor(private tts: TtsService, private todoist: TodoistService) { }
-
-  ngAfterContentInit() {
-    var shell = new PythonShell('./app/snowboy/examples/Python/demo.py', this.options);
-    shell.on('message', (message) => {
-      if (message === 'keyword detected') {
-        this.app = 'asr';
-      }
-    });        
-  }
+  constructor(private tts: TtsService, private todoist: TodoistService, private push: PushbulletService) { }
 
   getNLUResponse(response: NluResponse) {
     this.nluResponse = response;
     console.log(response);
     this.app = this.nluResponse.result.parameters.app;
+
     if (this.nluResponse.result.action === 'input.unknown') {
       this.tts.synthesizeSpeech('I didn\'t get that. Can you try again?');
-    }
-
-    if (this.app === 'todo') {
-      this.addTodo(this.nluResponse.result.parameters.query);
-      this.tts.synthesizeSpeech('Adding' + this.nluResponse.result.parameters.query);
-    }
-
-    if (this.app === 'video') {
-      try {
-        this.video = this.nluResponse.result.parameters.query;
-      } catch (err) {
-        this.tts.synthesizeSpeech('I could not find that video');
-      }
-    }
-
-    if (this.nluResponse.result.parameters.action === 'close') {
       this.app = '';
     }
-
-    if (this.app === 'spotify') {
-      this.showSpotify = true;
-      this.song = this.nluResponse.result.parameters.song;
-      if (this.nluResponse.result.parameters.artist) {
-        this.song += ' artist:' + this.nluResponse.result.parameters.artist;
-      }
+    
+    switch(this.app) {
+      case 'weather':    this.getWeather();
+                         break;
+      case 'todo':       this.addTodo();
+                         break;
+      case 'spotify':    this.playSpotify();
+                         break;
+      case 'directions': this.getDirections();
+                         break;        
+      case 'video':      this.getVideo();
+                         break;
+      case 'close':      this.app = '';
+                         break;
+      case 'send':       this.send();
+                         break; 
     }
+  }
 
+  send() {
+    if (this.sendObj) {
+      console.log(this.sendObj);
+      this.push.sendToDevice(this.sendObj);
+    } else {
+      console.log('Nothing to send');
+    }
+  }
+
+  getVideo() {
+    try {
+      this.video = this.nluResponse.result.parameters.query;
+    } catch (err) {
+      this.tts.synthesizeSpeech('I could not find that video');
+    }    
+  }
+
+  getDirections() {
     this.destination = this.nluResponse.result.parameters.location ||
                        this.nluResponse.result.parameters.address ||
                        this.nluResponse.result.parameters['geo-city'];
+                  
+    this.sendObj = {
+      type: 'link',
+      title: 'Maps',
+      body: 'Open in Google Maps',
+      url: this.sendUrl
+    };
   }
 
-  addTodo(todo: string) {
-    this.todoist.addTodo(todo);
+
+  playSpotify() {
+    this.showSpotify = true;
+
+    let song = this.nluResponse.result.parameters.song
+    if (this.nluResponse.result.parameters.artist) {
+      song += ' artist:' + this.nluResponse.result.parameters.artist;
+    }
+
+    if (this.nluResponse.result.parameters.action === 'play') {
+      this.spotify.playSong(song);
+    } else if (this.nluResponse.result.parameters.action === 'pause') {
+      this.spotify.pauseSong();
+    } else if (this.nluResponse.result.parameters.action === 'hide') {
+      this.spotify.pauseSong();
+      this.showSpotify = false;
+    } else if (this.nluResponse.result.parameters.action === 'resume') {
+      this.spotify.resumeSong();
+    }
+  }
+
+  getWeather() {
+    this.location = this.nluResponse.result.parameters.location;
+    this.date = this.nluResponse.result.parameters.date;    
+  }
+
+  addTodo() {
+    this.todoist.addTodo(this.nluResponse.result.parameters.query);
+    this.tts.synthesizeSpeech('Adding' + this.nluResponse.result.parameters.query);    
   }
 }

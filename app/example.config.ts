@@ -7,12 +7,10 @@ export let config = {
     'location': {
       'state': '',
       'city': '',
-      'lat': 0,
-      'lng': 0,
       'address': ''
     },
   },
-  'weather': {
+  'darksky': {
     'key': ''
   },
   'voicebox': {
@@ -20,9 +18,6 @@ export let config = {
     'ttsVoice': 'Amelia'
   },
   'google': {
-    'key': ''
-  },
-  'bing': {
     'key': ''
   },
   'todoist': {
@@ -36,6 +31,5 @@ export let config = {
   'pushbullet': {
     'client_id': '',
     'client_secret': '',
-    'key': '', //for testing
   },
 };

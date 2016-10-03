@@ -16,7 +16,8 @@ Mirror Mirror is a "smart mirror" that integrates Voicebox Technologies' service
 4. Go to https://snowboy.kitt.ai/ and follow the installation guide (optional: create your own hotword with snowboy, place model in `app` directory and change model name in `config.ts`)
 5. Run `npm install`
 6. Run `typings install`
-7. Run `npm start` to build and run electron
+7. Run `npm run build` to build
+8. Run `npm run electron` to start electron
 
 
 ##Available Commands

@@ -1,0 +1,35 @@
+.fa-microphone {
+    font-size: 4em;
+    color: red;
+}
+.utterance {
+    color: '#696969';
+    font-size: 2em;
+    padding-left: 20px;
+    position: relative;
+    left: 15%;
+}
+.recording {
+    padding: 10px;
+    background-color: #6d6d6d;
+    position: relative;
+    padding: -500px;
+    left: 2.5%;
+    width: 95%;
+    z-index: 1;
+}
+
+.recording-button {
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.1);
+	border: .5em solid #d3d3d3;
+	font-size: 1em;
+	line-height: 1.1em;
+	color: #ffffff;
+	background-color: #d3d3d3;
+	margin: auto;
+	border-radius: 50%;
+	height: 7em;
+	width: 7em;
+	position: relative;
+    left: 15%;
+}

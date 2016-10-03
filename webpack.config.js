@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
+
 module.exports = {
   devtool: 'source-map',
   debug: true,
@@ -31,7 +32,12 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'ts',
+        loaders: ['awesome-typescript-loader?tsconfig=./tsconfig.json', 'angular2-template-loader'],
+        exclude: [ /node_modules/ ]
+      },
+      {
+        test: /\.(html|css)$/,
+        loader: 'raw-loader',
         exclude: [ /node_modules/ ]
       }
     ]
@@ -40,19 +46,12 @@ module.exports = {
   plugins: [
     new CommonsChunkPlugin({ name: 'angular2', filename: 'angular2.js', minChunks: Infinity }),
     new CommonsChunkPlugin({ name: 'common',   filename: 'common.js' }),
-    new webpack.ExternalsPlugin('commonjs', [
-            'desktop-capturer',
-            'electron',
-            'ipc',
-            'ipc-renderer',
-            'native-image',
-            'remote',
-            'web-frame',
-            'clipboard',
-            'crash-reporter',
-            'screen',
-            'shell'
-        ])
+    new webpack.ExternalsPlugin('commonjs', ['electron']),
+    new webpack.ContextReplacementPlugin(
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      __dirname
+    )
+    
   ],
   target:'node-webkit'
 };

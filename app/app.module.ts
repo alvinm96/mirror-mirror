@@ -1,57 +1,60 @@
-import { NgModule, provide } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_PROVIDERS } from '@angular/http';
+import { HttpModule } from '@angular/http';
+import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { AsrComponent } from './services/asr/asr.component';
-import { CommandsComponent } from './services/help/commands.component';
-import { MapsComponent } from './services/maps/maps.component';
-import { TimeComponent } from './services/time/time.component';
-import { TodoistComponent } from './services/todoist/todoist.component';
-import { HourForecastComponent } from './services/weather/hour-forecast.component';
-import { WeatherComponent } from './services/weather/weather.component';
-import { WeekForecastComponent } from './services/weather/week-forecast.component';
+import { CommandsComponent } from './apps/help/commands.component';
+import { MapsComponent } from './apps/maps/maps.component';
+import { TimeComponent } from './apps/time/time.component';
+import { TodoistComponent } from './apps/todoist/todoist.component';
+import { WeatherComponent } from './apps/weather/weather.component';
+import { ForecastComponent } from './apps/weather/forecast.component';
 import { DashboardComponent } from './dashboard.component';
-import { PushbulletComponent } from './services/pushbullet/pushbullet.component';
-import { PlacesComponent } from './services/maps/places.component';
-import { YoutubeComponent } from './services/youtube/youtube.component';
-import { SpotifyComponent } from './services/spotify/spotify.component';
+import { PushbulletComponent } from './apps/pushbullet/pushbullet.component';
+import { YoutubeComponent } from './apps/youtube/youtube.component';
+import { SpotifyComponent } from './apps/spotify/spotify.component';
+import { AsrComponent } from './apps/asr/asr.component';
 
-import { MapsService } from './services/maps/maps.service';
-import { TtsService } from './services/tts/tts.service';
-import { NluService } from './services/nlu/nlu.service';
-import { TodoistService } from './services/todoist/todoist.service';
-import { PushbulletService } from './services/pushbullet/pushbullet.service';
+import { AsrService } from './apps/asr/asr.service';
+import { MapsService } from './apps/maps/maps.service';
+import { TtsService } from './apps/tts/tts.service';
+import { NluService } from './apps/nlu/nlu.service';
+import { TodoistService } from './apps/todoist/todoist.service';
+import { PushbulletService } from './apps/pushbullet/pushbullet.service';
 
 import { Timer } from './pipes/timer.pipe';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
-  imports: [ BrowserModule ],
+  imports: [ 
+    BrowserModule, 
+    HttpModule, 
+    ChartsModule,
+    FormsModule 
+    ],
   declarations: [
-    AppComponent,
     AsrComponent,
+    AppComponent,
     CommandsComponent,
     MapsComponent,
     TimeComponent,
     TodoistComponent,
-    HourForecastComponent,
     WeatherComponent,
-    WeekForecastComponent,
     DashboardComponent,
     PushbulletComponent,
-    PlacesComponent,
     YoutubeComponent,
     SpotifyComponent,
+    ForecastComponent,
     Timer
     ],
   providers: [
+    AsrService,
     MapsService,
     TtsService, 
     NluService, 
     TodoistService,
-    PushbulletService,
-    HTTP_PROVIDERS, 
-    provide(Window, {useValue: window}) 
+    PushbulletService    
     ],
   bootstrap: [ AppComponent ]
 })

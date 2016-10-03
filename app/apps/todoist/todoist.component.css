@@ -1,0 +1,11 @@
+#todoist {
+    position: absolute;
+    bottom: 1%;
+    left: 2%;
+    font-size: 2em;
+    max-width: 50%;
+    text-overflow: ellipsis;
+}
+#todoTitle {
+    font-size: 2em;
+}

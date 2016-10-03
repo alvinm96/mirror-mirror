@@ -1,0 +1,5 @@
+<div *ngIf="isListening === true" class="recording">
+  <button class="btn btn-default recording-button"><i class='fa fa-microphone'></i></button>
+  <span class="utterance">{{utterance || 'Speak Now'}}</span>
+</div>
+<button (click)="startRecording()">START</button>
