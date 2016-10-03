@@ -40,8 +40,9 @@ export class PushbulletService {
       'url': message.url
     };
     return this.http.post(url, JSON.stringify(body), options)
-      .map(() => {
+      .map((res) => {
         console.log('Message sent');
+        return res.json();
       })
       .catch(this.handleError);
   }
