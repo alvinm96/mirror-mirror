@@ -44,7 +44,7 @@ export class DashboardComponent {
     switch(this.app) {
       case 'weather':    this.getWeather();
                          break;
-      case 'todo':       this.addTodo;
+      case 'todo':       this.addTodo();
                          break;
       case 'spotify':    this.playSpotify();
                          break;
@@ -115,7 +115,7 @@ export class DashboardComponent {
     this.date = this.nluResponse.result.parameters.date;    
   }
 
-  addTodo(todo: string) {
+  addTodo() {
     this.todoist.addTodo(this.nluResponse.result.parameters.query);
     this.tts.synthesizeSpeech('Adding' + this.nluResponse.result.parameters.query);    
   }
