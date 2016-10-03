@@ -22,7 +22,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './karma-test-shim.js': ['webpack', 'coverage']
+      './karma-test-shim.js': ['webpack', 'coverage', 'electron']
     },
     coverageReporter: {
       dir : 'coverage/',
@@ -48,7 +48,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['Chrome'],
-    singleRun: true
-  })
+    browsers: ['Electron'],
+    singleRun: true,
+  });
 }

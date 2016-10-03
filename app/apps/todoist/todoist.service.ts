@@ -13,7 +13,7 @@ let uuid = require('node-uuid');
 export class TodoistService {
   private baseUrl: string = 'https://todoist.com/API/v7/sync';
   // private token: string = config.todoist.key;
-  private token: string;
+  token: string;
   authWin: Electron.BrowserWindow;
 
   constructor(private http: Http) { }
@@ -50,6 +50,7 @@ export class TodoistService {
     return this.http.post(this.baseUrl, body, options)
       .map((res) => {
         this.getTodos();
+        return res.json();
       })
       .catch(this.handleError);   
   }

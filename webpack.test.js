@@ -46,7 +46,7 @@ var config = {
     'buffer': 'require("buffer")',
     'request': 'require("request")',
     'system': '{}',
-    'file': '{}'    
+    'file': '{}'
   }
 }
 
