@@ -1,7 +1,15 @@
 var path = require('path');
+var fs = require('fs');
 var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
 
 module.exports = {
   devtool: 'source-map',
@@ -39,10 +47,14 @@ module.exports = {
         test: /\.(html|css)$/,
         loader: 'raw-loader',
         exclude: [ /node_modules/ ]
+      },
+      {
+        test: /\.json$/, 
+        loader: 'json'
       }
     ]
   },
-
+  externals: [nodeModules],
   plugins: [
     new CommonsChunkPlugin({ name: 'angular2', filename: 'angular2.js', minChunks: Infinity }),
     new CommonsChunkPlugin({ name: 'common',   filename: 'common.js' }),
