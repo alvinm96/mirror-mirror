@@ -15,7 +15,9 @@ import { PushbulletComponent } from './apps/pushbullet/pushbullet.component';
 import { YoutubeComponent } from './apps/youtube/youtube.component';
 import { SpotifyComponent } from './apps/spotify/spotify.component';
 import { AsrComponent } from './apps/asr/asr.component';
+import { SnowboyComponent } from './apps/hotword/snowboy.component';
 
+import { SnowboyService } from './apps/hotword/snowboy.service';
 import { AsrService } from './apps/asr/asr.service';
 import { MapsService } from './apps/maps/maps.service';
 import { TtsService } from './apps/tts/tts.service';
@@ -46,6 +48,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     YoutubeComponent,
     SpotifyComponent,
     ForecastComponent,
+    SnowboyComponent,
     Timer
     ],
   providers: [
@@ -54,7 +57,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     TtsService, 
     NluService, 
     TodoistService,
-    PushbulletService    
+    PushbulletService,
+    SnowboyService  
     ],
   bootstrap: [ AppComponent ]
 })
