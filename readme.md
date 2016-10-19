@@ -13,11 +13,11 @@ Mirror Mirror is a "smart mirror" that integrates Voicebox Technologies' service
     * [Todoist](https://developer.todoist.com/)
     * [Pushbullet](https://docs.pushbullet.com/)
     * [Spotify](https://developer.spotify.com/)
+    * [api.ai](https://api.ai/)
 4. Go to https://snowboy.kitt.ai/ and follow the installation guide (optional: create your own hotword with snowboy, place model in `app` directory and change model name in `config.ts`)
 5. Run `npm install`
-6. Run `typings install`
-7. Run `npm run build` to build
-8. Run `npm run electron` to start electron
+6. Run `npm run build` to build
+7. Run `npm run electron` to start electron
 
 
 ##Available Commands

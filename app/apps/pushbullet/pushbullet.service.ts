@@ -63,7 +63,7 @@ export class PushbulletService {
     let url = 'https://www.pushbullet.com/authorize?client_id=' + config.pushbullet.client_id +
       '&client_secret=' + config.pushbullet.client_secret + 
       '&redirect_uri=' + encodeURIComponent('http://localhost') +
-      '&response_type=code';
+      '&response_type=token';
 
     this.authWin = new BrowserWindow({fullscreen: true, show: true, webPreferences: { nodeIntegration: false }});
     this.authWin.loadURL(url);
@@ -77,29 +77,8 @@ export class PushbulletService {
     }); 
   }
 
-  private getToken(code: string): Observable<any> {
-    let url = 'https://api.pushbullet.com/oauth2/token';
-    
-    let body = {
-      'grant_type': 'authorization_code',
-      'client_id': config.pushbullet.client_id,
-      'client_secret': config.pushbullet.client_secret,
-      'code': code
-    }
-
-    let headers = new Headers({'Content-Type': 'application/json'});
-
-    let options = new RequestOptions({headers: headers});
-    return this.http.post(url, JSON.stringify(body), options)
-      .map((res: Response) => {
-        let body = res.json();
-        this.sendToken.emit(body.access_token);
-        this.token = body.access_token;
-      });  
-  }
-
   private handleCallback(url) {
-    var raw_code = /code=([^&]*)/.exec(url) || null;
+    var raw_code = /token=([^&]*)/.exec(url) || null;
     var code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
     var error = /\?error=(.+)$/.exec(url);
 
@@ -107,7 +86,8 @@ export class PushbulletService {
       this.authWin.destroy();
     }
     if (code) {
-      this.getToken(code);
+      this.token = code;
+      this.sendToken.emit(code);
     } else if (error) {
       alert('Error with logging in');
     }

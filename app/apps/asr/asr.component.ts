@@ -54,11 +54,10 @@ export class AsrComponent implements AfterViewInit {
       this.utterance = res.results[0].utterance;
       if (res.status === 'finalResult') {
         this.nlu.getIntent(res.results[0].utterance)
-          .subscribe(
-            (intent) => {
+          .subscribe((intent) => {
             this.intent.emit(intent);
             this.isListening = false;
-            this.utterance = '';          
+            this.utterance = '';
           },(error) => {
             this.isListening = false;
             this.utterance = '';     
