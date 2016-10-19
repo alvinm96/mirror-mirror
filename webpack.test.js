@@ -28,7 +28,7 @@ var config = {
   node: {
       child_process: 'empty',
       global: 'window',
-      process: false,
+      process: true,
       crypto: 'empty',
       module: false,
       clearImmediate: false,
@@ -46,7 +46,8 @@ var config = {
     'buffer': 'require("buffer")',
     'request': 'require("request")',
     'system': '{}',
-    'file': '{}'
+    'file': '{}',
+    'snowboy': '{}'
   }
 }
 

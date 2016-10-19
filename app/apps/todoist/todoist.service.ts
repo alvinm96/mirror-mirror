@@ -1,18 +1,16 @@
-/// <reference path="../../../node_modules/@types/electron/index.d.ts" />
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { config } from './../../config';
 import * as electron from 'electron';
+import * as uuid from 'node-uuid';
 
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
-let uuid = require('node-uuid');
 
 @Injectable()
 export class TodoistService {
   private baseUrl: string = 'https://todoist.com/API/v7/sync';
-  // private token: string = config.todoist.key;
   token: string;
   authWin: Electron.BrowserWindow;
 

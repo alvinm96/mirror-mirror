@@ -1,7 +1,8 @@
 import { Component, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { AsrService } from './asr.service';
 import { NluService } from './../nlu/nlu.service';
-const PythonShell = require('python-shell');
+const { Detector, Models } = require('snowboy');
+const record = require('node-record-lpcm16');
 
 @Component({
   selector: 'asr',
@@ -9,10 +10,6 @@ const PythonShell = require('python-shell');
   styleUrls: [ './asr.component.css' ],
 })
 export class AsrComponent implements AfterViewInit {
-  private options = {
-    pythonOptions: ['-u'],
-    args: ['./app/hello-mirror.pmdl']
-  };
   utterance: string;
   status: string;
   isListening: boolean = false;
@@ -22,16 +19,34 @@ export class AsrComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(this.asr.initASR());
+    
+    const models = new Models(); 
+    models.add({
+      file: './app/hello-mirror.pmdl',
+      sensitivity: '0.5',
+      hotwords : 'hello mirror'
+    });   
+
+    const detector = new Detector({
+      resource: "./node_modules/snowboy/resources/common.res",
+      models: models,
+      audioGain: 2.0
+    });
 
     this.asr.isReady.subscribe((val) => {
       if (val === true) {
-        var shell = new PythonShell('./app/snowboy/examples/Python/demo.py', this.options);
-        shell.on('message', (message) => {
-          if (message === 'keyword detected' && this.isListening === false) {
-            this.isListening = true;
-            this.asr.setListening();
-          }
-        });     
+        console.log('Listening for hotword...');        
+
+        detector.on('hotword', (index, hotword) => {
+          console.log('Hotword detected', index, hotword);        
+          this.startRecording();
+        }); 
+        
+        const mic = record.start({
+          threshold: 0
+        });  
+
+        mic.pipe(detector);
       }
     });
 
@@ -39,11 +54,10 @@ export class AsrComponent implements AfterViewInit {
       this.utterance = res.results[0].utterance;
       if (res.status === 'finalResult') {
         this.nlu.getIntent(res.results[0].utterance)
-          .subscribe(
-            (intent) => {
+          .subscribe((intent) => {
             this.intent.emit(intent);
             this.isListening = false;
-            this.utterance = '';          
+            this.utterance = '';
           },(error) => {
             this.isListening = false;
             this.utterance = '';     

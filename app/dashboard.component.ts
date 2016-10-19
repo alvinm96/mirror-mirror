@@ -8,7 +8,6 @@ import { TodoistService } from './apps/todoist/todoist.service';
 import { PushbulletService } from './apps/pushbullet/pushbullet.service';
 import { NluResponse } from './apps/nlu/nlu';
 import { config } from './config';
-const PythonShell = require('python-shell');
 
 @Component({
   selector: 'dashboard',

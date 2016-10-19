@@ -22,6 +22,7 @@ export class PushbulletComponent implements OnInit {
     
     this.pushbullet.sendToken.subscribe((token) => {
       if (token) {
+
         this.ws = new WebSocket('wss://stream.pushbullet.com/websocket/' + token);
 
         this.ws.onopen = (event) => {
@@ -52,8 +53,10 @@ export class PushbulletComponent implements OnInit {
             this.title = res.pushes[0].body;
           });
       } else if (stream.subtype === 'device') {
+        //handle this
         console.log('this was a tickle device')
       } else if (stream.subtye === 'text') {
+        //handle this
         console.log('this was a tickle text');
       }
     } else if (type === 'push') {

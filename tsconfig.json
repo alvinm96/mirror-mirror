@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,    
     "sourceMap": true,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "moduleResolution": "node",    
+    "skipLibCheck": true    
   },
   "atom": { "rewriteTsconfig": false },
   "files": [

@@ -3,16 +3,16 @@ import { TestBed, inject } from '@angular/core/testing';
 import { Http, BaseRequestOptions, XHRBackend, ResponseOptions, Response, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
-import { TodoistService } from './todoist.service';
+import { NluService } from './nlu.service';
 
-describe('TodoistService', () => {
-  let subject: TodoistService;
+describe('NluService', () => {
+  let subject: NluService;
   let backend: MockBackend;
 
   beforeEach(() => {
     TestBed.configureTestingModule({ 
       providers: [ 
-        TodoistService,
+        NluService,
         MockBackend,
         BaseRequestOptions,
         {
@@ -25,15 +25,15 @@ describe('TodoistService', () => {
     });
   });
 
-  beforeEach(inject([TodoistService, MockBackend], (youtube: TodoistService, mockbackend: MockBackend) => {
+  beforeEach(inject([NluService, MockBackend], (youtube: NluService, mockbackend: MockBackend) => {
     subject = youtube;
     backend = mockbackend;
   }));
 
-  it('should call addTodo and return results', (done) => {
+  it('should call getIntent return results', (done) => {
     backend.connections.subscribe((connection: MockConnection) => {
       expect(connection.request.method).toEqual(RequestMethod.Post);
-      expect(connection.request.url).toContain('https://todoist.com/API/v7/sync');  
+      expect(connection.request.url).toContain('https://api.api.ai/v1/');  
       let options = new ResponseOptions({
         body: JSON.stringify({ success: true })
       });
@@ -41,25 +41,7 @@ describe('TodoistService', () => {
     });
 
     subject
-      .addTodo('cats')
-      .subscribe((res) => {
-        expect(res).toEqual({ success: true });
-        done();
-      });
-  });
-
-    it('should call getTodos and return results', (done) => {
-    backend.connections.subscribe((connection: MockConnection) => {
-      expect(connection.request.method).toEqual(RequestMethod.Post);
-      expect(connection.request.url).toContain('https://todoist.com/API/v7/sync');  
-      let options = new ResponseOptions({
-        body: JSON.stringify({ success: true })
-      });
-      connection.mockRespond(new Response(options));
-    });
-
-    subject
-      .getTodos()
+      .getIntent('test utterance')
       .subscribe((res) => {
         expect(res).toEqual({ success: true });
         done();
