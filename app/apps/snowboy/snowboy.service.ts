@@ -3,9 +3,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { config } from './../../config';
-
+import * as fs from 'fs';
 const record = require('node-record-lpcm16');
-const fs = require('fs');
 
 @Injectable()
 export class SnowboyService {
@@ -19,9 +18,9 @@ export class SnowboyService {
     let url = 'https://snowboy.kitt.ai/api/v1/train/';
 
     let samples = [
-      {'wave': this.getWave('./app/apps/hotword/1.wav')},
-      {'wave': this.getWave('./app/apps/hotword/1.wav')},
-      {'wave': this.getWave('./app/apps/hotword/1.wav')},
+      {'wave': this.getWave('./app/apps/snowboy/1.wav')},
+      {'wave': this.getWave('./app/apps/snowboy/1.wav')},
+      {'wave': this.getWave('./app/apps/snowboy/1.wav')},
     ];
 
     let headers = new Headers({
@@ -39,20 +38,6 @@ export class SnowboyService {
       'token': '43d9f5b45d1bc7afde2db0644cd91f00550725b8',
       'voice_samples': samples
     };
-    // return this.http.post(url, JSON.stringify(data), options)
-    //   .map((res) => {
-    //     return res.blob();
-    //   })
-    //   .subscribe((content) => {
-  
-    //     let model = fs.writeFile('./app/' + name + '.pmdl', content, (err) => {
-    //       if (err) throw err;
-
-    //       console.log('Created ' + name + '.pmdl');
-    //     });
-    //   }, (err) => {
-    //     console.log(err);
-    //   });
 
     let xhr = new XMLHttpRequest();
     
@@ -80,14 +65,14 @@ export class SnowboyService {
 
   record() {
     let filename = (this.recordings.length + 1) + '.wav'
-    let file = fs.createWriteStream('./app/apps/hotword/' + filename);
+    let file = fs.createWriteStream('./app/apps/snowboy/' + filename);
     record.start();
     console.log('started recording');
     setTimeout(() => {
       console.log('stopped recording');
       record.stop().pipe(file);
 
-      this.recordings.push('./app/apps/hotword/' + filename);
+      this.recordings.push('./app/apps/snowboy/' + filename);
     }, 3000);
   }
 
