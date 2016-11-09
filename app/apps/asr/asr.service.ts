@@ -7,11 +7,11 @@ import { config } from './../../config';
 
 @Injectable()
 export class AsrService { 
-  isListening: boolean = false;  
-  audioContext: AudioContext;
-  audioNode: AudioNode;
-  vbtSpeechRecognizer: any;
-  window: any;
+  private isListening: boolean = false;  
+  private audioContext: AudioContext;
+  private audioNode: AudioNode;
+  private vbtSpeechRecognizer: any;
+  private window: any;
   isReady = new EventEmitter<boolean>(false);
   intent = new EventEmitter<Object>();
   asrResult = new EventEmitter<Object>();

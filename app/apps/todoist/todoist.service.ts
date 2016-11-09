@@ -11,8 +11,8 @@ const BrowserWindow = remote.BrowserWindow;
 @Injectable()
 export class TodoistService {
   private baseUrl: string = 'https://todoist.com/API/v7/sync';
-  token: string;
-  authWin: Electron.BrowserWindow;
+  private token: string;
+  private authWin: Electron.BrowserWindow;
 
   constructor(private http: Http) { }
 

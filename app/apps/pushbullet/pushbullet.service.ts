@@ -10,8 +10,8 @@ const BrowserWindow = remote.BrowserWindow;
 
 @Injectable()
 export class PushbulletService {
-  authWin: Electron.BrowserWindow;
-  token: string;
+  private authWin: Electron.BrowserWindow;
+  private token: string;
   sendToken = new EventEmitter<string>();
 
   constructor(private http: Http) { }

@@ -8,8 +8,8 @@ const record = require('node-record-lpcm16');
 
 @Injectable()
 export class SnowboyService {
-  recordings: any[] = [];
-  token: string = config.snowboy.key;
+  private recordings: any[] = [];
+  private token: string = config.snowboy.key;
   isRecording = new EventEmitter<boolean>();
 
   constructor(private http: Http) {}
