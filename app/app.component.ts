@@ -9,7 +9,6 @@ import { MapsService } from './apps/maps/maps.service';
             <dashboard></dashboard>
             <pushbullet></pushbullet>
             <todoist></todoist>
-            <asr2></asr2>
             `
 })
 export class AppComponent implements OnInit {
