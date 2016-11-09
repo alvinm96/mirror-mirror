@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 
+import { Asr2Component } from './apps/asr2/asr2.component';
 import { AppComponent } from './app.component';
 import { CommandsComponent } from './apps/help/commands.component';
 import { MapsComponent } from './apps/maps/maps.component';
@@ -24,6 +25,7 @@ import { TtsService } from './apps/tts/tts.service';
 import { NluService } from './apps/nlu/nlu.service';
 import { TodoistService } from './apps/todoist/todoist.service';
 import { PushbulletService } from './apps/pushbullet/pushbullet.service';
+import { Asr2Service } from './apps/asr2/asr2.service';
 
 import { Timer } from './pipes/timer.pipe';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -36,6 +38,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     FormsModule 
     ],
   declarations: [
+    Asr2Component,
     AsrComponent,
     AppComponent,
     CommandsComponent,
@@ -52,6 +55,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     Timer
     ],
   providers: [
+    Asr2Service,
     AsrService,
     MapsService,
     TtsService, 
