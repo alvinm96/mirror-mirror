@@ -13,8 +13,6 @@ fs.readdirSync('node_modules')
 
 module.exports = {
   devtool: 'source-map',
-  debug: true,
-
   entry: {
     'angular2': [
       'rxjs',
@@ -33,7 +31,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['','.ts','.js','.json', '.css', '.html']
+    extensions: ['.ts','.js','.json', '.css', '.html']
   },
 
   module: {
@@ -65,5 +63,5 @@ module.exports = {
     )
     
   ],
-  target:'node-webkit'
+  target: 'node-webkit'
 };

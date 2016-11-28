@@ -10,7 +10,7 @@ const BrowserWindow = remote.BrowserWindow;
 
 @Injectable()
 export class SpotifyService {
-  authWin: Electron.BrowserWindow;
+  private authWin: Electron.BrowserWindow;
   private audio: HTMLAudioElement;
   authorized = new EventEmitter<boolean>();
 

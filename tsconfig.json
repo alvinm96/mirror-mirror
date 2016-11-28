@@ -13,7 +13,9 @@
     "moduleResolution": "node",    
     "skipLibCheck": true    
   },
-  "atom": { "rewriteTsconfig": false },
+  "atom": { 
+    "rewriteTsconfig": false 
+  },
   "files": [
     "app/main.ts"
   ],

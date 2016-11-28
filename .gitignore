@@ -4,4 +4,4 @@ build/*
 .vscode/*
 app/config.ts
 coverage/*
-app/apps/hotword/*.wav
+app/apps/snowboy/*.wav
