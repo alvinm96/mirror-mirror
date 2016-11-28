@@ -18,9 +18,9 @@ import { config } from './../../config';
 export class ForecastComponent implements OnInit {
   @Input() location: string;
   @Input() date: string;
-  currentData: any;
-  hourlyData: any;
-  weeklyData: Array<any>;
+  private currentData: any;
+  private hourlyData: any;
+  private weeklyData: Array<any>;
   private datasets = [
     {
       label: "Temperature",

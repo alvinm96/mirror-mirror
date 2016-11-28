@@ -8,13 +8,13 @@
       <span>{{currentData.temperature}}</span>
       <i class="wi wi-fahrenheit"></i>
     </div>
-    <base-chart *ngIf="datasets"
+    <canvas baseChart *ngIf="datasets"
       class="chart"
       [datasets]="datasets"
       [labels]="labels"
       [chartType]="'line'"
       [colors]="colors">
-    </base-chart>  
+    </canvas>  
     <div id="extra">
       <p>Precipitation: {{currentData.precipProbability * 100}}%</p>
       <p>Humidity: {{currentData.humidity * 100}}%</p>

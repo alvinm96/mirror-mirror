@@ -1,16 +1,18 @@
 export let config = {
   'snowboy': {
-    'model': 'hello-mirror.pmdl',
     'sensitivity': 0.5,
+    'key': ''
   },
   'user': {
     'location': {
-      'state': '',
-      'city': '',
-      'address': ''
+      'state': 'WA',
+      'city': 'Bellevue',
     },
   },
   'darksky': {
+    'key': ''
+  },
+  'apiai': {
     'key': ''
   },
   'voicebox': {
@@ -23,7 +25,6 @@ export let config = {
   'todoist': {
     'client_id': '',
     'client_secret': '',
-    'key': '' //for testing
   },
   'spotify': {
     'client_id': ''
@@ -31,5 +32,5 @@ export let config = {
   'pushbullet': {
     'client_id': '',
     'client_secret': '',
-  },
+  }
 };
